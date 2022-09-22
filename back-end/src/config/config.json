@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "scheduling",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false
+  },
+  "test": {
+    "username": "sundayy1309",
+    "password": "quaduadiec",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "sundayy1309",
+    "password": "quaduadiec",
+    "database": "scheduling",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
