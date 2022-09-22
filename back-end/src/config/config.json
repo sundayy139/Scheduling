@@ -5,20 +5,32 @@
     "database": "scheduling",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false
+    "logging": false,
+    "timezone": "+07:00",
+    "query": {
+      "raw":true
+    }
   },
   "test": {
     "username": "sundayy1309",
     "password": "quaduadiec",
     "database": "database_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "+07:00",
+    "query": {
+      "raw":true
+    }
   },
   "production": {
     "username": "sundayy1309",
     "password": "quaduadiec",
     "database": "scheduling",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "timezone": "+07:00",
+    "query": {
+      "raw":true
+    }
   }
 }
