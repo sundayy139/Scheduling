@@ -122,7 +122,7 @@ let createNewUser = (data) => {
             if (check === true) {
                 resolve({
                     errCode: 1,
-                    message: 'Email already exists'
+                    errMessage: 'Email already exists'
                 })
             } else {
                 let hashPasswordFromBcrypt = await hashUserPassword(data.password);
@@ -139,7 +139,7 @@ let createNewUser = (data) => {
 
                 resolve({
                     errCode: 0,
-                    message: "Create a new user successfully !"
+                    errMessage: "Create a new user successfully !"
                 });
             }
 

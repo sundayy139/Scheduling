@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from "connected-react-router";
 
 import * as actions from "../../store/actions";
-import { handleLoginApi } from '../../services/userSevice'
+import { handleLoginApi } from '../../services/userService'
 
 
 class Login extends Component {
@@ -18,17 +18,15 @@ class Login extends Component {
         }
     }
 
-    handleOnChangeUsername = (e) => {
+    handleOnChangeInput = (e,id) => {
+        let copyState = { ...this.state };
+        copyState[id] = e.target.value;
+
         this.setState({
-            username: e.target.value,
+            ...copyState
         })
     }
 
-    handleOnChangePassword = (e) => {
-        this.setState({
-            password: e.target.value
-        })
-    }
 
     handleLogin = async () => {
         this.setState({
@@ -74,13 +72,13 @@ class Login extends Component {
                             Login
                         </div>
                         <div className="col-12 form-group login-input">
-                            <label>Userame:</label>
+                            <label>Username:</label>
                             <input
                                 type="text"
                                 className="form-control input"
                                 placeholder="Enter your username"
                                 value={this.state.username}
-                                onChange={(e) => this.handleOnChangeUsername(e)} />
+                                onChange={(e) => this.handleOnChangeInput(e, 'username')} />
                         </div>
                         <div className="col-12 form-group login-input">
                             <label>Password:</label>
@@ -90,7 +88,7 @@ class Login extends Component {
                                     className="input form-control"
                                     placeholder="Enter your password"
                                     value={this.state.password}
-                                    onChange={(e) => this.handleOnChangePassword(e)}
+                                    onChange={(e) => this.handleOnChangeInput(e, 'password')}
                                 />
                                 <span onClick={() => { this.showHidePassword() }}>
                                     <i className={this.state.isShowPassword ? "far fa-eye" : "fa fa-eye-slash"}></i>

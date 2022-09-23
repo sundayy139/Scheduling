@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllUsers } from '../../services/userSevice';
+import { getAllUsersService, createNewUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
 
 
@@ -15,13 +15,7 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
-        let response = await getAllUsers('ALL');
-        if (response && response.errCode === 0) {
-            this.setState({
-                arrUsers: response.users,
-            })
-        }
-
+        await this.getAllUsers();
     }
 
     handleAddNewUser = () => {
@@ -36,6 +30,34 @@ class UserManage extends Component {
         })
     }
 
+    getAllUsers = async () => {
+        let response = await getAllUsersService('ALL');
+        if (response && response.errCode === 0) {
+            this.setState({
+                arrUsers: response.users,
+            })
+        }
+    }
+
+    createNewUser = async (data) => {
+        try {
+            let response = await createNewUserService(data);
+
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            } else {
+                await this.getAllUsers();
+                this.setState({
+                    isOpenModalUser: false
+                })
+                alert(response.errMessage);
+            }
+            console.log(response);
+        } catch (e) {
+            
+        }
+    }
+
 
     render() {
 
@@ -46,6 +68,7 @@ class UserManage extends Component {
                 <ModalUser
                     isOpen={this.state.isOpenModalUser}
                     toggleUserModal={this.toggleUserModal}
+                    createNewUser={this.createNewUser}
                 />
                 <div className=' title text-center '>Manage Users</div>
                 <div className='mx-2 my-4' style={{ float: "right" }}>

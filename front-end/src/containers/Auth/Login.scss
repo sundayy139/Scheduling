@@ -7,11 +7,10 @@
     width: 100vw;
 
     .login-container {
-        max-width: 500px;
+        max-width: 450px;
         min-width: 300px;
-        max-height: 700px;
-        width: 40%;
-        height: 90%;
+        max-height: 650px;
+        width: 30%;
         background-color: #fff;
         border-radius: 25px;
         margin: auto;
@@ -22,7 +21,6 @@
         bottom: 0;
 
         .login-content {
-            padding: 15px;
 
             .header-title {
                 font-weight: 600;
@@ -78,7 +76,7 @@
             }
 
             .login-btn {
-                margin: 50px 0 20px 0;
+                margin: 30px 0 20px 0;
                 text-align: center;
 
                 .btn {
@@ -103,7 +101,7 @@
             .login-text {
                 text-align: center;
                 font-size: 16px;
-                margin-top: 30px;
+                margin-top: 20px;
             }
 
             .login-social {
