@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllUsersService, createNewUserService } from '../../services/userService';
+import { getAllUsersService, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
 import ModalUser from './ModalUser';
-
+import ModalEditUser from './ModalEditUser';
+import { emitter } from '../../utils/emitter';
+import _ from 'lodash';
 
 class UserManage extends Component {
 
@@ -10,7 +12,9 @@ class UserManage extends Component {
         super(props);
         this.state = {
             arrUsers: [],
-            isOpenModalUser: false
+            isOpenModalUser: false,
+            isOpenModalEditUser: false,
+            userEdit: {}
         }
     }
 
@@ -27,6 +31,12 @@ class UserManage extends Component {
     toggleUserModal = () => {
         this.setState({
             isOpenModalUser: !(this.state.isOpenModalUser)
+        })
+    }
+
+    toggleEditModal = () => {
+        this.setState({
+            isOpenModalEditUser: !(this.state.isOpenModalEditUser)
         })
     }
 
@@ -50,12 +60,54 @@ class UserManage extends Component {
                 this.setState({
                     isOpenModalUser: false
                 })
+
+                alert(response.errMessage);
+
+                emitter.emit('EVENT_CLEAR_MODAL_DATA')
+            }
+        } catch (e) {
+
+        }
+    }
+
+    editUser = async (user) => {
+        try {
+            let response = await editUserService(user);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage);
+            } else {
+                await this.getAllUsers();
+                this.setState({
+                    isOpenModalEditUser: false
+                })
+
                 alert(response.errMessage);
             }
-            console.log(response);
         } catch (e) {
-            
+
         }
+
+    }
+
+    handleDeleteUser = async (user) => {
+        try {
+            let response = await deleteUserService(user.id);
+            if (response && response.errCode !== 0) {
+                alert(response.errMessage)
+            } else {
+                await this.getAllUsers();
+            }
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    handleEditUser = (user) => {
+        this.setState({
+            isOpenModalEditUser: true,
+            userEdit: user
+        })
     }
 
 
@@ -70,6 +122,17 @@ class UserManage extends Component {
                     toggleUserModal={this.toggleUserModal}
                     createNewUser={this.createNewUser}
                 />
+                {
+                    this.state.isOpenModalEditUser && (
+                        <ModalEditUser
+                            isOpen={this.state.isOpenModalEditUser}
+                            toggleEditModal={this.toggleEditModal}
+                            currentUser={this.state.userEdit}
+                            editUser={this.editUser}
+                        />
+                    )
+                }
+
                 <div className=' title text-center '>Manage Users</div>
                 <div className='mx-2 my-4' style={{ float: "right" }}>
                     <button
@@ -80,46 +143,52 @@ class UserManage extends Component {
                         <i className="fas fa-plus px-2"></i>
                     </button>
                 </div>
-                <table className="table table-bordered">
-                    <thead className='text-center'>
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Address</th>
-                            <th>Phone Number</th>
-                            <th>Gender</th>
-                            <th>Role</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className='text-center'>
-                        {
-                            arrUsers && arrUsers.map((item) => (
-                                <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.email}</td>
-                                    <td>{item.firstName}</td>
-                                    <td>{item.lastName}</td>
-                                    <td>{item.address}</td>
-                                    <td>{item.phoneNumber}</td>
-                                    <td>{item.gender}</td>
-                                    <td>{item.roleId}</td>
-                                    <td>
-                                        <button className="btn btn-primary" type="button" style={{ padding: " 0 8px", marginRight: "10px" }}>
-                                            <i className="fas fa-pencil-alt"></i>
-                                        </button>
-                                        <button className="btn btn-danger" type="button" style={{ padding: " 0 8px" }}>
-                                            <i className="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
 
-                    </tbody>
-                </table>
+                <div style={{ width: "100vw", height: "80vh", overflow: "scroll" }}>
+                    <table className="table table-bordered" style={{ width: "100%" }}>
+                        <thead className='text-center'>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
+                                <th>Gender</th>
+                                <th>Role</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th style={{ width: "90px" }}>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                arrUsers && arrUsers.map((item) => (
+                                    <tr key={item.id}>
+                                        <td>{item.id}</td>
+                                        <td>{item.email}</td>
+                                        <td>{item.firstName}</td>
+                                        <td>{item.lastName}</td>
+                                        <td>{item.address}</td>
+                                        <td>{item.phoneNumber}</td>
+                                        <td>{item.gender === 0 ? "Female" : "Male"}</td>
+                                        <td>{item.roleId}</td>
+                                        <td>{item.createdAt}</td>
+                                        <td>{item.updatedAt}</td>
+                                        <td>
+                                            <button className="btn btn-primary" type="button" style={{ padding: " 0 8px", marginRight: "10px" }} onClick={() => { this.handleEditUser(item) }}>
+                                                <i className="fas fa-pencil-alt"></i>
+                                            </button>
+                                            <button className="btn btn-danger" type="button" style={{ padding: " 0 8px" }} onClick={() => { this.handleDeleteUser(item) }}>
+                                                <i className="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }

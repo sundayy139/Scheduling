@@ -167,10 +167,13 @@ let updateUserData = (data) => {
             });
 
             if (user) {
+                user.email = data.email,
                 user.firstName = data.firstName;
                 user.lastName = data.lastName;
                 user.address = data.address;
                 user.phoneNumber = data.phoneNumber;
+                user.gender = data.gender;
+                user.roleId = data.roleId;
 
                 await user.save();
 
@@ -208,7 +211,7 @@ let deleteUser = (userId) => {
                 where: { id: userId }
             });
             resolve({
-                errCode: 2,
+                errCode: 0,
                 errMessage: "User deleted successfully !"
             })
         }

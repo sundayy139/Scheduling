@@ -1,47 +1,46 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { emitter } from '../../utils/emitter'
+import _ from 'lodash';
 
-
-class ModalUser extends Component {
+class ModalEditUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             email: '',
             password: '',
             firstName: '',
             lastName: '',
             address: '',
             phoneNumber: '',
-            gender: '0',
-            roleId: '1',
+            gender: '',
+            roleId: '',
         }
 
-        this.listenToEmitter();
-    }
-
-    listenToEmitter() {
-        emitter.on('EVENT_CLEAR_MODAL_DATA', () => {
-            this.setState({
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                address: '',
-                phoneNumber: '',
-                gender: '0',
-                roleId: '1',
-            })
-        })
     }
 
     componentDidMount() {
+        let user = this.props.currentUser;
+
+        if (user && !_.isEmpty(user)) {
+            this.setState({
+                id: user.id,
+                email: user.email,
+                password: "123456",
+                firstName: user.firstName,
+                lastName: user.lastName,
+                address: user.address,
+                phoneNumber: user.phoneNumber,
+                gender: user.gender,
+                roleId: user.roleId,
+            })
+        }
     }
 
     toggle = () => {
-        this.props.toggleUserModal();
+        this.props.toggleEditModal();
     }
 
     handleOnchangeInput = (e, id) => {
@@ -51,11 +50,12 @@ class ModalUser extends Component {
         this.setState({
             ...copyState
         })
+
     }
 
     checkValideInput = () => {
         let isValid = true;
-        let arrInput = ['email', 'password', 'firstName', 'lastName', 'address', 'phoneNumber'];
+        let arrInput = ['email', 'firstName', 'lastName', 'address', 'phoneNumber'];
 
         for (let i = 0; i < arrInput.length; i++) {
             if (!this.state[arrInput[i]]) {
@@ -68,15 +68,14 @@ class ModalUser extends Component {
         return isValid;
     }
 
-    handleAddNewUser = () => {
+    handleSaveUser = () => {
         let isValid = this.checkValideInput();
         if (isValid === true) {
-            this.props.createNewUser(this.state);
+            this.props.editUser(this.state);
         }
     }
 
     render() {
-
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -84,12 +83,12 @@ class ModalUser extends Component {
                 size="lg"
                 style={{ marginTop: "100px" }}
             >
-                <ModalHeader toggle={() => this.toggle()} className="close">Create New User</ModalHeader>
+                <ModalHeader toggle={() => this.toggle()} className="close">Edit User</ModalHeader>
                 <ModalBody>
                     <div className="container">
                         <div className="row">
                             <div className="col-12">
-                                <h1 className="text-center mb-4">Create New User</h1>
+                                <h1 className="text-center mb-4">Edit User</h1>
                                 <form>
                                     <div className="my-3">
                                         <label>Email:</label>
@@ -102,7 +101,8 @@ class ModalUser extends Component {
                                             value={this.state.email}
                                             onChange={(e) => {
                                                 this.handleOnchangeInput(e, 'email')
-                                            }} />
+                                            }}
+                                            disabled />
                                     </div>
                                     <div className="my-3">
                                         <label >Password:</label>
@@ -115,7 +115,8 @@ class ModalUser extends Component {
                                             value={this.state.password}
                                             onChange={(e) => {
                                                 this.handleOnchangeInput(e, 'password');
-                                            }} />
+                                            }}
+                                            disabled />
                                     </div>
                                     <div className="my-3" style={{ display: "flex", justifyContent: "space-between" }}>
                                         <div className="col-md-5" style={{ width: "49%" }}>
@@ -177,30 +178,57 @@ class ModalUser extends Component {
                                         </div>
                                         <div className=" col-md-3">
                                             <label>Gender:</label>
-                                            <select
+                                            <input
+                                                max={1}
+                                                min={0}
+                                                type="number"
+                                                className="form-control"
+                                                id="gender"
+                                                name="gender"
+                                                placeholder='gender'
+                                                value={this.state.gender}
+                                                onChange={(e) => {
+                                                    this.handleOnchangeInput(e, 'gender');
+                                                }} />
+                                            {/* <select
                                                 name="gender"
                                                 id="gender"
+                                                selected
                                                 className="form-control"
                                                 onChange={(e) => {
                                                     this.handleOnchangeInput(e, 'gender');
                                                 }}>
-                                                <option value="1" selected>Male</option>
+                                                <option selected>{this.state.gender === 1 ? "Male" :"Female"}</option>
+                                                <option value="1">Male</option>
                                                 <option value="0">Female</option>
-                                            </select>
+                                            </select>  */}
                                         </div>
                                         <div className=" col-md-3">
-                                            <label>Role:</label>
-                                            <select
+                                            <label>Role ID:</label>
+                                            <input
+                                                max={3}
+                                                min={1}
+                                                type="number"
+                                                className="form-control"
+                                                id="roleId"
+                                                name="roleId"
+                                                placeholder='roleId'
+                                                value={this.state.roleId}
+                                                onChange={(e) => {
+                                                    this.handleOnchangeInput(e, 'roleId');
+                                                }} />
+                                            {/* <select disabled
                                                 name="roleId"
                                                 id="role"
                                                 className="form-control"
                                                 onChange={(e) => {
                                                     this.handleOnchangeInput(e, 'roleId');
                                                 }}>
-                                                <option value="1" selected>Admin</option>
+                                                <option selected>{this.state.roleId}</option>
+                                                <option value="1">Admin</option>
                                                 <option value="2">Doctor</option>
                                                 <option value="3">Patient</option>
-                                            </select>
+                                            </select> */}
                                         </div>
                                     </div>
                                 </form>
@@ -212,7 +240,7 @@ class ModalUser extends Component {
                     <Button
                         color="success px-2"
                         onClick={() => {
-                            this.handleAddNewUser()
+                            this.handleSaveUser()
                         }}>
                         Add
                     </Button>
@@ -241,7 +269,7 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalEditUser);
 
 
 
