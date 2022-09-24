@@ -75,7 +75,15 @@ class HomeHeader extends Component {
                 </div>
 
                 <div className='home-header-banner'>
-
+                    <div className='banner-heading'>
+                        <div className='banner-title'>NỀN TẢNG Y TẾ</div>
+                        <div className='banner-sub-title'>CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
+                    </div>
+                    <div className='banner-search'>
+                        <i className='fas fa-search'></i>
+                        <input type='text' placeholder='Tìm lý do khám'/>
+                    </div>
+                    <div className='banner-options'></div>
                 </div>
             </div>
         );
