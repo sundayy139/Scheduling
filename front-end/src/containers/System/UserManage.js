@@ -72,35 +72,24 @@ class UserManage extends Component {
 
     editUser = async (user) => {
         try {
-            let response = await editUserService(user);
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage);
-            } else {
-                await this.getAllUsers();
-                this.setState({
-                    isOpenModalEditUser: false
-                })
 
-                alert(response.errMessage);
+            if (window.confirm(`Are you sure you want to update user id: ${user.id}`)) {
+                let response = await editUserService(user);
+                if (response && response.errCode !== 0) {
+                    alert(response.errMessage);
+                } else {
+                    await this.getAllUsers();
+                    this.setState({
+                        isOpenModalEditUser: false
+                    })
+
+                    alert(response.errMessage);
+                }
             }
         } catch (e) {
 
         }
 
-    }
-
-    handleDeleteUser = async (user) => {
-        try {
-            let response = await deleteUserService(user.id);
-            if (response && response.errCode !== 0) {
-                alert(response.errMessage)
-            } else {
-                await this.getAllUsers();
-            }
-
-        } catch (e) {
-            console.log(e)
-        }
     }
 
     handleEditUser = (user) => {
@@ -110,6 +99,22 @@ class UserManage extends Component {
         })
     }
 
+
+    handleDeleteUser = async (user) => {
+        try {
+            if (window.confirm(`Are you sure you want to delete user id: ${user.id}`)) {
+                let response = await deleteUserService(user.id);
+                if (response && response.errCode !== 0) {
+                    alert(response.errMessage)
+                } else {
+                    await this.getAllUsers();
+                }
+            }
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     render() {
 

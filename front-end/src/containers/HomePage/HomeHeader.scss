@@ -3,8 +3,10 @@
 
     .home-header-container {
         width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 20px;
         height: 70px;
-        padding: 0 30px;
         position: sticky;
 
         .home-header-content {
@@ -13,29 +15,31 @@
             display: flex;
 
             .left-content {
-                width: 25%;
+                width: 20%;
                 display: flex;
                 align-items: center;
 
                 i {
                     font-size: 25px;
-                    margin-right: 10px;
+                    margin-right: 15px;
                     color: gray;
                     cursor: pointer;
                 }
 
                 .logo {
                     background: url('../../assets/logo.svg') center center no-repeat;
+                    background-size: contain;
                     height: 100%;
-                    width: 65%;
+                    width: 60%;
+                    min-width: 140px;
                     cursor: pointer;
                 }
             }
 
             .center-content {
-                width: 55%;
+                width: 60%;
                 display: flex;
-                justify-content: space-between;
+                justify-content: space-around;
                 align-items: center;
 
                 .child-content {
@@ -61,12 +65,27 @@
                 align-items: center;
                 justify-content: flex-end;
 
-                .language {
+                .language-vi {
+                    font-size: 14px;
+                    cursor: pointer;
 
+                    &.active {
+                        color: red;
+                    }
+                }
+
+                .language-en {
+                    font-size: 14px;
+                    margin-left: 10px;
+                    cursor: pointer;
+
+                    &.active {
+                        color: red;
+                    }
                 }
 
                 .supports {
-                    margin-left: 15px;
+                    margin-right: 15px;
                     cursor: pointer;
 
                     i {
@@ -91,45 +110,110 @@
         background-size: cover;
         background-color: #fff;
 
-        .banner-heading {
-            font-size: 32px;
-            color: #fff;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 1px #333;
-            padding-top: 50px;
+        .banner-top {
+            width: 100%;
+            height: 60%;
+            padding: 50px 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
 
-            .banner-title {
-                font-weight: 400;
+            .banner-heading {
+                font-size: 32px;
+                color: #fff;
+                text-align: center;
+                text-transform: uppercase;
+                text-shadow: 1px 1px 1px #333;
+
+                .banner-title {
+                    font-weight: 400;
+                }
+
+                .banner-sub-title {
+                    font-weight: 700;
+                    margin-top: 10px;
+                }
             }
 
-            .banner-sub-title {
-                font-weight: 700;
-                margin-top: 15px;
+            .banner-search {
+                height: 50px;
+                width: 22%;
+                min-width: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                margin: 20px auto;
+                background-color: #f7d800;
+                border-radius: 25px;
+
+                input {
+                    width: 80%;
+                    outline: none;
+                    background: transparent;
+                    border: none;
+                }
+
+                i {
+                    font-size: 16px;
+                    margin-left: 6px;
+                }
             }
         }
 
-        .banner-search {
-            height: 50px;
-            width: 30%;
-            min-width: 300px;
+        .banner-options {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
+            padding-top: 30px;
+            padding-bottom: 20px;
+            width: 100%;
+            height: 40%;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-around;
-            margin: 20px auto;
-            background-color: #f7d800;
-            border-radius: 25px;
+            flex-wrap: wrap;
 
-            input {
-                width: 80%;
-                outline: none;
-                background: transparent;
-                border: none;
-            }
+            .banner-item {
+                height: 50%;
+                width: 150px;
+                padding: 5px;
 
-            i {
-                font-size: 16px;
-                margin-left: 6px;
+                .item-link {
+                    text-decoration: none;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        .item-title {
+                            color: #45c3d2;
+                        }
+                    }
+
+                    .item-img {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        background-color: #fff;
+                        border: 1px solid #ccc;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .item-icon {
+                            background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            width: 30px;
+                            height: 30px;
+                        }
+                    }
+
+                    .item-title {
+                        font-size: 16px;
+                        color: #000;
+                        font-weight: 600;
+                        text-align: center;
+                    }
+                }
             }
         }
     }
