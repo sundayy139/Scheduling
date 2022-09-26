@@ -105,15 +105,15 @@
 
     .home-header-banner {
         width: 100%;
-        height: calc(100vh - 60px);
+        height: 100%;
         background: url('../../assets/background.jpg') center center no-repeat;
         background-size: cover;
         background-color: #fff;
 
         .banner-top {
             width: 100%;
-            height: 60%;
-            padding: 50px 0;
+            padding-top: 100px;
+            padding-bottom: 250px;
             background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0.1));
 
             .banner-heading {
@@ -128,7 +128,7 @@
                 }
 
                 .banner-sub-title {
-                    font-weight: 700;
+                    font-weight: 600;
                     margin-top: 10px;
                 }
             }
@@ -160,10 +160,8 @@
 
         .banner-options {
             background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1));
-            padding-top: 30px;
-            padding-bottom: 20px;
+            padding: 50px 0;
             width: 100%;
-            height: 40%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -172,6 +170,7 @@
             .banner-item {
                 height: 50%;
                 width: 150px;
+                max-height: 120px;
                 padding: 5px;
 
                 .item-link {
@@ -212,6 +211,8 @@
                         color: #000;
                         font-weight: 600;
                         text-align: center;
+                        width: 120px;
+                        margin-top: 10px
                     }
                 }
             }
