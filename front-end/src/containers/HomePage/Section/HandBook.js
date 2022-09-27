@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Specialty.scss';
+import './HandBook.scss';
 import Slider from "react-slick";
 
-class Specialty extends Component {
+class HandBook extends Component {
 
     render() {
 
@@ -11,76 +11,76 @@ class Specialty extends Component {
             dots: false,
             infinite: false,
             speed: 500,
-            slidesToShow: 4,
+            slidesToShow: 2,
             slidesToScroll: 1,
         };
 
 
         return (
-            <div className='specialty-section'>
-                <div className='specialty-container'>
-                    <div className='specialty-content'>
+            <div className='handBook-section'>
+                <div className='handBook-container'>
+                    <div className='handBook-content'>
                         <div className='content-top'>
-                            <h2 className='content-title'>Chuyên khoa phổ biến</h2>
-                            <a className='content-btn'> Xem thêm</a>
+                            <h2 className='content-title'>Cơ sở y tế nổi bật</h2>
+                            <a className='content-btn'>  Tất cả bài viết</a>
                         </div>
                         <div className='content-container'>
-                            <div className='specialty-slider'>
+                            <div className='handBook-slider'>
                                 <Slider {...settings} className="slider">
-                                    <div className='specialty-item'>
-                                        <div className='item-link'>
+                                    <div className='handBook-item'>
+                                        <a className='item-link'>
+                                            <div className='item-img'>
+                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
+                                            </div>
+                                            <div className='item-text'>
+                                                Top 5 Phòng khám Sản phụ khoa Quận 3 uy tín
+                                            </div>
+                                        </a>
+                                    </div> <div className='handBook-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='handBook-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='handBook-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='handBook-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='handBook-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
-                                            </div>
-                                            <div className='item-text'>
-                                                Ung bướu
-                                            </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 </Slider>
                             </div>
@@ -106,4 +106,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(HandBook);

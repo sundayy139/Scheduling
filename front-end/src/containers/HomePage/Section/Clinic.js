@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './Specialty.scss';
+import './Clinic.scss';
 import Slider from "react-slick";
 
-class Specialty extends Component {
+class Clinic extends Component {
 
     render() {
 
@@ -17,70 +17,70 @@ class Specialty extends Component {
 
 
         return (
-            <div className='specialty-section'>
-                <div className='specialty-container'>
-                    <div className='specialty-content'>
+            <div className='clinic-section'>
+                <div className='clinic-container'>
+                    <div className='clinic-content'>
                         <div className='content-top'>
-                            <h2 className='content-title'>Chuyên khoa phổ biến</h2>
+                            <h2 className='content-title'>Cơ sở y tế nổi bật</h2>
                             <a className='content-btn'> Xem thêm</a>
                         </div>
                         <div className='content-container'>
-                            <div className='specialty-slider'>
+                            <div className='clinic-slider'>
                                 <Slider {...settings} className="slider">
-                                    <div className='specialty-item'>
-                                        <div className='item-link'>
+                                    <div className='clinic-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='clinic-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='clinic-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='clinic-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='clinic-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
-                                    </div> <div className='specialty-item'>
-                                        <div className='item-link'>
+                                        </a>
+                                    </div> <div className='clinic-item'>
+                                        <a className='item-link'>
                                             <div className='item-img'>
                                                 <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
                                             </div>
                                             <div className='item-text'>
                                                 Ung bướu
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 </Slider>
                             </div>
@@ -106,4 +106,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(Clinic);

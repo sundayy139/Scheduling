@@ -1,0 +1,161 @@
+.footer {
+    background-color: #f5f5f5;
+    border-bottom: 3px solid #efeef5;
+
+    .footer-container {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 20px 20px 30px;
+
+        .footer-content {
+            width: 100%;
+            display: flex;
+
+            .content-left {
+                width: 50%;
+
+                .content-logo {
+                    width: 40%;
+                    background: url('../../assets/logo.svg') center center no-repeat;
+                    height: 45px;
+                    background-size: contain;
+                    margin-bottom: 10px;
+                }
+
+                h3 {
+                    font-size: 14px;
+                    color: #000000;
+                    padding: 5px 0;
+                    font-weight: 600;
+                }
+
+                h4 {
+                    font-size: 14px;
+                    color: #000000;
+                    font-weight: 400;
+                    padding: 5px 0;
+
+                    i {
+                        font-size: 16px;
+                        margin-right: 5px;
+                    }
+                }
+
+                .content-certify {
+                    display: flex;
+
+                    .certify-img {
+                        background: url('../../assets/certify/bo-cong-thuong.svg') center center no-repeat;
+                        background-size: contain;
+                        width: 15%;
+                        height: 40px;
+                        margin-right: 10px;
+                    }
+                }
+            }
+
+            .content-center {
+                width: 25%;
+
+                .list-text {
+                    list-style: none;
+                    padding: 0;
+
+                    .text-item {
+                        font-size: 14px;
+                        padding: 5px 0;
+                        text-transform: capitalize;
+
+                        .item-link {
+                            text-decoration: none;
+                            color: #45c3d2;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .content-right {
+                width: 25%;
+                font-size: 14px;
+                color: #000000;
+
+                .info {
+                    margin-bottom: 15px;
+
+                    .info-title {
+                        font-weight: 600;
+                        margin-bottom: 5px;
+                    }
+
+                    .info-sub-title {
+                        width: 80%;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-outside {
+        background-color: #64b9e5;
+        width: 100%;
+
+        .copy-right {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                margin: 0;
+                font-size: 12px;
+                font-weight: 400;
+                color: #fff;
+            }
+
+            .social {
+                display: flex;
+                justify-content: center;
+
+                .social-icon-fb {
+                    margin-right: 20px;
+
+                    a {
+                        text-decoration: none;
+                        cursor: pointer;
+
+                        i {
+                            font-size: 40px;
+                            color: #ffffff;
+                        }
+                    }
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+
+                .social-icon-yt {
+                    a {
+                        text-decoration: none;
+                        cursor: pointer;
+
+                        i {
+                            font-size: 40px;
+                            color: #ffffff;
+                        }
+                    }
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+    }
+}
