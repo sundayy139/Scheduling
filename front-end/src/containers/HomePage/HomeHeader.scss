@@ -3,17 +3,17 @@
 
     .home-header-container {
         width: 100%;
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 0 20px;
-        height: 70px;
         position: fixed;
         z-index: 999;
         background-color: #fff;
+        box-shadow: 2px 2px 4px 0 #0000004d;
 
         .home-header-content {
             width: 100%;
-            height: 100%;
+            height: 70px;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
 
             .left-content {

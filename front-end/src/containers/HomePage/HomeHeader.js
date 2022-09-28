@@ -55,7 +55,7 @@ class HomeHeader extends Component {
             // },
         ]
 
-        let language = this.props.language;
+        let language = this.props.lang;
 
         return (
 
@@ -163,7 +163,7 @@ class HomeHeader extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language,
+        lang: state.app.language,
     };
 };
 

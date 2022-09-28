@@ -163,7 +163,7 @@ class UserManage extends Component {
                                 <th>Role</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th style={{ width: "90px" }}>Action</th>
+                                <th style={{ width: "100px" }}>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -181,10 +181,10 @@ class UserManage extends Component {
                                         <td>{item.createdAt}</td>
                                         <td>{item.updatedAt}</td>
                                         <td>
-                                            <button className="btn btn-primary" type="button" style={{ padding: " 0 8px", marginRight: "10px" }} onClick={() => { this.handleEditUser(item) }}>
+                                            <button className="btn btn-primary" type="button" onClick={() => { this.handleEditUser(item) }}>
                                                 <i className="fas fa-pencil-alt"></i>
                                             </button>
-                                            <button className="btn btn-danger" type="button" style={{ padding: " 0 8px" }} onClick={() => { this.handleDeleteUser(item) }}>
+                                            <button className="btn btn-danger" type="button"  onClick={() => { this.handleDeleteUser(item) }}>
                                                 <i className="fas fa-trash"></i>
                                             </button>
                                         </td>
