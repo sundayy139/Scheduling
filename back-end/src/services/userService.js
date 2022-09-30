@@ -207,7 +207,6 @@ let deleteUser = (userId) => {
                 errMessage: "User not found"
             })
         } else {
-
             await db.User.destroy({
                 where: { id: userId }
             });
