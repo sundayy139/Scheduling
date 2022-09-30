@@ -78,7 +78,7 @@
         "gender": "Gender",
         "role": "Role",
         "position": "Position",
-        "image": "Image",
+        "avatar": "Avatar",
         "admin": "Admin",
         "doctor": "Doctor",
         "patient": "Patient",
