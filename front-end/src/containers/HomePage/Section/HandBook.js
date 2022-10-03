@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HandBook.scss';
 import Slider from "react-slick";
+import { FormattedMessage } from 'react-intl';
 
 class HandBook extends Component {
 
@@ -21,8 +22,12 @@ class HandBook extends Component {
                 <div className='handBook-container'>
                     <div className='handBook-content'>
                         <div className='content-top'>
-                            <h2 className='content-title'>Cơ sở y tế nổi bật</h2>
-                            <a className='content-btn'>  Tất cả bài viết</a>
+                            <h2 className='content-title'>
+                                <FormattedMessage id="section.handbook" />
+                            </h2>
+                            <a className='content-btn'>
+                                <FormattedMessage id="section.all-posts" />
+                            </a>
                         </div>
                         <div className='content-container'>
                             <div className='handBook-slider'>

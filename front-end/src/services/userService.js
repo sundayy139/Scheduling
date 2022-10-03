@@ -30,3 +30,7 @@ export const editUserService = (inputData) => {
 export const getAllCodeService = (inputType) => {
     return axios.get(`/api/allcode?type=${inputType}`);
 }
+
+export const getTopDoctorService = (limit) => {
+    return axios.get(`/api/top-doctor?limit=${limit}`);
+}

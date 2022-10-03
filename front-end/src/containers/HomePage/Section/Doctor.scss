@@ -50,6 +50,10 @@
                         width: 90%;
                         margin: 0 auto;
 
+                        .slick-disabled {
+                            display: none !important;
+                        }
+
                         .slick-slide {
                             text-align: center;
 

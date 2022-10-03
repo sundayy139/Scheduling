@@ -1,4 +1,5 @@
-import { createNewUserService, deleteUserService, getAllCodeService, getAllUsersService } from '../../services/userService';
+import { createNewUserService, deleteUserService, editUserService, getAllCodeService, getAllUsersService, getTopDoctorService } from '../../services/userService';
+
 import actionTypes from './actionTypes';
 import { toast } from 'react-toastify';
 
@@ -146,6 +147,39 @@ export const createUserFail = () => ({
 
 
 // delete user
+export const editUserStart = (data) => {
+    return async (dispatch) => {
+        try {
+            let res = await editUserService(data);
+            if (res && res.errCode === 0) {
+                toast.success('Update user successfully', {
+                    theme: 'colored',
+                })
+                dispatch(editUserSuccess());
+                dispatch(fetchAllUsersStart());
+            } else {
+                toast.error('Update user failure', {
+                    theme: 'colored',
+                })
+                dispatch(editUserFail());
+            }
+
+        } catch (e) {
+            dispatch(editUserFail());
+        }
+    }
+}
+
+export const editUserSuccess = () => ({
+    type: actionTypes.EDIT_USER_SUCCESS,
+})
+
+export const editUserFail = () => ({
+    type: actionTypes.EDIT_USER_FAIL,
+})
+
+
+// delete user
 export const deleteUserStart = (userId) => {
     return async (dispatch) => {
         try {
@@ -176,6 +210,37 @@ export const deleteUserSuccess = () => ({
 export const deleteUserFail = () => ({
     type: actionTypes.DELETE_USER_FAIL,
 })
+
+
+// get top doctor
+export const fetchTopDoctorStart = () => {
+    return async (dispatch) => {
+        try {
+            let res = await getTopDoctorService('');
+            if (res && res.errCode === 0) {
+                dispatch(fetchTopDoctorSuccess(res.data));
+            } else {
+                toast.error('Fetch all user failure', {
+                    theme: 'colored',
+                })
+                dispatch(fetchTopDoctorFail());
+            }
+    
+        } catch (e) {
+            dispatch(fetchTopDoctorFail());
+        }
+    }
+}
+
+export const fetchTopDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
+    doctor: data
+})
+
+export const fetchTopDoctorFail = () => ({
+    type: actionTypes.FETCH_TOP_DOCTOR_FAIL,
+})
+
 
 
 

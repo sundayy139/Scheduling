@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Specialty.scss';
 import Slider from "react-slick";
+import { FormattedMessage } from 'react-intl';
 
 class Specialty extends Component {
 
@@ -21,8 +22,12 @@ class Specialty extends Component {
                 <div className='specialty-container'>
                     <div className='specialty-content'>
                         <div className='content-top'>
-                            <h2 className='content-title'>Chuyên khoa phổ biến</h2>
-                            <a className='content-btn'> Xem thêm</a>
+                            <h2 className='content-title'>
+                                <FormattedMessage id="section.popular-specialties" />
+                            </h2>
+                            <a className='content-btn'>
+                                <FormattedMessage id="section.more-info" />
+                            </a>
                         </div>
                         <div className='content-container'>
                             <div className='specialty-slider'>

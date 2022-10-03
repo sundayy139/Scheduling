@@ -1,91 +1,84 @@
 {
-    "home-header": {
-        "speciality": "Chuyên khoa",
-        "search-doctor": "Tìm bác sĩ theo chuyên khoa",
-        "medical-facilities": "Cơ sở y tế",
-        "choose-clinic": "Chọn bệnh viện và phòng khám",
-        "doctor": "Bác sĩ",
-        "choose-doctor": "Chọn bác sĩ giỏi",
-        "examination-package": "Gói khám ",
-        "general-health": "Khám sức khỏe tổng quát",
-        "support": "Hỗ trợ",
-        "welcome": "Xin chào, "
+  "home-header": {
+    "speciality": "Chuyên khoa",
+    "search-doctor": "Tìm bác sĩ theo chuyên khoa",
+    "medical-facilities": "Cơ sở y tế",
+    "choose-clinic": "Chọn bệnh viện và phòng khám",
+    "doctor": "Bác sĩ",
+    "choose-doctor": "Chọn bác sĩ giỏi",
+    "examination-package": "Gói khám ",
+    "general-health": "Khám sức khỏe tổng quát",
+    "support": "Hỗ trợ",
+    "welcome": "Xin chào, "
+  },
+  "home-header-banner": {
+    "banner-title": "nền tảng y tế",
+    "banner-sub-title": "chăm sóc sức khỏe toàn diện",
+    "specialist-examination": "Khám Chuyên khoa",
+    "remote-examination": "Khám từ xa",
+    "general-examination": "Khám tổng quát",
+    "medicine-test": "Xét nghiệm y học",
+    "spiritual-health": "Sức khỏe tinh thần",
+    "dentistry-examination": "Khám nha khoa",
+    "surgical-package": "Gói phẫu thuật",
+    "medical-product": "Sản phẩm y tế",
+    "business-health": "Sức khỏe Doanh nghiệp"
+  },
+  "section": {
+    "out-standing-doctor": "Bác sĩ nổi bật tuần",
+    "more-info": "Xem thêm",
+    "popular-specialties": "Chuyên khoa phổ biến",
+    "out-standing-medical": "Cơ sở y tế nổi bật",
+    "handbook": "Cẩm nang",
+    "media-talk": "Truyền thông nói về BookingCare",
+    "all-posts": "Tất cả bài viết"
+  },
 
-    },
-    "home-header-banner": {
-        "banner-title":"nền tảng y tế",
-        "banner-sub-title":"chăm sóc sức khỏe toàn diện",
-        "specialist-examination" : "Khám Chuyên khoa",
-        "remote-examination": "Khám từ xa",
-        "general-examination": "Khám tổng quát",
-        "medicine-test": "Xét nghiệm y học",
-        "spiritual-health": "Sức khỏe tinh thần",
-        "dentistry-examination": "Khám nha khoa",
-        "surgical-package": "Gói phẫu thuật",
-        "medical-product": "Sản phẩm y tế",
-        "business-health": "Sức khỏe Doanh nghiệp"
-    },
-
-    "common": {
-        "add": "Thêm",
-        "edit": "Sửa",
-        "delete": "Xóa",
-        "decentralize": "Phân quyền",
-        "close": "Đóng",
-        "save": "Lưu",
-        "refresh": "Refresh",
-        "accept": "Chấp nhận",
-        "confirm": "Xác nhận",
-        "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-        "fail-to-load-data": "Không thể tải về dữ liệu",
-        "unknown-error": "Có lỗi xảy ra",
-        "internal-server-error": "Lỗi kết nối",
-        "bad-request": "Yêu cầu không hợp lệ",
-        "forbiden-request": "Thông tin truyền vào không hợp lệ",
-        "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
-        "sum": "Tổng",
-        "date-range-invalid": "Khoảng thời gian không hợp lệ"
-    },
-    "login": {
-        "login": "Đăng nhập",
-        "username": "Tên đăng nhập",
-        "password": "Mật khẩu",
-        "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
-    },
-    "menu": {
-        "admin": {
-            "user": "Người dùng",
-            "clinics": "Phòng khám",
-            "specialty": "Chuyên khoa",
-            "handbook": "Cẩm nang",
-            "crud-user": "CRUD User",
-            "crud-redux": "CRUD Redux",
-            "manage-admin": "Quản lý Admin",
-            "manage-doctor": "Quản lý bác sĩ",
-            "manage-patient": "Quản lý bệnh nhân",
-            "manage-handbook": "Quản lý cẩm nang",
-            "manage-specialty": "Quản lý chuyên khoa",
-            "manage-clinics": "Quản lý phòng khám"
-        }
-    },
-    "manage-user" : {
-        "add-new-user" : "Tạo mới người dùng",
-        "create": "Thêm mới",
-        "email": "Email",
-        "password": "Mật khẩu",
-        "first-name": "Tên",
-        "last-name": "Họ",
-        "address": "Địa chỉ",
-        "phone-number": "Số điện thoại",
-        "gender": "Giới tính",
-        "role": "Quyền",
-        "position": "Chức vụ",
-        "avatar": "Ảnh đại diện",
-        "admin": "Quản trị viên",
-        "doctor": "Bác sĩ",
-        "patient": "Bệnh nhân",
-        "male": "Nam",
-        "female": "Nữ",
-        "other": "Khác"
+  "login": {
+    "login": "Đăng nhập",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+  },
+  "menu": {
+    "admin": {
+      "test": "Test",
+      "user": "Người dùng",
+      "clinics": "Phòng khám",
+      "specialty": "Chuyên khoa",
+      "handbook": "Cẩm nang",
+      "crud-user": "CRUD User",
+      "crud-redux": "CRUD Redux",
+      "manage-admin": "Quản lý Admin",
+      "manage-doctor": "Quản lý bác sĩ",
+      "manage-patient": "Quản lý bệnh nhân",
+      "manage-handbook": "Quản lý cẩm nang",
+      "manage-specialty": "Quản lý chuyên khoa",
+      "manage-clinics": "Quản lý phòng khám"
     }
+  },
+  "manage-user": {
+    "add-new-user": "Tạo mới người dùng",
+    "edit-user": "Chỉnh sửa người dùng",
+    "manage-user": "Quản lý người dùng",
+    "create": "Thêm mới",
+    "save": "Lưu thay đổi",
+    "close": "Đóng",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "first-name": "Tên",
+    "last-name": "Họ",
+    "address": "Địa chỉ",
+    "phone-number": "Số điện thoại",
+    "gender": "Giới tính",
+    "role": "Quyền",
+    "position": "Chức vụ",
+    "avatar": "Ảnh đại diện",
+    "admin": "Quản trị viên",
+    "doctor": "Bác sĩ",
+    "patient": "Bệnh nhân",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác"
+  }
 }

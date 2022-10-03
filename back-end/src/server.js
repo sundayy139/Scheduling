@@ -32,8 +32,8 @@ app.use(function (req, res, next) {
 
 //config app
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '200mb'}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '200mb' }));
 
 
 viewEngine(app);

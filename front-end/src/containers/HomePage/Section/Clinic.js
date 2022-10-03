@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Clinic.scss';
 import Slider from "react-slick";
+import { FormattedMessage } from 'react-intl';
 
 class Clinic extends Component {
 
@@ -21,8 +22,12 @@ class Clinic extends Component {
                 <div className='clinic-container'>
                     <div className='clinic-content'>
                         <div className='content-top'>
-                            <h2 className='content-title'>Cơ sở y tế nổi bật</h2>
-                            <a className='content-btn'> Xem thêm</a>
+                            <h2 className='content-title'>
+                                <FormattedMessage id="section.out-standing-medical" />
+                            </h2>
+                            <a className='content-btn'>
+                                <FormattedMessage id="section.more-info" />
+                            </a>
                         </div>
                         <div className='content-container'>
                             <div className='clinic-slider'>

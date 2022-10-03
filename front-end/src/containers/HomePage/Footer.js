@@ -13,11 +13,11 @@ class Footer extends Component {
                             <div className='content-logo'></div>
                             <h3>Công ty Cổ phần Công nghệ BookingCare</h3>
                             <h4>
-                                <i class="fas fa-map-marker-alt"></i>
+                                <i className="fas fa-map-marker-alt"></i>
                                 28 Thành Thái, Dịch Vọng, Cầu Giấy, Hà Nội
                             </h4>
                             <h4>
-                                <i class="fas fa-check"></i>
+                                <i className="fas fa-check"></i>
                                 ĐKKD số: 0106790291. Sở KHĐT Hà Nội cấp ngày 16/03/2015
                             </h4>
                             <div className='content-certify'>
@@ -93,12 +93,12 @@ class Footer extends Component {
                         <div className='social'>
                             <div className='social-icon-fb'>
                                 <a href=''>
-                                    <i class="fab fa-facebook-square"></i>
+                                    <i className="fab fa-facebook-square"></i>
                                 </a>
                             </div>
                             <div className='social-icon-yt'>
                                 <a href=''>
-                                    <i class="fab fa-youtube-square"></i>
+                                    <i className="fab fa-youtube-square"></i>
                                 </a>
                             </div>
                         </div>
