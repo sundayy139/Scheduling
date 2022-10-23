@@ -16,7 +16,7 @@ let handleUserLogin = (email, password) => {
                     where: {
                         email: email
                     },
-                    attributes: ['email','firstName','lastName', 'roleId', 'password'],
+                    attributes: ['email', 'firstName', 'lastName', 'roleId', 'password'],
                     raw: true
                 });
 
@@ -67,7 +67,6 @@ let checkUserEmail = (userEmail) => {
         } catch (e) {
             reject(e);
         }
-
     })
 }
 
@@ -132,6 +131,7 @@ let createNewUser = (data) => {
                     lastName: data.lastName,
                     address: data.address,
                     phoneNumber: data.phoneNumber,
+                    dateOfBirth: data.dateOfBirth,
                     gender: data.gender,
                     roleId: data.roleId,
                     positionId: data.positionId,
@@ -143,8 +143,6 @@ let createNewUser = (data) => {
                     errMessage: "Create a new user successfully !"
                 });
             }
-
-
         } catch (e) {
             reject(e);
         }
@@ -172,6 +170,7 @@ let updateUserData = (data) => {
                 user.lastName = data.lastName;
                 user.address = data.address;
                 user.phoneNumber = data.phoneNumber;
+                user.dateOfBirth = data.dateOfBirth;
                 user.gender = data.gender;
                 user.roleId = data.roleId;
                 user.positionId = data.positionId;
@@ -200,23 +199,27 @@ let updateUserData = (data) => {
 // Delete a user
 let deleteUser = (userId) => {
     return new Promise(async (resolve, reject) => {
-        let user = await db.User.findOne({
-            where: { id: userId }
-        })
-
-        if (!user) {
-            resolve({
-                errCode: 2,
-                errMessage: "User not found"
-            })
-        } else {
-            await db.User.destroy({
+        try {
+            let user = await db.User.findOne({
                 where: { id: userId }
-            });
-            resolve({
-                errCode: 0,
-                errMessage: "User deleted successfully !"
             })
+
+            if (!user) {
+                resolve({
+                    errCode: 2,
+                    errMessage: "User not found"
+                })
+            } else {
+                await db.User.destroy({
+                    where: { id: userId }
+                });
+                resolve({
+                    errCode: 0,
+                    errMessage: "User deleted successfully !"
+                })
+            }
+        } catch (e) {
+            reject(e);
         }
     })
 }
@@ -234,7 +237,7 @@ let getAllCodeService = (typeInput) => {
                 let res = {};
                 let allCode = await db.AllCode.findAll({
                     where: {
-                         type: typeInput 
+                        type: typeInput
                     }
                 });
                 res.errCode = 0;

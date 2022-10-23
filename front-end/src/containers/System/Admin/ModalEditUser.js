@@ -7,6 +7,7 @@ import { languages } from "../../../utils/constant";
 import Lightbox from 'react-image-lightbox';
 import CommonUtils from '../../../utils/CommonUtils';
 import _ from 'lodash';
+import DatePicker from '../../../components/Input/DatePicker';
 
 
 class ModalEditUser extends Component {
@@ -19,17 +20,18 @@ class ModalEditUser extends Component {
             roleArr: [],
             previewImgUrl: '',
 
-            // id: '',
-            // email: '',
-            // password: '',
-            // firstName: '',
-            // lastName: '',
-            // phoneNumber: '',
-            // address: '',
-            // gender: '',
-            // position: '',
-            // role: '',
-            // image: '',
+            id: '',
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            address: '',
+            gender: '',
+            position: '',
+            role: '',
+            dateOfBirth: '',
+            image: '',
         }
     }
 
@@ -55,6 +57,7 @@ class ModalEditUser extends Component {
                 lastName: user.lastName,
                 address: user.address,
                 phoneNumber: user.phoneNumber,
+                dateOfBirth: user.dateOfBirth,
                 gender: user.gender,
                 role: user.roleId,
                 position: user.positionId,
@@ -123,6 +126,12 @@ class ModalEditUser extends Component {
         })
     }
 
+    handleChangDatePiker = (date) => {
+        this.setState({
+            dateOfBirth: date[0]
+        })
+    }
+
     checkValideInput = () => {
         let isValid = true;
         let arrCheck = [
@@ -132,6 +141,7 @@ class ModalEditUser extends Component {
             'lastName',
             'phoneNumber',
             'address',
+            'dateOfBirth'
         ];
 
         for (let i = 0; i < arrCheck.length; i++) {
@@ -159,6 +169,7 @@ class ModalEditUser extends Component {
                 lastName: this.state.lastName,
                 address: this.state.address,
                 phoneNumber: this.state.phoneNumber,
+                dateOfBirth: this.state.dateOfBirth,
                 gender: this.state.gender,
                 roleId: this.state.role,
                 positionId: this.state.position,
@@ -177,6 +188,7 @@ class ModalEditUser extends Component {
         let roles = this.state.roleArr;
         let language = this.props.lang;
         let loading = this.props.loading;
+        let date = new Date(this.state.dateOfBirth).getTime();
 
         let { email,
             password,
@@ -184,6 +196,7 @@ class ModalEditUser extends Component {
             lastName,
             phoneNumber,
             address,
+            dateOfBirth,
             gender,
             position,
             role,
@@ -279,7 +292,7 @@ class ModalEditUser extends Component {
 
                         </div>
                         <div className='row'>
-                            <div className="form-group col-8">
+                            <div className="form-group col-4">
                                 <label>
                                     <FormattedMessage id="manage-user.phone-number" />
                                 </label>
@@ -291,6 +304,21 @@ class ModalEditUser extends Component {
                                     value={phoneNumber}
                                     onChange={(e) => { this.onChangeInput(e, 'phoneNumber') }}
                                 />
+                            </div>
+                            <div className="form-group col-4">
+                                <label>
+                                    <FormattedMessage id="manage-user.birth-day" />
+                                </label>
+                                <FormattedMessage id="modal-booking.birth-day">
+                                    {placeholder =>
+                                        <DatePicker
+                                            className="form-control"
+                                            value={date}
+                                            placeholder={placeholder}
+                                            onChange={this.handleChangDatePiker}
+                                        />
+                                    }
+                                </FormattedMessage>
                             </div>
                             <div className="form-group col-4">
                                 <label>

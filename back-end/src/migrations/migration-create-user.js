@@ -10,33 +10,47 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       password: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       firstName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       lastName: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       address: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       phoneNumber: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       gender: {
+        allowNull: false,
         type: Sequelize.STRING
       },
+      dateOfBirth: {
+        allowNull: false,
+        type: Sequelize.DATEONLY
+      },
+
       image: {
         type: Sequelize.BLOB('long')
       },
       roleId: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       positionId: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

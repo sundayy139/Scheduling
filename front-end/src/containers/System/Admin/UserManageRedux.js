@@ -6,19 +6,8 @@ import 'react-image-lightbox/style.css';
 import ModalCreateUser from './ModalCreateUser';
 import ModalEditUser from './ModalEditUser';
 import * as ReactDOM from 'react-dom';
-import MarkdownIt from 'markdown-it';
-import MdEditor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
-
-
-const mdParser = new MarkdownIt();
-
-// Finish!
-function handleEditorChange({ html, text }) {
-    console.log('handleEditorChange', html, text);
-}
-
-
+import MaterialTable from 'material-table';
+import { isBuffer } from 'lodash';
 
 
 class UserManageRedux extends Component {
@@ -91,112 +80,106 @@ class UserManageRedux extends Component {
     render() {
 
         let language = this.props.lang;
-        let allUsers = this.props.usersList
+        let allUsers = this.props.usersList;
+
+        if (allUsers && allUsers.length > 0) {
+            allUsers.map((item, i) => {
+                if (item && item.image) {
+                    item.avatar = new Buffer(item.image, 'base64').toString('binary');
+                }
+            })
+        }
 
         return (
             <div className="user-redux-container" >
-                <div className="container">
+                <div className="container-content">
                     <div className='title text-center'>
                         <FormattedMessage id="manage-user.manage-user" />
                     </div>
-                    <div className='row'>
-                        <div className='col-12 mt-2'>
-                            <button
-                                className='btn btn-primary px-4 float-right'
-                                onClick={() => { this.handleAddNewUser() }}
-                            >
-                                <FormattedMessage id="manage-user.add-new-user" />
-                                <i className="fas fa-plus px-2"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <ModalCreateUser
-                        hidden={true}
-                        isOpen={this.state.isOpenModalCreateUser}
-                        toggleCreateUserModal={this.toggleCreateUserModal}
-                    />
-
-                    {
-                        this.state.isOpenModalEditUser && (
-                            <ModalEditUser
-                                isOpen={this.state.isOpenModalEditUser}
-                                toggleEditUserModal={this.toggleEditUserModal}
-                                userEdit={this.state.userEdit}
-                            />
-                        )
-                    }
-
-                    <div className='user-redux-body'>
-                        <div className='container'>
-                            <div className='row mt-5 mb-5'>
-                                <div className='col-12 p-0'>
-                                    <table className="table table-bordered">
-                                        <thead className='text-center'>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Email</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Address</th>
-                                                <th>Phone Number</th>
-                                                <th>Gender</th>
-                                                <th>Role</th>
-                                                <th>Position</th>
-                                                <th>Created At</th>
-                                                <th>Updated At</th>
-                                                <th style={{ width: "100px" }}>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {allUsers && allUsers.length > 0 && allUsers.map((user) => (
-                                                <tr key={user.id}>
-                                                    <td>{user.id}</td>
-                                                    <td>
-                                                        <a href={`mailto:${user.email}`} target='_blank'>{user.email}</a>
-                                                    </td>
-                                                    <td>{user.firstName}</td>
-                                                    <td>{user.lastName}</td>
-                                                    <td>{user.address}</td>
-                                                    <td>
-                                                        <a href={`tel:${user.phoneNumber}`} target='_blank'>{user.phoneNumber}</a>
-                                                    </td>
-                                                    <td>{user.gender}</td>
-                                                    <td>{user.roleId}</td>
-                                                    <td>{user.positionId}</td>
-                                                    <td>{user.createdAt}</td>
-                                                    <td>{user.updatedAt}</td>
-                                                    <td>
-                                                        <div className='d-flex'>
-                                                            <button
-                                                                className="btn btn-primary mr-2"
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    this.handleEditUser(user);
-                                                                }}
-                                                            >
-                                                                <i className="fas fa-pencil-alt"></i>
-                                                            </button>
-                                                            <button
-                                                                className="btn btn-danger"
-                                                                type="button"
-                                                                onClick={() => {
-                                                                    this.handleDeleteUser(user)
-                                                                }}
-                                                            >
-                                                                <i className="fas fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div className='col-12'>
+                        <div className='row'>
+                            <div className='col-12 mt-2'>
+                                <button
+                                    className='btn btn-primary px-4 float-right'
+                                    onClick={() => { this.handleAddNewUser() }}
+                                >
+                                    <FormattedMessage id="manage-user.add-new-user" />
+                                    <i className="fas fa-plus px-2"></i>
+                                </button>
                             </div>
-                            <div className='row mb-5'>
-                                <div className='col-12'>
-                                    <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
+                        </div>
+
+                        <ModalCreateUser
+                            hidden={true}
+                            isOpen={this.state.isOpenModalCreateUser}
+                            toggleCreateUserModal={this.toggleCreateUserModal}
+                        />
+
+                        {
+                            this.state.isOpenModalEditUser && (
+                                <ModalEditUser
+                                    isOpen={this.state.isOpenModalEditUser}
+                                    toggleEditUserModal={this.toggleEditUserModal}
+                                    userEdit={this.state.userEdit}
+                                />
+                            )
+                        }
+
+                        <div className='user-redux-body'>
+                            <div className='container-content'>
+                                <div className='col-12 mt-5 mb-5'>
+                                    <MaterialTable
+                                        title="User Table"
+                                        columns={[
+                                            { title: 'ID', field: 'id' },
+                                            { title: 'Email', field: 'email' },
+                                            { title: 'First Name', field: 'firstName' },
+                                            { title: 'Last Name', field: 'lastName' },
+                                            {
+                                                title: 'Avatar', field: 'url', render: rowData => <div
+                                                    style={{
+                                                        width: 50,
+                                                        height: 50,
+                                                        borderRadius: '50%',
+                                                        backgroundImage: `url(${rowData.avatar})`,
+                                                        backgroundSize: "contain",
+                                                        backgroundRepeat: "no-repeat",
+                                                        backgroundPosition: "center",
+                                                    }} />
+                                            },
+                                            { title: 'Address', field: 'address' },
+                                            { title: 'Phone Number', field: 'phoneNumber' },
+                                            { title: 'Gender', field: 'gender' },
+                                            { title: 'Date of Birth', field: 'dateOfBirth' },
+                                            { title: 'Created At', field: 'createdAt' },
+                                            { title: 'Updated At', field: 'updatedAt' },
+                                        ]}
+                                        data={allUsers}
+                                        actions={[
+                                            {
+                                                icon: 'edit',
+                                                tooltip: 'Edit',
+                                                onClick: (event, rowData) => {
+                                                    this.setState({
+                                                        isOpenModalEditUser: true,
+                                                        userEdit: rowData
+                                                    })
+                                                }
+                                            },
+                                            {
+                                                icon: 'delete',
+                                                tooltip: 'Delete',
+                                                onClick: (event, rowData) => {
+                                                    if (window.confirm(`Are you sure you want to delete user id: ${rowData.id}`)) {
+                                                        this.props.deleteUser(rowData.id);
+                                                    }
+                                                },
+                                            }
+                                        ]}
+                                    // options={{
+                                    //     actionsColumnIndex: -1
+                                    // }}
+                                    />
                                 </div>
                             </div>
                         </div>

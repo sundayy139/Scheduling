@@ -13,15 +13,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       maxNumber: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       date: {
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATEONLY
       },
       timeType: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       doctorId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {

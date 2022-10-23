@@ -18,7 +18,7 @@ class Login extends Component {
         }
     }
 
-    handleOnChangeInput = (e,id) => {
+    handleOnChangeInput = (e, id) => {
         let copyState = { ...this.state };
         copyState[id] = e.target.value;
 
@@ -44,7 +44,7 @@ class Login extends Component {
                 this.props.userLoginSuccess(data.user)
             }
 
-           
+
         } catch (error) {
             if (error.response) {
                 if (error.response.data) {
@@ -60,6 +60,12 @@ class Login extends Component {
         this.setState({
             isShowPassword: !this.state.isShowPassword
         })
+    }
+
+    handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            this.handleLogin()
+        }
     }
 
     render() {
@@ -78,7 +84,9 @@ class Login extends Component {
                                 className="form-control input"
                                 placeholder="Enter your username"
                                 value={this.state.username}
-                                onChange={(e) => this.handleOnChangeInput(e, 'username')} />
+                                onChange={(e) => this.handleOnChangeInput(e, 'username')}
+                                onKeyDown={(e) => this.handleKeyDown(e)}
+                            />
                         </div>
                         <div className="col-12 form-group login-input">
                             <label>Password:</label>
@@ -89,6 +97,7 @@ class Login extends Component {
                                     placeholder="Enter your password"
                                     value={this.state.password}
                                     onChange={(e) => this.handleOnChangeInput(e, 'password')}
+                                    onKeyDown={(e) => this.handleKeyDown(e)}
                                 />
                                 <span onClick={() => { this.showHidePassword() }}>
                                     <i className={this.state.isShowPassword ? "far fa-eye" : "fa fa-eye-slash"}></i>

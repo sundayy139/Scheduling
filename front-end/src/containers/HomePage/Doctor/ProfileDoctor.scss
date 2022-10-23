@@ -1,0 +1,93 @@
+.profile-doctor {
+    width: 100%;
+
+    .profile-doctor-container {
+
+        .container-up {
+            margin: 0 auto;
+
+            .general-info {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding-bottom: 20px;
+
+                .content-left {
+                    width: 25%;
+
+                    .image {
+                        border-radius: 50%;
+                        overflow: hidden;
+                        min-height: 120px;
+                        max-width: 120px;
+                    }
+                }
+
+                .content-right {
+                    width: 70%;
+
+                    .up {
+                        font-size: 20px;
+                        font-weight: 600;
+                        color: #333333;
+                    }
+
+                    .down {
+                        p {
+                            white-space: pre-line;
+                            font-size: 14px;
+                            font-weight: 400;
+                            color: #555555;
+                            margin-top: 5px;
+                        }
+
+                        .time {
+                            font-size: 16px;
+                            margin: 4px 0;
+                            text-transform: capitalize;
+                        }
+
+                        .booking-fee {
+                            font-size: 14px;
+                        }
+
+                        .location {
+                            margin-top: 10px;
+
+                            i {
+                                font-size: 20px;
+                                color: #555;
+                            }
+
+                            span {
+                                font-size: 16px;
+                                font-weight: 500;
+                                color: #555;
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .container-down {
+            .more-info {
+                padding: 2px 0;
+
+                .link {
+                    font-size: 18px;
+                    font-weight: 400;
+                    color: #45d3c2;
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    border-bottom: 1px solid #45d3c2;
+                }
+            }
+        }
+    }
+}

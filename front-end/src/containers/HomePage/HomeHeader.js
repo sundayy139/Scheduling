@@ -4,6 +4,7 @@ import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
 import { languages } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
+import { withRouter } from 'react-router';
 
 
 class HomeHeader extends Component {
@@ -13,47 +14,13 @@ class HomeHeader extends Component {
         this.props.changeLanguage(language);
     }
 
+    returnHome = () => {
+        if (this.props.history) {
+            this.props.history.push('/home')
+        }
+    }
 
     render() {
-
-        const data = [
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png",
-                "keyword": "specialist-examination",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133657-khamtuxa.png",
-                "keyword": "remote-examination",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtongquat.png",
-                "keyword": "general-examination",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-dichvuxetnghiem.png",
-                "keyword": "medicine-test",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-suckhoetinhthan.png",
-                "keyword": "spiritual-health",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2022/05/19/104635-khamnhakhoa.png",
-                "keyword": "dentistry-examination",
-            },
-            // {
-            //     "url": "https://cdn.bookingcare.vn/fo/2022/05/16/151930-phau-thuat.jpg",
-            //     "keyword": "surgical-package",
-            // },
-            // {
-            //     "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtainha.png",
-            //     "keyword": "medical-product",
-            // },
-            // {
-            //     "url": "https://cdn.bookingcare.vn/fo/2022/07/29/101157-icon-lich-su.jpg",
-            //     "keyword": "business-health",
-            // },
-        ]
 
         let language = this.props.lang;
 
@@ -66,7 +33,7 @@ class HomeHeader extends Component {
                             <a>
                                 <i className='fas fa-bars'></i>
                             </a>
-                            <div className='logo'>
+                            <div className='logo' onClick={() => this.returnHome()}>
                             </div>
                         </div>
                         <div className='center-content'>
@@ -117,43 +84,6 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>
-
-                <div className='home-header-banner'>
-                    <div className='banner-top'>
-                        <div className='banner-heading'>
-                            <div className='banner-title'>
-                                <FormattedMessage id="home-header-banner.banner-title" />
-                            </div>
-                            <div className='banner-sub-title'>
-                                <FormattedMessage id="home-header-banner.banner-sub-title" />
-                            </div>
-                        </div>
-                        <div className='banner-search'>
-                            <i className='fas fa-search'></i>
-                            <input type='text' placeholder='Tìm lý do khám' />
-                        </div>
-                    </div>
-                    <div className='banner-options'>
-                        {
-                            data && data.map((item, index) => (
-                                <div className='banner-item' key={index}>
-                                    <a className='item-link'>
-                                        <div className='item-img'>
-                                            <div className='item-icon' style={{ backgroundImage: `url(${item.url})` }} >
-                                            </div>
-                                        </div>
-                                        <div className='item-title'>
-                                            <FormattedMessage id={`home-header-banner.${item.keyword}`} />
-                                            <br />
-                                            {item.subtitle}
-                                        </div>
-                                    </a>
-                                </div>
-                            ))
-                        }
-                    </div>
-                </div >
-
             </div >
         );
     }
@@ -173,4 +103,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));

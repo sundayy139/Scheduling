@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { languages } from "../../../utils/constant";
 import Lightbox from 'react-image-lightbox';
 import CommonUtils from '../../../utils/CommonUtils';
+import DatePicker from '../../../components/Input/DatePicker';
 
 
 
@@ -29,6 +30,7 @@ class ModalCreateUser extends Component {
             gender: '',
             position: '',
             role: '',
+            dateOfBirth: '',
             avatar: '',
         }
     }
@@ -78,6 +80,7 @@ class ModalCreateUser extends Component {
                 lastName: '',
                 phoneNumber: '',
                 address: '',
+                dateOfBirth: '',
                 role: arrRoles && arrRoles.length > 0 ? arrRoles[0].key : "",
                 gender: arrGenders && arrGenders.length > 0 ? arrGenders[0].key : "",
                 position: arrPositions && arrPositions.length > 0 ? arrPositions[0].key : "",
@@ -122,6 +125,12 @@ class ModalCreateUser extends Component {
         })
     }
 
+    handleChangDatePiker = (date) => {
+        this.setState({
+            dateOfBirth: date[0]
+        })
+    }
+
     checkValideInput = () => {
         let isValid = true;
         let arrCheck = [
@@ -131,6 +140,7 @@ class ModalCreateUser extends Component {
             'lastName',
             'phoneNumber',
             'address',
+            'dateOfBirth'
         ];
 
         for (let i = 0; i < arrCheck.length; i++) {
@@ -158,6 +168,7 @@ class ModalCreateUser extends Component {
             lastName: this.state.lastName,
             address: this.state.address,
             phoneNumber: this.state.phoneNumber,
+            dateOfBirth: this.state.dateOfBirth,
             gender: this.state.gender,
             roleId: this.state.role,
             positionId: this.state.position,
@@ -184,6 +195,7 @@ class ModalCreateUser extends Component {
             gender,
             position,
             role,
+            dateOfBirth,
             avatar } = this.state;
 
         return (
@@ -206,7 +218,6 @@ class ModalCreateUser extends Component {
                                 <label>
                                     <FormattedMessage id="manage-user.email" />
                                 </label>
-
                                 <FormattedMessage id="manage-user.email">
                                     {placeholder =>
                                         <input
@@ -300,7 +311,7 @@ class ModalCreateUser extends Component {
 
                         </div>
                         <div className='row'>
-                            <div className="form-group col-8">
+                            <div className="form-group col-4">
                                 <label>
                                     <FormattedMessage id="manage-user.phone-number" />
                                 </label>
@@ -314,6 +325,22 @@ class ModalCreateUser extends Component {
                                             placeholder={placeholder}
                                             value={phoneNumber}
                                             onChange={(e) => { this.onChangeInput(e, 'phoneNumber') }}
+                                        />
+                                    }
+                                </FormattedMessage>
+                            </div>
+
+                            <div className="form-group col-4">
+                                <label>
+                                    <FormattedMessage id="manage-user.birth-day" />
+                                </label>
+                                <FormattedMessage id="modal-booking.birth-day">
+                                    {placeholder =>
+                                        <DatePicker
+                                            className="form-control"
+                                            value={dateOfBirth}
+                                            placeholder={placeholder}
+                                            onChange={this.handleChangDatePiker}
                                         />
                                     }
                                 </FormattedMessage>

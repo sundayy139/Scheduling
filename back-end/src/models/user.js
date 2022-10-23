@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.belongsTo(models.AllCode, { foreignKey: 'positionId', targetKey: 'key', as: 'positionData' });
       User.belongsTo(models.AllCode, { foreignKey: 'gender', targetKey: 'key', as: 'genderData' });
+
+      User.hasOne(models.Doctor_Info, { foreignKey: 'doctorId' });
+
+      User.hasMany(models.Schedule, { foreignKey: 'doctorId', as: 'doctorData' });
     }
   };
   User.init({
@@ -23,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     gender: DataTypes.STRING,
+    dateOfBirth: DataTypes.DATEONLY,
     image: DataTypes.BLOB('long'),
     roleId: DataTypes.STRING,
     positionId: DataTypes.STRING,

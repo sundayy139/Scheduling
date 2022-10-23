@@ -35,6 +35,53 @@
     "all-posts": "All Posts"
   },
 
+  "detail-doctor": {
+    "appointment-schedule": "Schedule",
+    "select": "Select",
+    "make-a-appointment": "and book an appointment (booking fee 0đ)",
+    "not-schedule": "The doctor does not have an appointment during this time, please choose a different time !",
+    "examination-price": "Examination price: ",
+    "examination-address": "Examination address:",
+    "payment-method": "Payment method: ",
+    "view-detail": "View detail",
+    "hide-detail": "Hide detail",
+    "booking-fee": "Booking free ",
+    "more-info": "View more"
+  },
+
+  "modal-booking": {
+    "confirm": "Confirm",
+    "close": "Close",
+    "email": "Email",
+    "password": "Password",
+    "address": "Address",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "phone-number": "Phone Number",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "reason": "Reason for examination",
+    "birth-day": "Date of Birth",
+    "examination-price": "Examination price",
+    "total": "Total",
+    "free": "Free",
+    "booking-fee": "Booking fee",
+    "note": "Note",
+    "book-appointment": "Book an appointment",
+    "note-title": "The information you provide will be used as a medical examination record, when filling in the information please:",
+    "note-name": "Specify first and last name, capitalize the first letters, e.g. ",
+    "note-eg": "Phu Tran Van",
+    "note-confirm": "Complete, correct and please check the information before clicking "
+  },
+
+  "verify": {
+    "error": "Something went wrong, please try again later !",
+    "success": "You have confirmed your appointment successfully, thank you for booking at BookingCare !",
+    "failed": "Appointment is confirmed or non-existent, please double check !"
+  },
+
   "login": {
     "login": "Login",
     "username": "Username",
@@ -46,6 +93,7 @@
       "test": "Test",
       "user": "User",
       "clinics": "Clinics",
+      "doctor": "Doctor",
       "specialty": "Specialty",
       "handbook": "Handbook",
       "crud-user": "CRUD User",
@@ -56,6 +104,11 @@
       "manage-handbook": "Handbook management",
       "manage-specialty": "Specialty management",
       "manage-clinics": "Clinics management"
+    },
+    "doctor": {
+      "manage-schedule": "Manage schedule doctor",
+      "user": "User",
+      "manage-patient": "Manage schedule patient"
     }
   },
   "manage-user": {
@@ -63,6 +116,7 @@
     "edit-user": "Edit User",
     "manage-user": "Manage Users",
     "create": "Create",
+    "confirm": "Confirm",
     "test": "Test",
     "save": "Save change",
     "close": "Close",
@@ -81,6 +135,54 @@
     "patient": "Patient",
     "male": "Male",
     "female": "Female",
-    "other": "Other"
+    "other": "Other",
+    "full-name": "Full Name",
+    "reason": "Reason for examination",
+    "birth-day": "Date of Birth"
+  },
+  "manage-doctor": {
+    "title": "Doctor management",
+    "choose-doctor": "Select a doctor:",
+    "doctor-info": "General information:",
+    "doctor-details": "Details infomation:",
+    "doctor-price": "Price:",
+    "doctor-payment": "Payment method:",
+    "doctor-province": "Province:",
+    "clinic-name": "Clinic name:",
+    "clinic-address": "Clinic address:",
+    "doctor-note": "Notes infomation:",
+    "clinic": "Clinic:",
+    "specialty": "Specialty:",
+    "create": "Create",
+    "save": "Save change",
+    "cancel": "Cancel"
+  },
+  "manage-schedule": {
+    "title": "Manage a doctor's examination plan",
+    "choose-doctor": "Select a doctor:",
+    "choose-date": "Select a date:",
+    "choose-schedule": "Select schedule:",
+    "save": "Save",
+    "max-number": "Maximum patients:"
+  },
+  "manage-specialty": {
+    "title": "Specialty management",
+    "create": "Create",
+    "save": "Save change",
+    "specialty-name": " Specialty name:",
+    "avatar": "Avatar:",
+    "specialty-detail": "Details information:",
+    "cancel": "Cancel"
+  },
+  "manage-clinic": {
+    "title": "Clinics management",
+    "create": "Create",
+    "save": "Save change",
+    "name-clinic": " Clinic name:",
+    "address-clinic": "Clinic address:",
+    "avatar": "Avatar: ",
+    "logo": "Logo: ",
+    "clinic-detail": "Details information:",
+    "cancel": "Cancel"
   }
 }

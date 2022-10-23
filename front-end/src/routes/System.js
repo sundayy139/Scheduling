@@ -2,7 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Header from '../containers/Header/Header';
+import ManageDoctor from '../containers/System/Doctor/ManageDoctor';
 import UserManageRedux from '../containers/System/Admin/UserManageRedux';
+import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
+import ManageClinic from '../containers/System/Clinic/ManageClinic';
 
 class System extends Component {
     render() {
@@ -14,6 +17,9 @@ class System extends Component {
                     <div className="system-list">
                         <Switch>
                             <Route path="/system/crud-user-redux" component={UserManageRedux} />
+                            <Route path="/system/manage-doctor" component={ManageDoctor} />
+                            <Route path="/system/manage-specialty" component={ManageSpecialty} />
+                            <Route path="/system/manage-clinic" component={ManageClinic} />
                             <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                         </Switch>
                     </div>

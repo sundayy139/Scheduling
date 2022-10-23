@@ -34,6 +34,54 @@
     "all-posts": "Tất cả bài viết"
   },
 
+  "detail-doctor": {
+    "appointment-schedule": "Lịch khám",
+    "select": "Chọn",
+    "make-a-appointment": "và đặt lịch khám (Phí đặt lịch 0 đ)",
+    "not-schedule": "Bác sĩ không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác !",
+    "examination-price": "Giá khám: ",
+    "examination-address": "Địa chỉ khám:",
+    "payment-method": "Phương thức thanh toán: ",
+    "view-detail": "Xem chi tiết",
+    "hide-detail": "Ẩn bảng giá",
+    "booking-fee": "Miễn phí đặt lịch ",
+    "more-info": "Xem thêm"
+  },
+
+  "modal-booking": {
+    "confirm": "Xác nhận",
+    "close": "Đóng",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "address": "Địa chỉ",
+    "first-name": "Tên",
+    "last-name": "Họ",
+    "phone-number": "Số điện thoại",
+    "gender": "Giới tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "full-name": "Họ và tên",
+    "reason": "Lý do khám",
+    "birth-day": "Ngày tháng năm sinh",
+    "examination-price": "Giá khám",
+    "total": "Tổng cộng",
+    "free": "Miễn phí",
+    "booking-fee": "Phí đặt lịch",
+    "note": "Lưu ý",
+    "book-appointment": "Đặt lịch khám bệnh",
+    "note-title": "Thông tin anh/chị cung cấp sẽ được sử dụng làm hồ sơ khám bệnh, khi điền thông tin anh/chị vui lòng:",
+    "note-name": "Ghi rõ họ và tên, viết hoa những chữ cái đầu tiên, ví dụ: ",
+    "note-eg": "Trần Văn Phú",
+    "note-confirm": "Điền đầy đủ, đúng và vui lòng kiểm tra lại thông tin trước khi ấn "
+  },
+
+  "verify": {
+    "error": "Có gì đó không đúng, vui lòng thử lại sau !",
+    "success": "Bạn đã xác nhận lịch hẹn thành công, cảm ơn bạn đã đặt lịch tại BookingCare !",
+    "failed": "Lịch hẹn đã được xác nhận hoặc không tồn tại, vui lòng kiểm tra lại !"
+  },
+
   "login": {
     "login": "Đăng nhập",
     "username": "Tên đăng nhập",
@@ -45,6 +93,7 @@
       "test": "Test",
       "user": "Người dùng",
       "clinics": "Phòng khám",
+      "doctor": "Bác sĩ",
       "specialty": "Chuyên khoa",
       "handbook": "Cẩm nang",
       "crud-user": "CRUD User",
@@ -55,6 +104,11 @@
       "manage-handbook": "Quản lý cẩm nang",
       "manage-specialty": "Quản lý chuyên khoa",
       "manage-clinics": "Quản lý phòng khám"
+    },
+    "doctor": {
+      "manage-schedule": "Quản lý kế hoạch khám bệnh bác sĩ",
+      "user": "Người dùng",
+      "manage-patient": "Quản lý bệnh nhân"
     }
   },
   "manage-user": {
@@ -62,6 +116,7 @@
     "edit-user": "Chỉnh sửa người dùng",
     "manage-user": "Quản lý người dùng",
     "create": "Thêm mới",
+    "confirm": "Xác nhận",
     "save": "Lưu thay đổi",
     "close": "Đóng",
     "email": "Email",
@@ -79,6 +134,54 @@
     "patient": "Bệnh nhân",
     "male": "Nam",
     "female": "Nữ",
-    "other": "Khác"
+    "other": "Khác",
+    "full-name": "Họ và tên",
+    "reason": "Lý do khám",
+    "birth-day": "Ngày tháng năm sinh"
+  },
+  "manage-doctor": {
+    "title": "Quản lý bác sĩ",
+    "choose-doctor": "Chọn bác sĩ:",
+    "doctor-info": "Thông tin chung:",
+    "doctor-details": "Thông tin chi tiết:",
+    "doctor-price": "Giá khám:",
+    "doctor-payment": "Phương thức thanh toán:",
+    "doctor-province": "Tỉnh thành:",
+    "clinic-name": "Tên phòng khám:",
+    "clinic-address": "Địa chỉ phòng khám:",
+    "doctor-note": "Ghi chú:",
+    "clinic": "Phòng khám:",
+    "specialty": "Chuyên khoa:",
+    "create": "Thêm mới",
+    "save": "Lưu thay đổi",
+    "cancel": "Hủy"
+  },
+  "manage-schedule": {
+    "title": "Quản lý kế hoạch khám bệnh bác sĩ",
+    "choose-doctor": "Chọn bác sĩ:",
+    "choose-date": "Chọn ngày:",
+    "choose-schedule": "Chọn khoảng thời gian:",
+    "save": "Lưu",
+    "max-number": "Bệnh nhân tối đa:"
+  },
+  "manage-specialty": {
+    "title": "Quản lý chuyên khoa",
+    "create": "Thêm mới",
+    "save": "Lưu thay đổi",
+    "specialty-name": " Tên chuyên khoa:",
+    "avatar": "Ảnh đại diện:",
+    "specialty-detail": "Thông tin chi tiết chuyên khoa:",
+    "cancel": "Hủy"
+  },
+  "manage-clinic": {
+    "title": "Quản lý phòng khám",
+    "create": "Thêm mới",
+    "save": "Lưu thay đổi",
+    "name-clinic": "Tên phòng khám:",
+    "address-clinic": "Địa chỉ phòng khám:",
+    "avatar": "Ảnh đại diện:",
+    "logo": "Logo:",
+    "clinic-detail": "Thông tin chi tiết phòng khám:",
+    "cancel": "Hủy"
   }
 }

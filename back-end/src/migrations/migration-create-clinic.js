@@ -15,8 +15,17 @@ module.exports = {
       address: {
         type: Sequelize.STRING
       },
-      description: {
-        type: Sequelize.TEXT
+      descMarkdown: {
+        type: Sequelize.TEXT('long')
+      },
+      descHTML: {
+        type: Sequelize.TEXT('long')
+      },
+      provinceId: {
+        type: Sequelize.STRING
+      },
+      logo: {
+        type: Sequelize.BLOB('long')
       },
       image: {
         type: Sequelize.BLOB('long')

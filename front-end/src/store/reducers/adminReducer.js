@@ -6,8 +6,13 @@ const initialState = {
     genders: [],
     roles: [],
     positions: [],
+    allRequiredData: [],
     users: [],
     topDoctors: [],
+    doctors: [],
+    scheduleTimes: [],
+    specialties: [],
+    clinics: [],
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -50,6 +55,16 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state
             }
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_SUCCESS:
+            state.allRequiredData = action.data;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_REQUIRED_DOCTOR_INFO_FAIL:
+            state.allRequiredData = [];
+            return {
+                ...state
+            }
         case actionTypes.FETCH_ALL_USER_SUCCESS:
             state.users = action.users;
             return {
@@ -67,6 +82,46 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_TOP_DOCTOR_FAIL:
             state.topDoctors = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
+            state.doctors = action.doctors;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_DOCTOR_FAIL:
+            state.doctors = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
+            state.scheduleTimes = action.dataTimes;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAIL:
+            state.scheduleTimes = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_SPECIALTY_SUCCESS:
+            state.specialties = action.specialties;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SPECIALTY_FAIL:
+            state.specialties = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_CLINIC_SUCCESS:
+            state.clinics = action.clinics;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_CLINIC_FAIL:
+            state.clinics = [];
             return {
                 ...state
             }

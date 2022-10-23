@@ -1,0 +1,113 @@
+.detail-clinic {
+    background-color: #ffffff;
+
+    .container-clinic-up {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+
+        .image-clinic {
+            height: 270px;
+            margin-top: 70px;
+        }
+
+        .info-clinic {
+            padding: 20px 30px 50px 30px;
+            border-bottom: 1px solid #eee;
+
+            .info-up {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .logo-clinic {
+                    width: 10%;
+                    max-width: 120px;
+                    height: 70px;
+                }
+
+                .name-clinic {
+                    width: 88%;
+
+                    h1 {
+                        font-size: 30px;
+                        font-weight: 600;
+                        color: #000000;
+                    }
+                }
+            }
+
+            .info-down {
+                margin-left: 12%;
+                color: #333333;
+
+                span {
+                    margin-left: 5px;
+                    font-size: 16px;
+                }
+
+                i {
+                    font-size: 20px;
+                }
+            }
+        }
+
+    }
+
+    .container-clinic-center {
+        .content-desc {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px 30px 50px 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+    }
+
+    .container-clinic-down {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 50px 30px;
+
+        p {
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .content-box {
+
+            .box {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+                background-color: #fff;
+
+                .box-left {
+                    width: 50%;
+                    padding: 0 20px;
+                    margin: 20px 0;
+                    border-right: 1px solid #eee;
+                }
+
+                .box-right {
+                    width: 50%;
+                    padding: 0 20px;
+                    margin: 20px 0;
+
+                    .schedule {
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+                    }
+
+                    .extra-info {
+                        padding-top: 20px;
+                    }
+                }
+            }
+        }
+    }
+}

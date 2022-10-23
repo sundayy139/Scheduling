@@ -3,15 +3,39 @@ import { connect } from 'react-redux';
 
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu } from './menuApp';
-import { languages } from '../../utils/constant';
+import { adminMenu, doctorMenu } from './menuApp';
+import { languages, USER_ROLE } from '../../utils/constant';
 import { FormattedMessage } from 'react-intl';
 import './Header.scss';
+import _ from 'lodash';
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            menuApp: []
+        }
+    }
 
     handleChangeLanguage = (language) => {
         this.props.changeLanguage(language);
+    }
+
+    componentDidMount() {
+        let { userInfo } = this.props;
+        let menu = [];
+        if (userInfo && !_.isEmpty(userInfo)) {
+            let role = userInfo.roleId;
+            if (role === USER_ROLE.ADMIN) {
+                menu = adminMenu;
+            } else if (role === USER_ROLE.DOCTOR) {
+                menu = doctorMenu;
+            }
+        }
+
+        this.setState({
+            menuApp: menu
+        })
     }
 
     render() {
@@ -21,14 +45,14 @@ class Header extends Component {
             <div className="header-container">
                 {/* thanh navigator */}
                 <div className="header-tabs-container">
-                    <Navigator menus={adminMenu} />
+                    <Navigator menus={this.state.menuApp} />
                 </div>
 
                 {/* language */}
                 <div className='language'>
                     <span className='welcome'>
-                        <FormattedMessage  id="home-header.welcome"/>
-                        {userInfo && userInfo.firstName && userInfo.lastName ? userInfo.lastName +" "+ userInfo.firstName : ""} !
+                        <FormattedMessage id="home-header.welcome" />
+                        {userInfo && userInfo.firstName && userInfo.lastName ? userInfo.lastName + " " + userInfo.firstName : ""} !
                     </span>
                     <div className='language-group'>
                         {lang === languages.VI ? "VI" : "EN"}
