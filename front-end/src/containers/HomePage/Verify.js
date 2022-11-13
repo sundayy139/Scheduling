@@ -56,6 +56,7 @@ class Verify extends Component {
                             style={{
                                 height: "80vh",
                                 maxWidth: '1440px',
+                                margin: '0 auto',
                                 padding: '0 20px',
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -85,6 +86,7 @@ class Verify extends Component {
                             style={{
                                 height: "80vh",
                                 maxWidth: '1440px',
+                                margin: '0 auto',
                                 padding: '0 20px',
                                 display: 'flex',
                                 justifyContent: 'center',

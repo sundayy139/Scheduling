@@ -6,10 +6,28 @@
     "choose-clinic": "Chọn bệnh viện và phòng khám",
     "doctor": "Bác sĩ",
     "choose-doctor": "Chọn bác sĩ giỏi",
-    "examination-package": "Gói khám ",
-    "general-health": "Khám sức khỏe tổng quát",
+    "handbook": "Cẩm nang",
+    "handbook-health": "Cẩm nang cho sức khỏe",
     "support": "Hỗ trợ",
-    "welcome": "Xin chào, "
+    "welcome": "Xin chào, ",
+    "change-password": "Thay đổi mật khẩu",
+    "old-password": "Mật khẩu cũ",
+    "new-password": "Mật khẩu mới",
+    "confirm-password": "Xác nhận mật khẩu",
+    "log-out": "Đăng xuất",
+    "change": "Thay đổi"
+  },
+  "header-menu": {
+    "home": "Trang chủ",
+    "handbook": "Cẩm nang ",
+    "doctor": "Bác sĩ",
+    "specialties": "Chuyên khoa",
+    "clinic": "Cơ sở y tế",
+    "about": "Về Bookingcare",
+    "regulation": "Quy chế hoạt động",
+    "contact": "Liên hệ",
+    "question": "Câu hỏi thường gặp",
+    "terms": "Điều khoản sử dụng"
   },
   "home-header-banner": {
     "banner-title": "nền tảng y tế",
@@ -31,7 +49,12 @@
     "out-standing-medical": "Cơ sở y tế nổi bật",
     "handbook": "Cẩm nang",
     "media-talk": "Truyền thông nói về BookingCare",
-    "all-posts": "Tất cả bài viết"
+    "all-posts": "Tất cả bài viết",
+    "hospital-clinic": "Bệnh viện, phòng khám",
+    "specialty": "Chuyên khoa",
+    "all-doctor": " Tất cả bác sĩ",
+    "search-result": "Kết quả tìm kiếm",
+    "new-handbook": "Cẩm nang mới"
   },
 
   "detail-doctor": {
@@ -97,7 +120,7 @@
       "specialty": "Chuyên khoa",
       "handbook": "Cẩm nang",
       "crud-user": "CRUD User",
-      "crud-redux": "CRUD Redux",
+      "manage-info-doctor": "Quản lý thông tin bác sĩ",
       "manage-admin": "Quản lý Admin",
       "manage-doctor": "Quản lý bác sĩ",
       "manage-patient": "Quản lý bệnh nhân",
@@ -162,7 +185,13 @@
     "choose-date": "Chọn ngày:",
     "choose-schedule": "Chọn khoảng thời gian:",
     "save": "Lưu",
-    "max-number": "Bệnh nhân tối đa:"
+    "max-number": "Bệnh nhân tối đa:",
+    "change-schedule": "Thay đổi lịch khám",
+    "date": "Ngày:",
+    "time": "Khoảng thời gian:",
+    "current-number": "Bệnh nhân hiện tại:",
+    "save-change": "Lưu thay đổi",
+    "cancel": "Hủy"
   },
   "manage-specialty": {
     "title": "Quản lý chuyên khoa",
@@ -182,6 +211,15 @@
     "avatar": "Ảnh đại diện:",
     "logo": "Logo:",
     "clinic-detail": "Thông tin chi tiết phòng khám:",
+    "cancel": "Hủy"
+  },
+  "manage-handbook": {
+    "title": "Quản lý cẩm nang",
+    "create": "Thêm mới",
+    "save": "Lưu thay đổi",
+    "title-handbook": " Tiêu đề cẩm nang:",
+    "thumbnail": "Ảnh thu nhỏ: ",
+    "handbook-detail": "Thông tin chi tiết cẩm nang:",
     "cancel": "Hủy"
   }
 }

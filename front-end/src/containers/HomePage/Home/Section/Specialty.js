@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
 import { getAllSpecialtyService } from '../../../../services/userService';
 import { withRouter } from 'react-router'
+import { Link } from 'react-router-dom'
 
 
 class Specialty extends Component {
@@ -56,9 +57,9 @@ class Specialty extends Component {
                             <h2 className='content-title'>
                                 <FormattedMessage id="section.popular-specialties" />
                             </h2>
-                            <a className='content-btn'>
+                            <Link to={'/specialty'} className='content-btn'>
                                 <FormattedMessage id="section.more-info" />
-                            </a>
+                            </Link>
                         </div>
                         <div className='content-container'>
                             <div className='specialty-slider'>

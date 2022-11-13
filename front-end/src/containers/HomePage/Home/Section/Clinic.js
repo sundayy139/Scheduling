@@ -4,7 +4,8 @@ import './Clinic.scss';
 import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
 import { getAllClinicService } from '../../../../services/userService';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom'
 
 class Clinic extends Component {
 
@@ -55,9 +56,9 @@ class Clinic extends Component {
                             <h2 className='content-title'>
                                 <FormattedMessage id="section.out-standing-medical" />
                             </h2>
-                            <a className='content-btn'>
+                            <Link to={'/clinic'} className='content-btn'>
                                 <FormattedMessage id="section.more-info" />
-                            </a>
+                            </Link>
                         </div>
                         <div className='content-container'>
                             <div className='clinic-slider'>

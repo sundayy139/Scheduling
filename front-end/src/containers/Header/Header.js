@@ -8,12 +8,14 @@ import { languages, USER_ROLE } from '../../utils/constant';
 import { FormattedMessage } from 'react-intl';
 import './Header.scss';
 import _ from 'lodash';
+import ModalChangePassword from './ModalChangePassword';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuApp: []
+            menuApp: [],
+            isOpenModal: false,
         }
     }
 
@@ -35,6 +37,38 @@ class Header extends Component {
 
         this.setState({
             menuApp: menu
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.userInfo !== this.props.userInfo) {
+            let { userInfo } = this.props;
+            let menu = [];
+            if (userInfo && !_.isEmpty(userInfo)) {
+                let role = userInfo.roleId;
+                if (role === USER_ROLE.ADMIN) {
+                    menu = adminMenu;
+                } else if (role === USER_ROLE.DOCTOR) {
+                    menu = doctorMenu;
+                }
+            }
+
+            this.setState({
+                menuApp: menu
+            })
+        }
+    }
+
+
+    toggleisOpenModal = () => {
+        this.setState({
+            isOpenModal: !(this.state.isOpenModal)
+        })
+    }
+
+    handleChangePassword = () => {
+        this.setState({
+            isOpenModal: true
         })
     }
 
@@ -71,13 +105,31 @@ class Header extends Component {
                     </div>
 
                     {/* nút logout */}
-                    <div className="btn btn-logout" onClick={processLogout} title="Log out">
-                        <i className="fas fa-sign-out-alt"></i>
+                    <div className="btn setting">
+                        <i className="fas fa-cog"></i>
+                        <div className='menu'>
+                            <span
+                                className='change-password'
+                                onClick={this.handleChangePassword}
+                            >
+                                <FormattedMessage id="home-header.change-password" />
+                            </span>
+                            <span
+                                className='log-out'
+                                onClick={processLogout}
+                            >
+                                <FormattedMessage id="home-header.log-out" />
+                            </span>
+                        </div>
                     </div>
+
+                    <ModalChangePassword
+                        isOpen={this.state.isOpenModal}
+                        toggleisOpenModal={this.toggleisOpenModal}
+                        userInfo={this.props.userInfo}
+                    />
                 </div>
-
-
-            </div>
+            </div >
         );
     }
 

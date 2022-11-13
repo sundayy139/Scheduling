@@ -10,7 +10,7 @@ import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
 import { getAllCodeService, getDetailSpecialtyService } from '../../../services/userService';
-
+import { Link } from 'react-router-dom'
 
 
 class DetailSpecialty extends Component {
@@ -117,11 +117,23 @@ class DetailSpecialty extends Component {
         let { arrDoctorId, dataSpecialty, listProvince, backgroundImage } = this.state;
         let { lang } = this.props;
 
-
         return (
             <>
                 <HomeHeader />
                 <div className='detail-specialty'>
+                    <div className='back-menu'>
+                        <div className='back-ground'>
+                            <div
+                                className='icon-back'
+                                onClick={this.props.history.goBack}
+                            >
+                                <i className="fas fa-arrow-left"></i>
+                            </div>
+                            <div className='menu-title'>
+                                {dataSpecialty && dataSpecialty.name ? dataSpecialty.name : ''}
+                            </div>
+                        </div>
+                    </div>
                     <div className='container-specialty-up'
                         style={{
                             backgroundImage: `url(${backgroundImage})`,
@@ -135,7 +147,9 @@ class DetailSpecialty extends Component {
                                 {
                                     dataSpecialty && !_.isEmpty(dataSpecialty) &&
                                     (
-                                        <div dangerouslySetInnerHTML={{ __html: dataSpecialty.descHTML }}>
+                                        <div
+                                            className='inner'
+                                            dangerouslySetInnerHTML={{ __html: dataSpecialty.descHTML }}>
                                         </div>
                                     )
                                 }

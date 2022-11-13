@@ -6,10 +6,28 @@
     "choose-clinic": "Choosing a clinic and hospital",
     "doctor": "Doctor",
     "choose-doctor": "Choose a good doctor",
-    "examination-package": "Examination package ",
-    "general-health": "General health check",
+    "handbook": "Handbook",
+    "handbook-health": "Handbook for health",
     "support": "Support",
-    "welcome": "Welcome, "
+    "welcome": "Welcome, ",
+    "change-password": "Change password",
+    "old-password": "Old password",
+    "new-password": "New password",
+    "confirm-password": "Confirm password",
+    "log-out": "Log out",
+    "change": "Change"
+  },
+  "header-menu": {
+    "home": "Home",
+    "handbook": "Handbook ",
+    "doctor": "Doctor",
+    "specialties": "Specialties",
+    "clinic": "Clinics",
+    "about": "About BookingCare",
+    "regulation": "Operating regulations",
+    "contact": "Contact",
+    "question": "Frequently Asked Questions",
+    "terms": "Terms of Use"
   },
   "home-header-banner": {
     "banner-title": "medical foundation",
@@ -32,7 +50,12 @@
     "out-standing-medical": "Out standing medical facilities",
     "media-talk": "Media talk about BookingCare ",
     "handbook": "Handbook",
-    "all-posts": "All Posts"
+    "all-posts": "All Posts",
+    "hospital-clinic": "Hospitals, clinics",
+    "specialty": "Specialties",
+    "all-doctor": " All doctor",
+    "search-result": "Search result",
+    "new-handbook": "New Handbook"
   },
 
   "detail-doctor": {
@@ -97,7 +120,7 @@
       "specialty": "Specialty",
       "handbook": "Handbook",
       "crud-user": "CRUD User",
-      "crud-redux": "CRUD Redux",
+      "manage-info-doctor": "Manage Information Doctor",
       "manage-admin": "Admin management",
       "manage-doctor": "Doctor management",
       "manage-patient": "Patient management",
@@ -163,7 +186,13 @@
     "choose-date": "Select a date:",
     "choose-schedule": "Select schedule:",
     "save": "Save",
-    "max-number": "Maximum patients:"
+    "max-number": "Maximum patients:",
+    "change-schedule": "Change Schedule",
+    "date": "Date:",
+    "time": "Time:",
+    "current-number": "Current patient:",
+    "save-change": "Save change",
+    "cancel": "Cancel"
   },
   "manage-specialty": {
     "title": "Specialty management",
@@ -183,6 +212,15 @@
     "avatar": "Avatar: ",
     "logo": "Logo: ",
     "clinic-detail": "Details information:",
+    "cancel": "Cancel"
+  },
+  "manage-handbook": {
+    "title": "Handbook management",
+    "create": "Create",
+    "save": "Save change",
+    "title-handbook": "Handbook title:",
+    "thumbnail": "Image thumbnail: ",
+    "handbook-detail": "Details information:",
     "cancel": "Cancel"
   }
 }

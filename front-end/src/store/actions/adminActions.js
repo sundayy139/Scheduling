@@ -1,4 +1,4 @@
-import { createDetailDoctorService, createNewClinicService, createNewSpecialtyService, createNewUserService, deleteClinicService, deleteSpecialtyService, deleteUserService, editClinicService, editSpecialtyService, editUserService, getAllClinicService, getAllCodeService, getAllDoctorsService, getAllSpecialtyService, getAllUsersService, getTopDoctorService } from '../../services/userService';
+import { createDetailDoctorService, createNewClinicService, createNewHandbookService, createNewSpecialtyService, createNewUserService, deleteClinicService, deleteHandbookService, deleteScheduleDoctorService, deleteSpecialtyService, deleteUserService, editClinicService, editHandbookService, editScheduleDoctorService, editSpecialtyService, editUserService, getAllClinicService, getAllCodeService, getAllDoctorsService, getAllHandbookService, getAllSpecialtyService, getAllUsersService, getTopDoctorService } from '../../services/userService';
 
 import actionTypes from './actionTypes';
 import { toast } from 'react-toastify';
@@ -272,9 +272,6 @@ export const fetchTopDoctorStart = () => {
             if (res && res.errCode === 0) {
                 dispatch(fetchTopDoctorSuccess(res.data));
             } else {
-                toast.error('Fetch top doctor failure', {
-                    theme: 'colored',
-                })
                 dispatch(fetchTopDoctorFail());
             }
 
@@ -387,6 +384,76 @@ export const fetchAllScheduleTimeSuccess = (data) => ({
 export const fetchAllScheduleTimeFail = () => ({
     type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAIL,
 })
+
+
+export const deleteScheduleTimeStart = (id) => {
+    return async (dispatch) => {
+        try {
+            let res = await deleteScheduleDoctorService(id);
+            if (res && res.errCode === 0) {
+                toast.success(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(deleteScheduleTimeSuccess());
+                dispatch(fetchAllScheduleTimeStart());
+            } else {
+                toast.error(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(deleteScheduleTimeFail());
+            }
+
+        } catch (e) {
+            toast.error('Delete schedule failure', {
+                theme: 'colored',
+            })
+            dispatch(deleteScheduleTimeFail());
+        }
+    }
+}
+
+export const deleteScheduleTimeSuccess = () => ({
+    type: actionTypes.DELETE_SCHEDULE_SUCCESS
+})
+
+export const deleteScheduleTimeFail = () => ({
+    type: actionTypes.DELETE_SCHEDULE_FAIL,
+})
+
+export const editScheduleTimeStart = (data) => {
+    return async (dispatch) => {
+        try {
+            let res = await editScheduleDoctorService(data);
+            if (res && res.errCode === 0) {
+                toast.success(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(editScheduleTimeSuccess());
+                dispatch(fetchAllScheduleTimeStart());
+            } else {
+                toast.error(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(editScheduleTimeFail());
+            }
+
+        } catch (e) {
+            toast.error('Update specialty failure', {
+                theme: 'colored',
+            })
+            dispatch(editScheduleTimeFail());
+        }
+    }
+}
+
+export const editScheduleTimeSuccess = () => ({
+    type: actionTypes.EDIT_SCHEDULE_SUCCESS,
+})
+
+export const editScheduleTimeFail = () => ({
+    type: actionTypes.EDIT_SCHEDULE_FAIL,
+})
+
 
 export const fetchAllSpecitaltyStart = () => {
     return async (dispatch) => {
@@ -648,4 +715,136 @@ export const deleteClinicSuccess = () => ({
 
 export const deleteClinicFail = () => ({
     type: actionTypes.DELETE_CLINIC_FAIL,
+})
+
+// HANDBOOK
+export const fetchAllHandbookStart = () => {
+    return async (dispatch) => {
+        try {
+            let res = await getAllHandbookService("ALL");
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllHandbookSuccess(res.handbooks));
+            } else {
+                toast.error('Fetch all handbook failure', {
+                    theme: 'colored',
+                })
+                dispatch(fetchAllHandbookFail());
+            }
+
+        } catch (e) {
+            dispatch(fetchAllHandbookFail());
+        }
+    }
+}
+
+export const fetchAllHandbookSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_HANDBOOK_SUCCESS,
+    handbooks: data
+})
+
+export const fetchAllHandbookFail = () => ({
+    type: actionTypes.FETCH_ALL_HANDBOOK_FAIL,
+})
+
+export const createHandbookStart = (data) => {
+    return async (dispatch) => {
+        try {
+            let res = await createNewHandbookService(data);
+            if (res && res.errCode === 0) {
+                toast.success(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(createHandbookSuccess());
+                dispatch(fetchAllHandbookStart());
+            } else {
+                toast.error(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(createHandbookFail());
+            }
+
+        } catch (e) {
+            toast.error('Create handbook failure', {
+                theme: 'colored',
+            })
+            dispatch(createHandbookFail());
+        }
+    }
+}
+
+export const createHandbookSuccess = () => ({
+    type: actionTypes.CREATE_HANDBOOK_SUCCESS,
+})
+
+export const createHandbookFail = () => ({
+    type: actionTypes.CREATE_HANDBOOK_FAIL,
+})
+
+export const editHandbookStart = (data) => {
+    return async (dispatch) => {
+        try {
+            let res = await editHandbookService(data);
+            if (res && res.errCode === 0) {
+                toast.success(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(editHandbookSuccess());
+                dispatch(fetchAllHandbookStart());
+            } else {
+                toast.error(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(editHandbookFail());
+            }
+
+        } catch (e) {
+            console.log(e)
+            toast.error('Update handbook failure', {
+                theme: 'colored',
+            })
+            dispatch(editHandbookFail());
+        }
+    }
+}
+
+export const editHandbookSuccess = () => ({
+    type: actionTypes.EDIT_HANDBOOK_SUCCESS,
+})
+
+export const editHandbookFail = () => ({
+    type: actionTypes.EDIT_HANDBOOK_FAIL,
+})
+
+export const deleteHandbookStart = (id) => {
+    return async (dispatch) => {
+        try {
+            let res = await deleteHandbookService(id);
+            if (res && res.errCode === 0) {
+                toast.success(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(deleteHandbookSuccess());
+                dispatch(fetchAllHandbookStart());
+            } else {
+                toast.error(res.errMessage, {
+                    theme: 'colored',
+                })
+                dispatch(deleteHandbookFail());
+            }
+
+        } catch (e) {
+            toast.error('Delete handbook failure', {
+                theme: 'colored',
+            })
+            dispatch(deleteHandbookFail());
+        }
+    }
+}
+
+export const deleteHandbookSuccess = () => ({
+    type: actionTypes.DELETE_HANDBOOK_SUCCESS,
+})
+
+export const deleteHandbookFail = () => ({
+    type: actionTypes.DELETE_HANDBOOK_FAIL,
 })

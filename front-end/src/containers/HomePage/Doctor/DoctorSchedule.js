@@ -127,6 +127,7 @@ class DoctorSchedule extends Component {
                     closeModalBooking={this.handleCloseModalBooking}
                     dataScheduleModal={this.state.dataScheduleModal}
                     doctorIdFrSchedule={this.props.doctorIdFrDetail}
+                    loading={this.loading}
                 />
                 <div className='schedule-container'>
                     <div className='all-schedule'>
@@ -163,6 +164,7 @@ class DoctorSchedule extends Component {
                                                     item.timeTypeData.value_VI : item.timeTypeData.value_EN;
                                                 return (
                                                     <button
+                                                        className={item.currentNumber === item.maxNumber ? 'btn-time disabled' : 'btn-time'}
                                                         key={i}
                                                         onClick={() => this.handleClickSchedule(item)}
                                                     >
@@ -171,7 +173,6 @@ class DoctorSchedule extends Component {
                                                 )
                                             })
                                         }
-
                                     </>
                                     :
                                     <div className='no-schedule'>

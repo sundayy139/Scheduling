@@ -3,9 +3,31 @@ import { connect } from 'react-redux';
 import './HandBook.scss';
 import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
+import { getAllHandbookService } from '../../../../services/userService';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom'
+
 
 class HandBook extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataHandbook: []
+        }
+    }
 
+    async componentDidMount() {
+        let res = await getAllHandbookService("ALL");
+        if (res && res.errCode === 0) {
+            this.setState({
+                dataHandbook: res.handbooks ? res.handbooks : ''
+            });
+        }
+    }
+
+    handleViewDetailHandbook = (handbook) => {
+        this.props.history.push(`/detail-handbook/${handbook.id}`);
+    }
     render() {
 
         const settings = {
@@ -16,6 +38,14 @@ class HandBook extends Component {
             slidesToScroll: 1,
         };
 
+        let { dataHandbook } = this.state;
+        if (dataHandbook && dataHandbook.length > 0) {
+            dataHandbook.map((item, i) => {
+                if (item && item.image) {
+                    item.avatar = new Buffer(item.image, 'base64').toString('binary');
+                }
+            })
+        }
 
         return (
             <div className='handBook-section'>
@@ -25,68 +55,31 @@ class HandBook extends Component {
                             <h2 className='content-title'>
                                 <FormattedMessage id="section.handbook" />
                             </h2>
-                            <a className='content-btn'>
+                            <Link to={'/handbook'} className='content-btn'>
                                 <FormattedMessage id="section.all-posts" />
-                            </a>
+                            </Link>
                         </div>
                         <div className='content-container'>
                             <div className='handBook-slider'>
                                 <Slider {...settings} className="slider">
-                                    <div className='handBook-item'>
-                                        <a className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
+                                    {
+                                        dataHandbook && dataHandbook.map(item => (
+                                            <div
+                                                className='handBook-item'
+                                                key={item.id}
+                                                onClick={() => this.handleViewDetailHandbook(item)}
+                                            >
+                                                <div className='item-link'>
+                                                    <div className='item-img'>
+                                                        <img src={item.avatar} />
+                                                    </div>
+                                                    <div className='item-text'>
+                                                        {item.title}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='item-text'>
-                                                Top 5 Phòng khám Sản phụ khoa Quận 3 uy tín
-                                            </div>
-                                        </a>
-                                    </div> <div className='handBook-item'>
-                                        <a className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
-                                            </div>
-                                            <div className='item-text'>
-                                                Ung bướu
-                                            </div>
-                                        </a>
-                                    </div> <div className='handBook-item'>
-                                        <a className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
-                                            </div>
-                                            <div className='item-text'>
-                                                Ung bướu
-                                            </div>
-                                        </a>
-                                    </div> <div className='handBook-item'>
-                                        <a className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
-                                            </div>
-                                            <div className='item-text'>
-                                                Ung bướu
-                                            </div>
-                                        </a>
-                                    </div> <div className='handBook-item'>
-                                        <a className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
-                                            </div>
-                                            <div className='item-text'>
-                                                Ung bướu
-                                            </div>
-                                        </a>
-                                    </div> <div className='handBook-item'>
-                                        <a className='item-link'>
-                                            <div className='item-img'>
-                                                <img src='https://cdn.bookingcare.vn/fr/w300/2019/12/16/195611-ung-buou.jpg' />
-                                            </div>
-                                            <div className='item-text'>
-                                                Ung bướu
-                                            </div>
-                                        </a>
-                                    </div>
+                                        ))
+                                    }
                                 </Slider>
                             </div>
                         </div>
@@ -111,4 +104,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HandBook);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HandBook));

@@ -23,6 +23,21 @@ let handleLogin = async (req, res) => {
     });
 }
 
+let changePassword = async (req, res) => {
+    let data = req.body;
+    if (!data) {
+        return res.status(200).json({
+            errCode: 1,
+            errMessage: "Missing require parameters",
+            user: []
+        })
+    };
+
+    let user = await userService.changePassword(data);
+
+    return res.status(200).json(user)
+}
+
 // Get all user
 let handleGetAllUsers = async (req, res) => {
     let id = req.query.id;
@@ -94,5 +109,6 @@ module.exports = {
     handleCreateNewUser: handleCreateNewUser,
     handleEditUser: handleEditUser,
     handleDeleteUser: handleDeleteUser,
-    getAllCode: getAllCode
+    getAllCode: getAllCode,
+    changePassword: changePassword,
 }

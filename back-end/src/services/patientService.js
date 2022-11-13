@@ -22,6 +22,7 @@ let postBookAppoinment = (data) => {
                 });
             } else {
 
+                let passwordToken = uuidv4();
                 //upsert patient user
                 let user = await db.User.findOrCreate({
                     where: {
@@ -32,7 +33,7 @@ let postBookAppoinment = (data) => {
                         firstName: data.firstName,
                         lastName: data.lastName,
                         phoneNumber: data.phoneNumber,
-                        password: '123456789',
+                        password: passwordToken,
                         gender: data.gender,
                         positionId: 'P0',
                         address: data.address,

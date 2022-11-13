@@ -7,16 +7,21 @@ import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 
 class Doctor extends Component {
     render() {
-        const { isLoggedIn } = this.props;
+        const { isLoggedIn, DoctorMenuPath, userInfo } = this.props;
         return (
             <Fragment>
                 {isLoggedIn && <Header />}
                 <div className="system-container">
                     <div className="system-list">
-                        <Switch>
-                            <Route path="/doctor/manage-schedule" component={ManageSchedule} />
-                            <Route path="/doctor/manage-patient" component={ManagePatient} />
-                        </Switch>
+                        {
+                            userInfo.roleId === "R2" && (
+                                <Switch>
+                                    <Route path="/doctor/manage-schedule" component={ManageSchedule} />
+                                    <Route path="/doctor/manage-patient" component={ManagePatient} />
+                                    <Route component={() => { return (<Redirect to={DoctorMenuPath} />) }} />
+                                </Switch>
+                            )
+                        }
                     </div>
                 </div>
             </Fragment>
@@ -27,7 +32,8 @@ class Doctor extends Component {
 const mapStateToProps = state => {
     return {
         DoctorMenuPath: state.app.DoctorMenuPath,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo
     };
 };
 

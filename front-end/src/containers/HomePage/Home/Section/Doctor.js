@@ -5,7 +5,8 @@ import Slider from "react-slick";
 import * as actions from "../../../../store/actions";
 import { languages } from "../../../../utils";
 import { FormattedMessage } from 'react-intl';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Doctor extends Component {
     constructor(props) {
@@ -54,9 +55,9 @@ class Doctor extends Component {
                             <h2 className='content-title'>
                                 <FormattedMessage id="section.out-standing-doctor" />
                             </h2>
-                            <a className='content-btn'>
+                            <Link to={'/all-doctor'} className='content-btn'>
                                 <FormattedMessage id="section.more-info" />
-                            </a>
+                            </Link>
                         </div>
                         <div className='content-container'>
                             <div className='doctor-slider'>

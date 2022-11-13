@@ -16,7 +16,7 @@ let handleUserLogin = (email, password) => {
                     where: {
                         email: email
                     },
-                    attributes: ['email', 'firstName', 'lastName', 'roleId', 'password'],
+                    attributes: ['id', 'email', 'firstName', 'lastName', 'roleId', 'password'],
                     raw: true
                 });
 
@@ -51,6 +51,18 @@ let handleUserLogin = (email, password) => {
     })
 }
 
+// Hash password
+let hashUserPassword = (password) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            var salt = await bycrypt.genSalt(10);
+            var hashPassword = bycrypt.hashSync(password, salt);
+            resolve(hashPassword);
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
 
 let checkUserEmail = (userEmail) => {
     return new Promise(async (resolve, reject) => {
@@ -70,12 +82,64 @@ let checkUserEmail = (userEmail) => {
     })
 }
 
+let changePassword = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: {
+                    id: data.id,
+                    email: data.email
+                },
+                attributes: ['id', 'email', 'password'],
+                raw: false
+            });
+
+            if (user) {
+                let check = bcrypt.compareSync(data.oldPassword, user.password);
+
+                if (!check) {
+                    resolve({
+                        errCode: 1,
+                        errMessage: "Old password is incorrect"
+                    })
+                } else {
+                    if (data.newPassword !== data.confirmPassword) {
+                        resolve({
+                            errCode: 2,
+                            errMessage: "Password does not match"
+                        })
+                    } else {
+                        user.password = await hashUserPassword(data.newPassword);
+                        await user.save();
+                        resolve({
+                            errCode: 0,
+                            errMessage: "Password changed successfully"
+                        });
+                    }
+                }
+            } else {
+                resolve({
+                    errCode: 3,
+                    errMessage: "User not found"
+                })
+            }
+
+
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
 let getAllUsers = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let users = '';
             if (userId === "ALL") {
                 users = await db.User.findAll({
+                    where: {
+                        roleId: "R2"
+                    },
                     attributes: {
                         exclude: ['password']
                     },
@@ -97,23 +161,10 @@ let getAllUsers = (userId) => {
     })
 }
 
-// Hash password
-let hashUserPassword = (password) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            var salt = await bycrypt.genSalt(10);
-            var hashPassword = bycrypt.hashSync(password, salt);
-            resolve(hashPassword);
-        } catch (e) {
-            reject(e)
-        }
-    })
-}
 
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-
             // check email exists
             let check = await checkUserEmail(data.email);
 
@@ -256,5 +307,6 @@ module.exports = {
     createNewUser: createNewUser,
     deleteUser: deleteUser,
     updateUserData: updateUserData,
-    getAllCodeService: getAllCodeService
+    getAllCodeService: getAllCodeService,
+    changePassword: changePassword
 }

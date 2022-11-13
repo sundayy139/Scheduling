@@ -4,6 +4,11 @@ export const handleLoginApi = (email, password) => {
     return axios.post('/api/login', { email, password })
 }
 
+export const changePasswordService = (data) => {
+    return axios.post('/api/change-password', data)
+}
+
+
 export const getAllUsersService = (inputId) => {
     return axios.get(`/api/get-all-users?id=${inputId}`, {
         id: inputId
@@ -48,6 +53,14 @@ export const getDetailDoctorService = (doctorId) => {
 
 export const createScheduleDoctorService = (data) => {
     return axios.post('/api/create-schedule-doctor', data);
+}
+
+export const deleteScheduleDoctorService = (id) => {
+    return axios.delete('/api/delete-schedule-doctor', { data: { id: id } });
+}
+
+export const editScheduleDoctorService = (inputData) => {
+    return axios.put('/api/edit-schedule-doctor', inputData);
 }
 
 export const getScheduleDoctorService = (doctorId, date) => {
@@ -120,4 +133,45 @@ export const editClinicService = (inputData) => {
 
 export const getDetailClinicService = (id) => {
     return axios.get(`/api/get-detail-clinic-by-id?id=${id}`)
+}
+
+export const getListPatientService = (data) => {
+    return axios.get(`/api/get-list-patient?doctorId=${data.doctorId}&date=${data.date}`);
+}
+
+export const sendRemedyService = (data) => {
+    return axios.post('/api/send-remedy', data);
+}
+
+
+export const getAllHandbookService = (inputId) => {
+    return axios.get(`/api/get-all-handbook?id=${inputId}`, {
+        id: inputId
+    });
+}
+
+export const getLimitHandbookService = (limit) => {
+    return axios.get(`/api/get-limit-handbook?limit=${limit}`, {
+        limit: limit
+    });
+}
+
+export const createNewHandbookService = (data) => {
+    return axios.post('/api/create-new-handbook', data);
+}
+
+export const deleteHandbookService = (id) => {
+    return axios.delete('/api/delete-handbook', {
+        data: {
+            id: id
+        }
+    });
+}
+
+export const editHandbookService = (inputData) => {
+    return axios.put('/api/edit-handbook', inputData);
+}
+
+export const getDetailHandbookService = (id) => {
+    return axios.get(`/api/get-detail-handbook-by-id?id=${id}`)
 }

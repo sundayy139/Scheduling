@@ -5,9 +5,26 @@ import { FormattedMessage } from 'react-intl';
 import { languages } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
 import { withRouter } from 'react-router';
-
+import { Link, NavLink } from 'react-router-dom'
+import { dataMenu, dataMenuMore } from './dataMenu';
+import logoVn from '../../assets/icon-language/vietnam.png';
+import logoEn from '../../assets/icon-language/united-kingdom.png';
 
 class HomeHeader extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            clickedMenu: false,
+        }
+    }
+
+    componentDidMount() {
+
+    }
+
+    componentDidUpdate(prevProps) {
+
+    }
 
     changeLanguage = (language) => {
         //fire redux event
@@ -20,26 +37,83 @@ class HomeHeader extends Component {
         }
     }
 
+    handleClickedMenu = () => {
+        this.setState({
+            clickedMenu: !this.state.clickedMenu
+        })
+    }
+
     render() {
 
-        let language = this.props.lang;
+        let lang = this.props.lang;
+        let { clickedMenu } = this.state
 
         return (
 
             <div className='home-header'>
                 <div className='home-header-container'>
+                    <div className={clickedMenu === false ? 'header-menu' : 'header-menu active'} >
+                        <span
+                            onClick={this.handleClickedMenu}
+                        >
+                            <i className="fas fa-times"></i>
+                        </span>
+                        <ul className='menu-list1'>
+                            {
+                                dataMenu && dataMenu.map((item) => (
+                                    <li key={item.id}>
+                                        <NavLink
+                                            to={item.path}
+                                            className="link"
+                                            activeClassName='active'
+                                        >
+                                            <FormattedMessage id={`header-menu.${item.name}`} />
+                                        </NavLink>
+                                    </li>
+
+                                ))
+                            }
+                        </ul>
+
+                        <div className='about-web'>
+                            <p>
+                                <FormattedMessage id="header-menu.about" />
+                            </p>
+                        </div>
+
+                        <ul className='menu-list2'>
+                            {
+                                dataMenuMore && dataMenuMore.map((item) => (
+                                    <li key={item.id}>
+                                        <NavLink
+                                            to={item.path}
+                                            className="link"
+                                            activeClassName='active'
+                                        >
+                                            <FormattedMessage id={`header-menu.${item.name}`} />
+                                        </NavLink>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
                     <div className='home-header-content'>
                         <div className='left-content'>
-                            <a>
-                                <i className='fas fa-bars'></i>
-                            </a>
+                            <span>
+                                <i
+                                    className="fas fa-bars"
+                                    onClick={this.handleClickedMenu}
+                                ></i>
+                            </span>
                             <div className='logo' onClick={() => this.returnHome()}>
                             </div>
                         </div>
                         <div className='center-content'>
                             <div className='child-content'>
                                 <div className='text-title'>
-                                    <FormattedMessage id='home-header.speciality' />
+                                    <Link to={'/specialty'} className="link">
+                                        <FormattedMessage id='home-header.speciality' />
+                                    </Link>
                                 </div>
                                 <div className='text-desc'>
                                     <FormattedMessage id='home-header.search-doctor' />
@@ -47,7 +121,9 @@ class HomeHeader extends Component {
                             </div>
                             <div className='child-content'>
                                 <div className='text-title'>
-                                    <FormattedMessage id='home-header.medical-facilities' />
+                                    <Link to={'/clinic'} className="link">
+                                        <FormattedMessage id='home-header.medical-facilities' />
+                                    </Link>
                                 </div>
                                 <div className='text-desc'>
                                     <FormattedMessage id='home-header.choose-clinic' />
@@ -55,7 +131,9 @@ class HomeHeader extends Component {
                             </div>
                             <div className='child-content'>
                                 <div className='text-title'>
-                                    <FormattedMessage id='home-header.doctor' />
+                                    <Link to={'/all-doctor'} className="link">
+                                        <FormattedMessage id='home-header.doctor' />
+                                    </Link>
                                 </div>
                                 <div className='text-desc'>
                                     <FormattedMessage id='home-header.choose-doctor' />
@@ -63,10 +141,12 @@ class HomeHeader extends Component {
                             </div>
                             <div className='child-content'>
                                 <div className='text-title'>
-                                    <FormattedMessage id='home-header.examination-package' />
+                                    <Link to={'/handbook'} className="link">
+                                        <FormattedMessage id='home-header.handbook' />
+                                    </Link>
                                 </div>
                                 <div className='text-desc'>
-                                    <FormattedMessage id='home-header.general-health' />
+                                    <FormattedMessage id='home-header.handbook-health' />
                                 </div>
                             </div>
                         </div>
@@ -75,11 +155,29 @@ class HomeHeader extends Component {
                                 <i className='fas fa-question-circle'></i>
                                 <span><FormattedMessage id='home-header.support' /></span>
                             </div>
-                            <div className={language === languages.VI ? "language-vi active" : "language-vi"}>
-                                <span onClick={() => { this.changeLanguage(languages.VI) }}>VI</span>
-                            </div>
-                            <div className={language === languages.EN ? "language-en active" : "language-en"}>
-                                <span onClick={() => { this.changeLanguage(languages.EN) }}>EN</span>
+                            <div className='language-group'>
+                                {lang === languages.VI ? (
+                                    <img src={logoVn} />
+                                )
+                                    : (
+                                        <img src={logoEn} />
+                                    )
+
+                                }
+                                <div className='language-box'>
+                                    <span
+                                        className="language-vi"
+                                        onClick={() => this.changeLanguage(languages.VI)}>
+                                        <img src={logoVn} />
+                                        VN
+                                    </span>
+                                    <span
+                                        className="language-en"
+                                        onClick={() => this.changeLanguage(languages.EN)}>
+                                        <img src={logoEn} />
+                                        EN
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

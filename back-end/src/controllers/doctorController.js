@@ -64,6 +64,33 @@ let createScheduleDoctor = async (req, res) => {
     }
 }
 
+let deleteScheduleDoctor = async (req, res) => {
+    try {
+        let data = await doctorService.deleteScheduleDoctor(req.body.id);
+        return res.status(200).json(data);
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
+
+let editScheduleDoctor = async (req, res) => {
+    try {
+        let data = req.body;
+        let message = await doctorService.editScheduleDoctor(data);
+        return res.status(200).json(message)
+    } catch (e) {
+        console.log(e)
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'External server error'
+        })
+    }
+}
+
 let getScheduleDoctor = async (req, res) => {
     try {
         let data = await doctorService.getScheduleDoctor(req.query.doctorId, req.query.date);
@@ -100,7 +127,30 @@ let getProfileDoctor = async (req, res) => {
     }
 }
 
+let getListPatient = async (req, res) => {
+    try {
+        let data = await doctorService.getListPatient(req.query.doctorId, req.query.date);
+        return res.status(200).json(data);
+    } catch (e) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
+
+let sendRemedy = async (req, res) => {
+    try {
+        let data = await doctorService.sendRemedy(req.body);
+        return res.status(200).json(data);
+    } catch (e) {
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: 'Error from server'
+        })
+    }
+}
 
 module.exports = {
     getTopDoctor: getTopDoctor,
@@ -108,7 +158,11 @@ module.exports = {
     createDetailDoctor: createDetailDoctor,
     getDetailDoctor: getDetailDoctor,
     createScheduleDoctor: createScheduleDoctor,
+    deleteScheduleDoctor: deleteScheduleDoctor,
+    editScheduleDoctor, editScheduleDoctor,
     getScheduleDoctor: getScheduleDoctor,
     getExtraInfoDoctor: getExtraInfoDoctor,
     getProfileDoctor: getProfileDoctor,
+    getListPatient: getListPatient,
+    sendRemedy: sendRemedy
 }

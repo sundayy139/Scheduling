@@ -10,7 +10,8 @@ const initContentOfConfirmModal = {
 const initialState = {
     started: true,
     language: 'vi',
-    systemMenuPath: '/system/crud-user-redux',
+    systemMenuPath: '/system/manage-doctor',
+    doctorMenuPath: '/doctor/manage-schedule',
     contentOfConfirmModal: {
         ...initContentOfConfirmModal
     }

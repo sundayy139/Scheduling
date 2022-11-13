@@ -64,70 +64,58 @@ class Login extends Component {
 
     handleKeyDown = (e) => {
         if (e.key === 'Enter' || e.keyCode === 13) {
-            this.handleLogin()
+            this.handleLogin();
         }
     }
 
     render() {
 
         return (
-            <div className="login-bg">
-                <div className="login-container">
-                    <div className="login-content row">
-                        <div className="col-md-12 header-title">
-                            Login
-                        </div>
-                        <div className="col-12 form-group login-input">
-                            <label>Username:</label>
+            <div className="login-page">
+                <div className="box">
+                    <div className="form">
+                        <h2>Login</h2>
+                        <div className="input-box">
                             <input
                                 type="text"
-                                className="form-control input"
-                                placeholder="Enter your username"
+                                required
                                 value={this.state.username}
                                 onChange={(e) => this.handleOnChangeInput(e, 'username')}
                                 onKeyDown={(e) => this.handleKeyDown(e)}
                             />
+                            <span>User name</span>
+                            <p></p>
                         </div>
-                        <div className="col-12 form-group login-input">
-                            <label>Password:</label>
-                            <div className="custom-password">
-                                <input
-                                    type={this.state.isShowPassword ? "text" : "password"}
-                                    className="input form-control"
-                                    placeholder="Enter your password"
-                                    value={this.state.password}
-                                    onChange={(e) => this.handleOnChangeInput(e, 'password')}
-                                    onKeyDown={(e) => this.handleKeyDown(e)}
-                                />
-                                <span onClick={() => { this.showHidePassword() }}>
-                                    <i className={this.state.isShowPassword ? "far fa-eye" : "fa fa-eye-slash"}></i>
-                                </span>
+                        <div className="input-box">
+                            <input
+                                required
+                                type={this.state.isShowPassword ? "text" : "password"}
+                                value={this.state.password}
+                                onChange={(e) => this.handleOnChangeInput(e, 'password')}
+                                onKeyDown={(e) => this.handleKeyDown(e)}
+                            />
+                            <span>Pass word</span>
+                            <div className="show-hide-pw" onClick={() => { this.showHidePassword() }}>
+                                <i className={this.state.isShowPassword ? "far fa-eye" : "fa fa-eye-slash"}></i>
                             </div>
+                            <p></p>
                         </div>
-                        <div className="col-12" style={{ color: "red", margin: "20px 0 0 45px", fontSize: "16px" }}>
-                            {this.state.errMessage}
+                        <div className="link">
+                            <div className="message" >
+                                {this.state.errMessage}
+                            </div>
+                            <a href="">Forgot password?</a>
                         </div>
-                        <div className="col-12  login-btn">
+                        <div className="btn-login">
                             <button
-                                className="btn"
-                                onClick={() => { this.handleLogin() }}>Log in</button>
-                        </div>
-                        <div className="col-12 login-text">
-                            <span>Forgot your password? <a href="">Click here</a></span>
-                        </div>
-                        <div className="col-12 login-text">
-                            <span>Or sign in with:</span>
-                        </div>
-                        <div className="col-12 login-social">
-                            <a className="icon-fb">
-                                <i className="fab fa-facebook-f "></i>
-                            </a>
-                            <a className="icon-tw">
-                                <i className="fab fa-twitter icon-twitter "></i>
-                            </a>
-                            <a className="icon-gg">
-                                <i className="fab fa-google-plus-g "></i>
-                            </a>
+                                onClick={() => { this.handleLogin() }}
+                            >
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                Log in
+                            </button>
                         </div>
                     </div>
                 </div>

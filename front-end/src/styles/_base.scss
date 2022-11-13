@@ -1,14 +1,27 @@
 /*
  * General styles
  */
- body, html {
-    background-image: "#fff";
-    background-repeat: no-repeat;
-    background-size: cover;
-    font-family: $fontmain;
-    font-size: $base-size - 2px;
-    height: 100vh;
-    overflow: hidden;
+body,
+html {
+  background-image: "#fff";
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: $fontmain;
+  font-size: $base-size - 2px;
+  height: 100vh;
+  overflow: hidden;
+
+  div._loading_overlay_wrapper {
+    position: unset;
+  }
+
+  div._loading_overlay_overlay {
+    z-index: 1200;
+  }
+}
+
+p {
+  margin: 0;
 }
 
 .content-container {
@@ -21,9 +34,30 @@
     color: $colormain;
     font-size: 30px;
   }
+
   .content {
     margin: 15px 30px;
     box-shadow: 2px 2px 4px 0 $box-shadow-color;
     -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
   }
 }
+
+// .MuiOutlinedInput-notchedOutline {
+//   border-color: #53af5b !important;
+// }
+
+// .MuiFilledInput-root {
+//   border-bottom: 1px solid #53af5b !important;
+// }
+
+// .MuiInput-root {
+//   border-bottom: 1px solid #53af5b !important;
+// }
+
+// .MuiTextField-root>label {
+//   color: #53af5b;
+// }
+
+// .MuiTextField-root>.MuiFormLabel-root.Mui-focused {
+//   color: #53af5b;
+// }

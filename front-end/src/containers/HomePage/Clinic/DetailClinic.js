@@ -9,7 +9,7 @@ import _ from 'lodash';
 import DoctorSchedule from '../Doctor/DoctorSchedule';
 import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
-import { getAllCodeService, getDetailClinicService, getDetailclinicService } from '../../../services/userService';
+import { getDetailClinicService } from '../../../services/userService';
 
 
 
@@ -76,11 +76,25 @@ class DetailClinic extends Component {
         let { arrDoctorId, dataClinic, backgroundImage, backgroundLogo } = this.state;
         let { lang } = this.props;
         console.log(this.state)
+        console.log(this.props)
 
         return (
             <>
                 <HomeHeader />
                 <div className='detail-clinic'>
+                    <div className='back-menu'>
+                        <div className='back-ground'>
+                            <div
+                                className='icon-back'
+                                onClick={this.props.history.goBack}
+                            >
+                                <i className="fas fa-arrow-left"></i>
+                            </div>
+                            <div className='menu-title'>
+                                {dataClinic.name}
+                            </div>
+                        </div>
+                    </div>
                     <div className='container-clinic-up'>
                         <div className='image-clinic'
                             style={{
@@ -120,7 +134,9 @@ class DetailClinic extends Component {
                             {
                                 dataClinic && !_.isEmpty(dataClinic) &&
                                 (
-                                    <div dangerouslySetInnerHTML={{ __html: dataClinic.descHTML }}>
+                                    <div
+                                        className='inner'
+                                        dangerouslySetInnerHTML={{ __html: dataClinic.descHTML }}>
                                     </div>
                                 )
                             }

@@ -74,12 +74,13 @@
                                 .item-link {
                                     text-decoration: none;
                                     color: #111111;
+                                    min-height: 150px;
                                     display: flex;
                                     justify-content: space-between;
                                     align-items: flex-start;
 
                                     .item-img {
-                                        width: 50%;
+                                        height: 100%;
 
                                         img {
                                             width: 100%;

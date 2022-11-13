@@ -4,11 +4,45 @@
 
     .detail-doctor-container {
 
+        .back-menu {
+            background-color: #45c3d2;
+            width: 100%;
+            position: fixed;
+
+            .back-ground {
+                max-width: 1440px;
+                width: 100%;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+
+                .icon-back {
+                    font-size: 25px;
+                    padding-left: 20px;
+                    margin-right: 30px;
+                    color: #fff;
+                    cursor: pointer;
+                    text-decoration: none;
+
+                    &:hover {
+                        color: #333333;
+                    }
+                }
+
+                .menu-title {
+                    font-size: 25px;
+                    font-weight: 500;
+                    padding: 15px 0;
+                    color: #fff;
+                }
+            }
+        }
+
         .container-up {
             width: 100%;
             max-width: 1440px;
             margin: 0 auto;
-            padding: 0px 20px 30px;
+            padding: 30px 20px;
 
             .general-info {
                 width: 100%;
@@ -87,6 +121,27 @@
                 .detail-info {
                     padding-top: 15px;
                     font-size: 14px;
+
+                    .inner {
+
+                        h1,
+                        h2,
+                        h3,
+                        h4,
+                        h5,
+                        h6,
+                        p,
+                        span,
+                        img,
+                        li {
+                            margin-bottom: 20px;
+                        }
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
 
                     img {
                         width: 100%;

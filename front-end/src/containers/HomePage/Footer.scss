@@ -71,6 +71,10 @@
                             text-decoration: none;
                             color: #45c3d2;
                             cursor: pointer;
+
+                            &:hover {
+                                border-bottom: 1px solid #45c3d2;
+                            }
                         }
                     }
                 }

@@ -37,7 +37,7 @@
             margin-top: 20px;
             // min-height: 100px;
 
-            button {
+            .btn-time {
                 padding: 10px 10px;
                 margin: 5px 8px 5px 0;
                 background-color: #fff04b;
@@ -48,6 +48,12 @@
                 color: #333333;
                 font-weight: 700;
                 min-width: 180px;
+
+                &.disabled {
+                    pointer-events: none;
+                    background-color: #cccccc;
+                    color: #ffffff;
+                }
 
                 &:hover {
                     background-color: #33b0e3;

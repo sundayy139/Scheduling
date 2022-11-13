@@ -9,13 +9,14 @@ import DoctorSchedule from './DoctorSchedule';
 import DoctorExtraInfo from './DoctorExtraInfo';
 import ProfileDoctor from './ProfileDoctor';
 
+
 class DetailDoctor extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             detailDoctor: {},
-            currentDoctorId: '-1'
+            currentDoctorId: '-1',
         }
     }
 
@@ -41,12 +42,35 @@ class DetailDoctor extends Component {
     render() {
 
         let { detailDoctor } = this.state;
+        let { lang } = this.props
+        let nameVi = '';
+        let nameEn = '';
+
+        if (detailDoctor && detailDoctor.positionData) {
+            nameVi = `${detailDoctor.positionData.value_VI} ${detailDoctor.firstName} ${detailDoctor.lastName}`;
+            nameEn = `${detailDoctor.positionData.value_EN} ${detailDoctor.lastName} ${detailDoctor.firstName}`;
+        }
 
         return (
             <div>
                 <HomeHeader />
                 <div className='detail-doctor'>
                     <div className='detail-doctor-container'>
+                        <div className='back-menu'>
+                            <div className='back-ground'>
+                                <div
+                                    className='icon-back'
+                                    onClick={this.props.history.goBack}
+                                >
+                                    <i className="fas fa-arrow-left"></i>
+                                </div>
+                                <div className='menu-title'>
+                                    {
+                                        lang === languages.VI ? nameVi : nameEn
+                                    }
+                                </div>
+                            </div>
+                        </div>
                         <div className='container-up'>
                             <div className='general-info'>
                                 {
@@ -78,7 +102,9 @@ class DetailDoctor extends Component {
                                 <div className='detail-info'>
                                     {
                                         detailDoctor.Doctor_Info && detailDoctor.Doctor_Info.contentHTML &&
-                                        <div dangerouslySetInnerHTML={{ __html: detailDoctor.Doctor_Info.contentHTML }}>
+                                        <div
+                                            className='inner'
+                                            dangerouslySetInnerHTML={{ __html: detailDoctor.Doctor_Info.contentHTML }}>
                                         </div>
                                     }
                                 </div>

@@ -1,0 +1,71 @@
+.detail-handbook {
+    background-color: #ffffff;
+    padding-top: 70px;
+
+    .back-menu {
+        background-color: #45c3d2;
+        width: 100%;
+        position: fixed;
+
+        .back-ground {
+            max-width: 1440px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+
+            .icon-back {
+                font-size: 25px;
+                padding-left: 20px;
+                margin-right: 30px;
+                color: #fff;
+                cursor: pointer;
+                text-decoration: none;
+
+                &:hover {
+                    color: #333333;
+                }
+            }
+
+            .menu-title {
+                font-size: 25px;
+                font-weight: 500;
+                padding: 15px 0;
+                color: #fff;
+            }
+        }
+    }
+
+    .container-handbook {
+        .content-desc {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 70px 30px 50px 30px;
+            border-bottom: 1px solid #eee;
+
+            .inner {
+
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                p,
+                span,
+                img,
+                li {
+                    margin-bottom: 20px;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+    }
+
+}

@@ -14,7 +14,7 @@
                 padding-bottom: 20px;
 
                 .content-left {
-                    width: 25%;
+                    width: 20%;
 
                     .image {
                         border-radius: 50%;
@@ -25,7 +25,7 @@
                 }
 
                 .content-right {
-                    width: 70%;
+                    width: 80%;
 
                     .up {
                         font-size: 20px;
@@ -39,7 +39,8 @@
                             font-size: 14px;
                             font-weight: 400;
                             color: #555555;
-                            margin-top: 5px;
+                            margin: 5px 0 0 0;
+                            line-height: 30px;
                         }
 
                         .time {

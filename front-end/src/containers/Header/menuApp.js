@@ -1,12 +1,9 @@
 export const adminMenu = [
     { //hệ thống
-        name: 'menu.admin.user',
+        name: 'menu.admin.doctor',
         menus: [
-            { name: 'menu.admin.crud-redux', link: '/system/crud-user-redux' },
             { name: 'menu.admin.manage-doctor', link: '/system/manage-doctor' },
-            { name: 'menu.admin.manage-admin', link: '/system/manage-admin' },
-            { name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule' },
-
+            { name: 'menu.admin.manage-info-doctor', link: '/system/manage-info-doctor' },
         ]
     },
 
