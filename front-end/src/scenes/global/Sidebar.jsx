@@ -170,6 +170,20 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Manage Schedue"
+              to="/admin/manage-schedule"
+              icon={<MenuBookOutLinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Manage Patient"
+              to="/admin/manage-patient"
+              icon={<MenuBookOutLinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
             <Typography
               variant="h6"
               color={colors.grey[300]}

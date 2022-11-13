@@ -96,9 +96,14 @@ let sendRemedy = async (dataSend) => {
     let info = await transporter.sendMail({
         from: '"Support" <foo@example.com>', // sender address
         to: dataSend.receiverEmail, // list of receivers
-        subject: subjectRemedy(dataSend), // Subject line
+        subject: "Bill/ Prescription", // Subject line
         text: "Hello world?", // plain text body
-        html: bodyHTMEmailRemedy(dataSend),
+        html: `
+        <h3>Dear ${dataSend.patientName}</h3>
+        <p>You received tYou received this Email because you completed your booking on BookingCare</p>
+        <p>Prescription/ Bill information sent in attachment</p>
+        <p>Thank you very much !</p>
+        `,
         attachments: [
             {
                 filename: `remedy-${dataSend.patientId}-${new Date().getTime()}.png`,
@@ -110,40 +115,40 @@ let sendRemedy = async (dataSend) => {
 }
 
 
-let bodyHTMEmailRemedy = (dataSend) => {
-    let result = [];
-    if (dataSend.language === 'vi') {
-        result = `
-        <h3>Xin chào ${dataSend.patientName}</h3>
-        <p>Bạn nhận được Email này vì đã đặt hoàn thành khám bệnh trên BookingCare</p>
-        <p>Thông tin đơn thuốc / hóa đơn được gửi trong file đính kèm</p>
-        <p>Xin chân thành cảm ơn !</p>
-        `
-    }
+// let bodyHTMEmailRemedy = (dataSend) => {
+//     let result = [];
+//     if (dataSend.language === 'vi') {
+//         result = `
+//         <h3>Xin chào ${dataSend.patientName}</h3>
+//         <p>Bạn nhận được Email này vì đã đặt hoàn thành khám bệnh trên BookingCare</p>
+//         <p>Thông tin đơn thuốc / hóa đơn được gửi trong file đính kèm</p>
+//         <p>Xin chân thành cảm ơn !</p>
+//         `
+//     }
 
-    if (dataSend.language === 'en') {
-        result = `
-        <h3>Dear ${dataSend.patientName}</h3>
-        <p>You received tYou received this Email because you completed your booking on BookingCare</p>
-        <p>Prescription/ Bill information sent in attachment</p>
-        <p>Thank you very much !</p>
-        `
-    }
-    return result;
-}
+//     if (dataSend.language === 'en') {
+//         result = `
+//         <h3>Dear ${dataSend.patientName}</h3>
+//         <p>You received tYou received this Email because you completed your booking on BookingCare</p>
+//         <p>Prescription/ Bill information sent in attachment</p>
+//         <p>Thank you very much !</p>
+//         `
+//     }
+//     return result;
+// }
 
-let subjectRemedy = (dataSend) => {
-    let result = [];
-    if (dataSend.language === 'vi') {
-        result = "Hóa đơn/ Đơn thuốc";
-    }
+// let subjectRemedy = (dataSend) => {
+//     let result = [];
+//     if (dataSend.language === 'vi') {
+//         result = "Hóa đơn/ Đơn thuốc";
+//     }
 
-    if (dataSend.language === 'en') {
-        result = "Bill/ Prescription";
-    }
+//     if (dataSend.language === 'en') {
+//         result = "Bill/ Prescription";
+//     }
 
-    return result;
-}
+//     return result;
+// }
 
 
 module.exports = {

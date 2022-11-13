@@ -12,7 +12,6 @@ export const path = {
     DETAIL_HANDBOOK: '/detail-handbook/:id',
     LOGIN: '/login',
     LOG_OUT: '/logout',
-    SYSTEM: '/system',
     DOCTOR: '/doctor',
     VERIFY: '/verify-booking',
 };

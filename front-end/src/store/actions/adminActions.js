@@ -1,4 +1,4 @@
-import { createDetailDoctorService, createNewClinicService, createNewHandbookService, createNewSpecialtyService, createNewUserService, deleteClinicService, deleteHandbookService, deleteScheduleDoctorService, deleteSpecialtyService, deleteUserService, editClinicService, editHandbookService, editScheduleDoctorService, editSpecialtyService, editUserService, getAllClinicService, getAllCodeService, getAllDoctorsService, getAllHandbookService, getAllSpecialtyService, getAllUsersService, getTopDoctorService } from '../../services/userService';
+import { createDetailDoctorService, createNewClinicService, createNewHandbookService, createNewSpecialtyService, createNewUserService, deleteClinicService, deleteHandbookService, deleteScheduleDoctorService, deleteSpecialtyService, deleteUserService, editClinicService, editHandbookService, editScheduleDoctorService, editSpecialtyService, editUserService, getAllClinicService, getAllCodeService, getAllDoctorsService, getAllHandbookService, getAllSpecialtyService, getAllUsersService, getScheduleDoctorService, getTopDoctorService } from '../../services/userService';
 
 import actionTypes from './actionTypes';
 import { toast } from 'react-toastify';
@@ -385,6 +385,34 @@ export const fetchAllScheduleTimeFail = () => ({
     type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAIL,
 })
 
+
+export const fetchAllScheduleDoctorByDateStart = (id, date) => {
+    return async (dispatch) => {
+        try {
+            let res = await getScheduleDoctorService(id, date);
+            if (res && res.errCode === 0) {
+                dispatch(fetchAllScheduleDoctorByDateSuccess(res.data));
+            } else {
+                toast.error('Fetch all doctors failure', {
+                    theme: 'colored',
+                })
+                dispatch(fetchAllScheduleDoctorByDateFail());
+            }
+
+        } catch (e) {
+            dispatch(fetchAllScheduleDoctorByDateFail());
+        }
+    }
+}
+
+export const fetchAllScheduleDoctorByDateSuccess = (data) => ({
+    type: actionTypes.FETCH_ALL_SCHEDULE_DOCTOR_BY_DATE_SUCCESS,
+    dataSchedule: data
+})
+
+export const fetchAllScheduleDoctorByDateFail = () => ({
+    type: actionTypes.FETCH_ALL_SCHEDULE_DOCTOR_BY_DATE_FAIL,
+})
 
 export const deleteScheduleTimeStart = (id) => {
     return async (dispatch) => {

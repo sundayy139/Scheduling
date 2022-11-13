@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { languages } from "../../../../utils/constant";
 import ProfileDoctor from '../ProfileDoctor';
 import _ from 'lodash';
-import DatePicker from '../../../../components/Input/DatePicker';
+import FlatPickr from 'react-flatpickr'
 import * as actions from "../../../../store/actions";
 import Select from "react-select"
 import { getProfileDoctorService, postPatientBookAppointmentService } from '../../../../services/userService';
@@ -382,7 +382,7 @@ class BookingModal extends Component {
                                     </label>
                                     <FormattedMessage id="modal-booking.birth-day">
                                         {placeholder =>
-                                            <DatePicker
+                                            <FlatPickr
                                                 className="form-control"
                                                 value={dateOfBirth}
                                                 placeholder={placeholder}

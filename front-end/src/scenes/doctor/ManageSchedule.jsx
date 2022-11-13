@@ -1,145 +1,107 @@
-import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
-import { connect } from "react-redux";
-import * as actions from "../../../store/actions";
-import Select from "react-select";
-import { languages } from "../../../utils/constant";
-import DatePiker from "../../../components/Input/DatePicker";
-import moment from "moment";
-import FormattedDate from "../../../components/Formating/FormattedDate";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { Formik } from "formik";
+import EditOutLinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutLinedIcon from "@mui/icons-material/DeleteOutlined";
+import AddOutLinedIcon from "@mui/icons-material/AddOutlined";
+import Header from "../../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import {
+  deleteScheduleTimeStart,
+  fetchAllScheduleDoctorByDateStart,
+  fetchAllScheduleTimeStart,
+} from "../../store/actions";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { tokens } from "../../theme";
+import { useTheme } from "@emotion/react";
+import { createScheduleDoctorService } from "../../services/userService";
 import { toast } from "react-toastify";
-import { dateFormat } from "../../../utils";
-import _ from "lodash";
-import { createScheduleDoctorService } from "../../../services/userService";
+import moment from "moment";
+import ModalEditTime from "./ModalEditTime";
 
-class ManageSchedule extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedDoctor: [],
-      listDoctor: [],
-      currentDate: "",
-      rangeTime: [],
-      maxNumber: 1,
-    };
-  }
+const ManageSchedule = () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const dispath = useDispatch();
+  const allScheduleTime = useSelector((state) => state.admin.scheduleTimes);
+  const infoDoctor = useSelector((state) => state.user.userInfo);
+  const dataScheduleByDay = useSelector((state) => state.admin.scheduleByDay);
+  const [rangeTime, setRangeTime] = useState();
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [isShowForm, setIsShowForm] = useState(false);
+  const [isOpenModalEditTime, setIsOpenModalEditTime] = useState(false);
+  const [dataEdit, setDataEdit] = useState([]);
+  const [initialValues, setInitialValues] = useState({
+    maxNumber: 1,
+  });
+  useEffect(() => {
+    const formattedDate = moment(
+      new Date(currentDate).toLocaleDateString()
+    ).format("YYYY-MM-DD");
 
-  componentDidMount() {
-    this.props.fetchAllDoctors();
-    this.props.fetchAllScheduleTimes();
-  }
+    setCurrentDate(formattedDate);
+    dispath(fetchAllScheduleTimeStart());
+    dispath(fetchAllScheduleDoctorByDateStart(infoDoctor.id, formattedDate));
+    getAllTime();
+  }, [currentDate]);
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.allDoctors !== this.props.allDoctors) {
-      let dataSelect = this.buildInputSelect(this.props.allDoctors);
-      this.setState({
-        listDoctor: dataSelect,
+  const getAllTime = () => {
+    let data = allScheduleTime;
+    if (data && data.length > 0) {
+      data = data.map((item) => {
+        item.isSelected = false;
+        return item;
       });
     }
-
-    if (prevProps.lang !== this.props.lang) {
-      let dataSelect = this.buildInputSelect(this.props.allDoctors);
-      this.setState({
-        listDoctor: dataSelect,
-      });
-    }
-
-    if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
-      let data = this.props.allScheduleTime;
-      if (data && data.length > 0) {
-        data = data.map((item) => {
-          item.isSelected = false;
-          return item;
-        });
-      }
-
-      this.setState({
-        rangeTime: data,
-      });
-    }
-  }
-
-  buildInputSelect = (inputData) => {
-    let result = [];
-    let { lang } = this.props;
-    if (inputData && inputData.length > 0) {
-      inputData.map((item, index) => {
-        let object = {};
-        let labelVi = `${item.lastName} ${item.firstName}`;
-        let labelEn = `${item.firstName} ${item.lastName}`;
-        object.label = lang === languages.VI ? labelVi : labelEn;
-        object.value = item.id;
-        result.push(object);
-      });
-    }
-
-    return result;
+    setRangeTime(data);
   };
 
-  handleSelectChange = async (selectedDoctor) => {
-    this.setState({
-      selectedDoctor,
+  const handleAddNewSchedule = () => {
+    setIsShowForm(true);
+    setInitialValues({
+      maxNumber: "",
     });
+    getAllTime();
   };
 
-  handleOnChangeDatePicker = (date) => {
-    this.setState({
-      currentDate: date[0],
-    });
+  const handleCancel = () => {
+    setIsShowForm(false);
   };
 
-  handleOnChangNumber = (e) => {
-    this.setState({
-      maxNumber: e.target.value,
-    });
-  };
-
-  handleBtnChooseTime = (time) => {
-    let { rangeTime } = this.state;
+  const handleBtnChooseTime = (time) => {
     if (rangeTime && rangeTime.length > 0) {
-      rangeTime = rangeTime.map((item) => {
+      let selectedTime = rangeTime.map((item) => {
         if (item.id === time.id) {
           item.isSelected = !item.isSelected;
         }
         return item;
       });
+      setRangeTime(selectedTime);
     }
-    this.setState({
-      rangeTime: rangeTime,
-    });
   };
 
-  handleSaveSchedule = async () => {
-    let { rangeTime, selectedDoctor, currentDate, maxNumber } = this.state;
+  const handleCreateScheduleTime = async (values) => {
     let result = [];
-
-    if (selectedDoctor && _.isEmpty(selectedDoctor)) {
-      toast.error("Invalid doctor, please choose doctor", {
-        theme: "colored",
-      });
-      return;
-    }
-
-    if (!currentDate) {
-      toast.error("Invalid date, please choose another date", {
-        theme: "colored",
-      });
-      return;
-    }
-
-    let formattedDate = moment(
-      new Date(currentDate).toLocaleDateString()
-    ).format("YYYY-MM-DD");
 
     if (rangeTime && rangeTime.length > 0) {
       let selected = rangeTime.filter((item) => item.isSelected === true);
       if (selected && selected.length > 0) {
         selected.map((item) => {
           let object = {};
-          object.doctorId = selectedDoctor.value;
-          object.date = formattedDate;
+          object.doctorId = infoDoctor.id;
+          object.date = currentDate;
           object.timeType = item.key;
-          object.maxNumber = this.state.maxNumber;
+          object.maxNumber = values.maxNumber;
           result.push(object);
         });
       } else {
@@ -151,8 +113,8 @@ class ManageSchedule extends Component {
 
     let res = await createScheduleDoctorService({
       arrSchedule: result,
-      doctorId: selectedDoctor.value,
-      date: formattedDate,
+      doctorId: infoDoctor.id,
+      date: currentDate,
     });
 
     if (res && res.errCode === 0) {
@@ -164,117 +126,281 @@ class ManageSchedule extends Component {
         theme: "colored",
       });
     }
+
+    dispath(fetchAllScheduleDoctorByDateStart(infoDoctor.id, currentDate));
   };
 
-  render() {
-    let { rangeTime } = this.state;
-    let language = this.props.lang;
+  const handleDeleteScheduleTime = async (id) => {
+    if (window.confirm(`Are you sure you want to delete time`)) {
+      await dispath(deleteScheduleTimeStart(id));
+    }
 
-    return (
-      <div className="manage-doctor-container">
-        <div className="container-content">
-          <div className="title">
-            <FormattedMessage id="manage-schedule.title" />
-          </div>
-          <div className="col-12 mt-5">
-            <div className="row">
-              <div className="col-6 form-group">
-                <label>
-                  <FormattedMessage id="manage-schedule.choose-doctor" />
-                </label>
-                <Select
-                  value={this.state.selectedDoctor}
-                  onChange={this.handleSelectChange}
-                  options={this.state.listDoctor}
+    dispath(fetchAllScheduleDoctorByDateStart(infoDoctor.id, currentDate));
+  };
+
+  const handleEditRangeTime = (data) => {
+    setIsOpenModalEditTime(true);
+    setDataEdit(data);
+  };
+
+  const toggleEditTimeModal = () => {
+    setIsOpenModalEditTime(!isOpenModalEditTime);
+  };
+  const columns = [
+    {
+      field: "actions",
+      headerName: "Action",
+      renderCell: (params) => {
+        return (
+          <Box display="flex">
+            <IconButton
+              onClick={() => {
+                handleEditRangeTime(params.row);
+              }}
+            >
+              <EditOutLinedIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                handleDeleteScheduleTime(params.row.id);
+              }}
+            >
+              <DeleteOutLinedIcon />
+            </IconButton>
+          </Box>
+        );
+      },
+      flex: 1,
+      minWidth: 150,
+    },
+    {
+      field: "id",
+      headerName: "ID",
+    },
+
+    {
+      field: "timeTypeData",
+      headerName: "Range Time",
+      renderCell: (params) => {
+        return (
+          <div className="rowitem">{params.row.timeTypeData.value_VI}</div>
+        );
+      },
+      flex: 1,
+      minWidth: 150,
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 1,
+      minWidth: 150,
+    },
+    {
+      field: "currentNumber",
+      headerName: "Current Partient",
+      flex: 1,
+      minWidth: 150,
+    },
+    {
+      field: "maxNumber",
+      headerName: "Max Partient",
+      flex: 1,
+      minWidth: 150,
+    },
+    {
+      field: "createdAt",
+      headerName: "Created At",
+      flex: 1,
+      minWidth: 180,
+    },
+    {
+      field: "updatedAt",
+      headerName: "Updated At",
+      flex: 1,
+      minWidth: 180,
+    },
+  ];
+  return (
+    <Box m="20px">
+      <Header title="MANAGE SPECIALTY" subtitle="Welcome to Manage Specialty" />
+      <Box>
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            marginBottom: "30px",
+          }}
+        >
+          Add New Schedule
+          <IconButton onClick={handleAddNewSchedule}>
+            <AddOutLinedIcon />
+          </IconButton>
+        </Typography>
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          onSubmit={handleCreateScheduleTime}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+          }) => (
+            <form autoComplete="off" onSubmit={handleSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns="repeat(12, minmax(0, 1fr))"
+                sx={{
+                  "& > div": {
+                    gridColumn: isNonMobile ? undefined : "span 4",
+                  },
+                }}
+              >
+                <DatePicker
+                  name="date"
+                  label="Date"
+                  value={currentDate}
+                  onChange={(newValue) => {
+                    setCurrentDate(newValue);
+                  }}
+                  renderInput={(params) => (
+                    <TextField sx={{ gridColumn: "span 6" }} {...params} />
+                  )}
                 />
-              </div>
-              <div className="col-4 form-group">
-                <label>
-                  <FormattedMessage id="manage-schedule.choose-date" />
-                </label>
-                <DatePiker
-                  className="form-control"
-                  onChange={this.handleOnChangeDatePicker}
-                  value={this.state.currentDate}
-                  // minDate={new Date().setDate(new Date().getDate() - 1)}
-                  minDate={new Date().setHours(0, 0, 0, 0)}
-                />
-              </div>
-              <div className="col-2 form-group">
-                <label>
-                  <FormattedMessage id="manage-schedule.max-number" />
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  defaultValue="1"
-                  className="form-control text-center"
-                  onChange={(e) => this.handleOnChangNumber(e)}
-                />
-              </div>
-            </div>
-            <div className="row mt-5">
-              <div className="col-12">
-                <label>
-                  <FormattedMessage id="manage-schedule.choose-schedule" />
-                </label>
-                <div className="border">
-                  {rangeTime &&
-                    rangeTime.length > 0 &&
-                    rangeTime.map((item, i) => {
-                      return (
-                        <button
-                          className={
-                            item.isSelected === true
-                              ? "btn btn-outline-primary active mx-3 my-3"
-                              : "btn btn-outline-primary mx-3 my-3"
-                          }
-                          key={i}
-                          style={{ minWidth: "180px" }}
-                          onClick={() => this.handleBtnChooseTime(item)}
+
+                {isShowForm ? (
+                  <>
+                    <TextField
+                      fullWidth
+                      required
+                      variant="outlined"
+                      type="number"
+                      InputProps={{ inputProps: { min: 1 } }}
+                      label="Max Number"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.maxNumber}
+                      name="maxNumber"
+                      sx={{ gridColumn: "span 6" }}
+                    />
+
+                    <FormControl sx={{ gridColumn: "span 12" }}>
+                      <Box>
+                        {rangeTime &&
+                          rangeTime.length > 0 &&
+                          rangeTime.map((item, i) => {
+                            return (
+                              <Button
+                                variant="contained"
+                                sx={{
+                                  fontSize: "12px",
+                                  margin: "5px",
+                                  minWidth: "105px",
+                                }}
+                                color={
+                                  item.isSelected === true
+                                    ? "error"
+                                    : "secondary"
+                                }
+                                key={item.id}
+                                onClick={() => handleBtnChooseTime(item)}
+                              >
+                                {item.value_VI}
+                              </Button>
+                            );
+                          })}
+                      </Box>
+                    </FormControl>
+                    <FormControl sx={{ gridColumn: "span 12" }}>
+                      <Box
+                        display="flex"
+                        justifyContent="end"
+                        alignItems="center"
+                        mt="20px"
+                      >
+                        <Button
+                          color="warning"
+                          variant="contained"
+                          sx={{
+                            marginRight: "10px",
+                          }}
+                          onClick={handleCancel}
                         >
-                          {language === languages.VI
-                            ? item.value_VI
-                            : item.value_EN}
-                        </button>
-                      );
-                    })}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 mt-5 mb-5">
-            <div className="row ">
-              <div className="col-12">
-                <button
-                  className="btn btn-primary float-right  "
-                  onClick={() => this.handleSaveSchedule()}
-                >
-                  <FormattedMessage id="manage-schedule.save" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.user.isLoggedIn,
-    lang: state.app.language,
-    allDoctors: state.admin.doctors,
-    allScheduleTime: state.admin.scheduleTimes,
-  };
+                          Cancel
+                        </Button>
+                        <Button color="info" type="submit" variant="contained">
+                          Create
+                        </Button>
+                      </Box>
+                    </FormControl>
+                  </>
+                ) : (
+                  ""
+                )}
+              </Box>
+            </form>
+          )}
+        </Formik>
+      </Box>
+      <Box
+        mt="50px"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .name-column--cell": {
+            color: colors.greenAccent[300],
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: colors.blueAccent[700],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: colors.primary[400],
+          },
+          "& .MuiDataGrid-footerContainer": {
+            borderTop: "none",
+            backgroundColor: colors.blueAccent[700],
+          },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
+          "& .MuiDataGrid-root .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-root .MuiDataGrid-cell:focus":
+            {
+              outline: "none",
+            },
+          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+            color: `${colors.grey[100]} !important`,
+          },
+        }}
+      >
+        <DataGrid
+          rows={dataScheduleByDay}
+          columns={columns}
+          scrollbarSize={1}
+          autoHeight={true}
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          components={{ Toolbar: GridToolbar }}
+        />
+        {isOpenModalEditTime && (
+          <ModalEditTime
+            isOpen={isOpenModalEditTime}
+            toggleEditTimeModal={toggleEditTimeModal}
+            dataEdit={dataEdit}
+            disableColumnSelected
+          />
+        )}
+      </Box>
+    </Box>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchAllDoctors: () => dispatch(actions.fetchAllDoctorsStart()),
-    fetchAllScheduleTimes: () => dispatch(actions.fetchAllScheduleTimeStart()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ManageSchedule);
+export default ManageSchedule;

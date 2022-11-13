@@ -298,7 +298,7 @@ let editScheduleDoctor = (data) => {
             });
 
             if (schedule) {
-                schedule.maxNumber = data.newMaxNumber;
+                schedule.maxNumber = data.maxNumber;
                 await schedule.save();
 
                 resolve({
@@ -504,7 +504,6 @@ let sendRemedy = (data) => {
                     receiverEmail: data.email,
                     patientName: data.fullName,
                     image: data.image,
-                    language: data.language,
                 })
                 resolve({
                     errCode: 0,

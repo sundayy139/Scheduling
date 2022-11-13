@@ -1,5 +1,7 @@
 @import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import 'react-markdown-editor-lite/lib/index.css';
+@import 'react-image-lightbox/style.css';
 
 $fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";

@@ -15,10 +15,10 @@ import {
   createDetailDoctorStart,
   fetchAllDoctorsStart,
   fetchRequiredDoctorInfoStart,
-} from "../../store/actions";
-import { getDetailDoctorService } from "../../services/userService";
-import Header from "../../components/Header";
-import { CRUDActions } from "../../utils";
+} from "../../../store/actions";
+import { getDetailDoctorService } from "../../../services/userService";
+import Header from "../../../components/Header";
+import { CRUDActions } from "../../../utils";
 
 const mdParser = new MarkdownIt();
 const ManageInfoDoctor = () => {

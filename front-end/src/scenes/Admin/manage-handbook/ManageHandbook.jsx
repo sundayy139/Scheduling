@@ -15,8 +15,8 @@ import UploadOutLinedIcon from "@mui/icons-material/UploadOutlined";
 import EditOutLinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutLinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddOutLinedIcon from "@mui/icons-material/AddOutlined";
-import Header from "../../components/Header";
-import { CommonUtils, CRUDActions } from "../../utils";
+import Header from "../../../components/Header";
+import { CommonUtils, CRUDActions } from "../../../utils";
 import Lightbox from "react-image-lightbox";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -24,9 +24,9 @@ import {
   deleteHandbookStart,
   editHandbookStart,
   fetchAllHandbookStart,
-} from "../../store/actions";
+} from "../../../store/actions";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import { useTheme } from "@emotion/react";
 
 const mdParser = new MarkdownIt();
@@ -409,7 +409,6 @@ const ManageHandbook = () => {
           scrollbarSize={1}
           autoHeight={true}
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          pageSize={5}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>

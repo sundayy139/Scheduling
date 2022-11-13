@@ -19,10 +19,10 @@ import {
   fetchGenderStart,
   fetchPositionStart,
   fetchRoleStart,
-} from "../../store/actions";
+} from "../../../store/actions";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import UploadOutLinedIcon from "@mui/icons-material/UploadOutlined";
-import { CommonUtils } from "../../utils";
+import { CommonUtils } from "../../../utils";
 import Lightbox from "react-image-lightbox";
 import _ from "lodash";
 

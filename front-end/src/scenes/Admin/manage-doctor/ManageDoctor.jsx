@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
-import Header from "../../components/Header";
+import { tokens } from "../../../theme";
+import Header from "../../../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { deleteUserStart, fetchAllUsersStart } from "../../store/actions";
+import { deleteUserStart, fetchAllUsersStart } from "../../../store/actions";
 import EditOutLinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutLinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddOutLinedIcon from "@mui/icons-material/AddOutlined";

@@ -16,8 +16,8 @@ import UploadOutLinedIcon from "@mui/icons-material/UploadOutlined";
 import EditOutLinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutLinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddOutLinedIcon from "@mui/icons-material/AddOutlined";
-import Header from "../../components/Header";
-import { CommonUtils, CRUDActions } from "../../utils";
+import Header from "../../../components/Header";
+import { CommonUtils, CRUDActions } from "../../../utils";
 import Lightbox from "react-image-lightbox";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -25,9 +25,9 @@ import {
   deleteClinicStart,
   editClinicStart,
   fetchAllClinicStart,
-} from "../../store/actions";
+} from "../../../store/actions";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import { useTheme } from "@emotion/react";
 
 const mdParser = new MarkdownIt();
@@ -74,7 +74,6 @@ const ManageClinic = () => {
   const buildDataSelect = () => {
     const { resProvince } = allRequiredDoctorInfo;
     const dataSelectProvince = buildInputSelect(resProvince, "PROVINCE");
-
     setDataSelect({
       listProvince: dataSelectProvince,
     });
@@ -102,14 +101,14 @@ const ManageClinic = () => {
         item.lg = new Buffer(item.logo, "base64").toString("binary");
       }
     });
-  }
 
-  if (clinicList && clinicList.length > 0) {
-    clinicList.map((item, i) => {
-      if (item && item.image) {
-        item.thump = new Buffer(item.image, "base64").toString("binary");
-      }
-    });
+    if (clinicList && clinicList.length > 0) {
+      clinicList.map((item, i) => {
+        if (item && item.image) {
+          item.thump = new Buffer(item.image, "base64").toString("binary");
+        }
+      });
+    }
   }
 
   const handleSelectChangeInfo = (event, value) => {
@@ -194,6 +193,8 @@ const ManageClinic = () => {
   };
 
   const handleAddNewClinic = () => {
+    buildDataSelect();
+
     setIsShowForm(true);
     setIdClinicEdit("");
     setInitialValues({
@@ -336,7 +337,7 @@ const ManageClinic = () => {
   ];
   return (
     <Box m="20px">
-      <Header title="MANAGE SPECIALTY" subtitle="Welcome to Manage Specialty" />
+      <Header title="MANAGE CLINIC" subtitle="Welcome to Manage Clinic" />
       <Box>
         <Typography
           sx={{
@@ -629,7 +630,6 @@ const ManageClinic = () => {
           scrollbarSize={1}
           autoHeight={true}
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          pageSize={5}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>

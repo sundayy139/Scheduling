@@ -14,6 +14,7 @@ const initialState = {
     specialties: [],
     clinics: [],
     handbooks: [],
+    scheduleByDay: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -133,6 +134,16 @@ const adminReducer = (state = initialState, action) => {
             }
         case actionTypes.FETCH_ALL_HANDBOOK_FAIL:
             state.handbooks = [];
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_ALL_SCHEDULE_DOCTOR_BY_DATE_SUCCESS:
+            state.scheduleByDay = action.dataSchedule;
+            return {
+                ...state,
+            }
+        case actionTypes.FETCH_ALL_SCHEDULE_DOCTOR_BY_DATE_FAIL:
+            state.scheduleByDay = [];
             return {
                 ...state
             }
