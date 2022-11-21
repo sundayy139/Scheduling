@@ -184,7 +184,7 @@ let getDetailDoctor = (inputId) => {
                         id: inputId
                     },
                     attributes: {
-                        exclude: ['password', 'image']
+                        exclude: ['password']
                     },
                     include: [
                         { model: db.AllCode, as: 'positionData', attributes: ['value_EN', 'value_VI'] },

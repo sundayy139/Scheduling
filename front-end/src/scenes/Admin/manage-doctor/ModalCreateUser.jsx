@@ -34,27 +34,17 @@ const ModalCreateUser = (props) => {
   const [previewImgUrl, setPreviewImgUrl] = useState(false);
   const [avatar, setAvatar] = useState("");
   const [currentDate, setCurrentDate] = useState(new Date());
-
-  const handleCreateNewUser = (values) => {
-    dispath(
-      createUserStart({
-        email: values.email,
-        password: values.password,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        address: values.address,
-        phoneNumber: values.phoneNumber,
-        dateOfBirth: currentDate,
-        gender: values.gender,
-        roleId: values.role,
-        positionId: values.position,
-        avatar: avatar,
-      })
-    );
-
-    setPreviewImgUrl("");
-    toggle();
-  };
+  const [initialValues, setInitialValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    address: "",
+    phoneNumber: "",
+    gender: "",
+    position: "",
+    role: "",
+  });
 
   const dispath = useDispatch();
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -99,20 +89,29 @@ const ModalCreateUser = (props) => {
     position: yup.string().required("Please select position"),
   });
 
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    address: "",
-    phoneNumber: "",
-    gender: "",
-    position: "",
-    role: "",
-  };
-
   const toggle = () => {
     props.toggleCreateUserModal();
+  };
+
+  const handleCreateNewUser = (values) => {
+    dispath(
+      createUserStart({
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address: values.address,
+        phoneNumber: values.phoneNumber,
+        dateOfBirth: currentDate,
+        gender: values.gender,
+        roleId: values.role,
+        positionId: values.position,
+        avatar: avatar,
+      })
+    );
+
+    setPreviewImgUrl("");
+    toggle();
   };
 
   return (

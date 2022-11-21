@@ -144,10 +144,8 @@ export const sendRemedyService = (data) => {
 }
 
 
-export const getAllHandbookService = (inputId) => {
-    return axios.get(`/api/get-all-handbook?id=${inputId}`, {
-        id: inputId
-    });
+export const getAllHandbookService = (id, limit) => {
+    return axios.get(`/api/get-all-handbook?id=${id}&limit=${limit}`);
 }
 
 export const getLimitHandbookService = (limit) => {

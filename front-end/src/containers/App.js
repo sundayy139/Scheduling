@@ -24,11 +24,11 @@ import Doctor from '../routes/Doctor';
 import Verify from './HomePage/Verify';
 import DetailSpecialty from './HomePage/Specialty/DetailSpecialty';
 import DetailClinic from './HomePage/Clinic/DetailClinic';
-import Specialty from './HomePage/Specialty/Specialty';
-import Clinic from './HomePage/Clinic/Clinic';
 import DetailHandbook from './HomePage/Handbook/DetailHandbook';
 import Handbook from './HomePage/Handbook/Handbook';
 import AllDoctor from './HomePage/Doctor/AllDoctor';
+import AllSpecialty from './HomePage/Specialty/AllSpecialty';
+import AllClinic from './HomePage/Clinic/AllClinic';
 
 
 class App extends Component {
@@ -68,8 +68,8 @@ class App extends Component {
                                         <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                                         <Route path={path.ALL_DOCTOR} component={AllDoctor} />
                                         <Route path={path.DETAIL_SPECIALTY} component={DetailSpecialty} />
-                                        <Route path={path.SPECIALTY} component={Specialty} />
-                                        <Route path={path.CLINIC} component={Clinic} />
+                                        <Route path={path.SPECIALTY} component={AllSpecialty} />
+                                        <Route path={path.CLINIC} component={AllClinic} />
                                         <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
                                         <Route path={path.HANDBOOK} component={Handbook} />
                                         <Route path={path.DETAIL_HANDBOOK} component={DetailHandbook} />

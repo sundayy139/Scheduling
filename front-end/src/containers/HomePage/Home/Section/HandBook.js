@@ -1,53 +1,50 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import './HandBook.scss';
 import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
-import { getAllHandbookService } from '../../../../services/userService';
-import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom'
+import { getAllHandbookService, getLimitHandbookService } from '../../../../services/userService';
+import { Link, useHistory } from 'react-router-dom'
 
+const HandBook = () => {
 
-class HandBook extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataHandbook: []
+    const settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+    };
+
+    const [dataHandbook, setDataHandbook] = useState([]);
+    const history = useHistory();
+
+    useEffect(() => {
+        const getAllHandbookServices = async () => {
+            let res = await getLimitHandbookService(5);
+            if (res && res.errCode === 0) {
+                setDataHandbook(res.handbooks ? res.handbooks : '')
+            }
         }
+        getAllHandbookServices();
+
+    }, [])
+
+    if (dataHandbook && dataHandbook.length > 0) {
+        dataHandbook.map((item, i) => {
+            if (item && item.image) {
+                item.avatar = new Buffer(item.image, 'base64').toString('binary');
+            }
+        })
     }
 
-    async componentDidMount() {
-        let res = await getAllHandbookService("ALL");
-        if (res && res.errCode === 0) {
-            this.setState({
-                dataHandbook: res.handbooks ? res.handbooks : ''
-            });
-        }
+
+    const handleViewDetailHandbook = (handbook) => {
+        history.push(`/detail-handbook/${handbook.id}`);
     }
 
-    handleViewDetailHandbook = (handbook) => {
-        this.props.history.push(`/detail-handbook/${handbook.id}`);
-    }
-    render() {
 
-        const settings = {
-            dots: false,
-            infinite: false,
-            speed: 500,
-            slidesToShow: 2,
-            slidesToScroll: 1,
-        };
-
-        let { dataHandbook } = this.state;
-        if (dataHandbook && dataHandbook.length > 0) {
-            dataHandbook.map((item, i) => {
-                if (item && item.image) {
-                    item.avatar = new Buffer(item.image, 'base64').toString('binary');
-                }
-            })
-        }
-
-        return (
+    return (
+        <div>
             <div className='handBook-section'>
                 <div className='handBook-container'>
                     <div className='handBook-content'>
@@ -67,11 +64,17 @@ class HandBook extends Component {
                                             <div
                                                 className='handBook-item'
                                                 key={item.id}
-                                                onClick={() => this.handleViewDetailHandbook(item)}
+                                                onClick={() => handleViewDetailHandbook(item)}
                                             >
                                                 <div className='item-link'>
-                                                    <div className='item-img'>
-                                                        <img src={item.avatar} />
+                                                    <div className='item-img'
+                                                        style={{
+                                                            backgroundImage: `url(${item.avatar})`,
+                                                            backgroundSize: 'cover',
+                                                            backgroundRepeat: 'no-repeat',
+                                                            backgroundPosition: 'center center'
+                                                        }}
+                                                    >
                                                     </div>
                                                     <div className='item-text'>
                                                         {item.title}
@@ -83,25 +86,11 @@ class HandBook extends Component {
                                 </Slider>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-        );
-    }
-
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HandBook));
+export default HandBook

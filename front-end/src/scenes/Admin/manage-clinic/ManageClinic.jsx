@@ -29,6 +29,7 @@ import {
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
 import { useTheme } from "@emotion/react";
+import ConfirmDialog from "../../share/dialog/ConfirmDialog";
 
 const mdParser = new MarkdownIt();
 
@@ -49,6 +50,11 @@ const ManageClinic = () => {
   const [logo, setLogo] = useState();
   const [idClinicEdit, setIdClinicEdit] = useState("");
   const [isShowForm, setIsShowForm] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   const [initialValues, setInitialValues] = useState({
     descHTML: "",
@@ -216,9 +222,11 @@ const ManageClinic = () => {
   };
 
   const handleDeleteClinic = (id) => {
-    if (window.confirm(`Are you sure you want to delete clinic: ${id}`)) {
-      dispath(deleteClinicStart(id));
-    }
+    dispath(deleteClinicStart(id));
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
   };
 
   const handleEditClinic = (data) => {
@@ -272,7 +280,14 @@ const ManageClinic = () => {
             </IconButton>
             <IconButton
               onClick={() => {
-                handleDeleteClinic(params.row.id);
+                setConfirmDialog({
+                  isOpen: true,
+                  title: "Are you sure you want to delete record ?",
+                  subTitle: "You can't undo this operation",
+                  onConfirm: () => {
+                    handleDeleteClinic(params.row.id);
+                  },
+                });
               }}
             >
               <DeleteOutLinedIcon />
@@ -631,6 +646,10 @@ const ManageClinic = () => {
           autoHeight={true}
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
           components={{ Toolbar: GridToolbar }}
+        />
+        <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
         />
       </Box>
     </Box>

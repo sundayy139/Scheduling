@@ -12,6 +12,7 @@ import AddOutLinedIcon from "@mui/icons-material/AddOutlined";
 import { useState } from "react";
 import ModalEditUser from "./ModalEditUser";
 import ModalCreateUser from "./ModalCreateUser";
+import ConfirmDialog from "../../share/dialog/ConfirmDialog";
 
 const ManageDoctor = () => {
   const theme = useTheme();
@@ -20,6 +21,11 @@ const ManageDoctor = () => {
   const [isOpenModalCreateUser, setIsOpenModalCreateUser] = useState(false);
   const [isOpenModalEditUser, setIsOpenModalEditUser] = useState(false);
   const [userEdit, setUserEdit] = useState("");
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const dispath = useDispatch();
   const doctorList = useSelector((state) => state.admin.users);
 
@@ -36,9 +42,11 @@ const ManageDoctor = () => {
   }
 
   const handleDeleteUser = (id) => {
-    if (window.confirm(`Are you sure you want to delete user id: ${id}`)) {
-      dispath(deleteUserStart(id));
-    }
+    dispath(deleteUserStart(id));
+    setConfirmDialog({
+      ...confirmDialog,
+      isOpen: false,
+    });
   };
 
   const handleAddNewUser = () => {
@@ -74,7 +82,15 @@ const ManageDoctor = () => {
             </IconButton>
             <IconButton
               onClick={() => {
-                handleDeleteUser(params.row.id);
+                setConfirmDialog({
+                  isOpen: true,
+                  title: "Are you sure you want to delete record ?",
+                  subTitle: "You can't undo this operation",
+                  onConfirm: () => {
+                    handleDeleteUser(params.row.id);
+                  },
+                });
+                // handleDeleteUser(params.row.id);
               }}
             >
               <DeleteOutLinedIcon />
@@ -139,7 +155,7 @@ const ManageDoctor = () => {
       field: "address",
       headerName: "Address",
       flex: 1,
-      minWidth: 150,
+      minWidth: 200,
     },
 
     {
@@ -222,6 +238,10 @@ const ManageDoctor = () => {
           rowsPerPageOptions={[5, 10, 25, 50, 100]}
           pageSize={5}
           components={{ Toolbar: GridToolbar }}
+        />
+        <ConfirmDialog
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
         />
         <ModalCreateUser
           hidden={true}

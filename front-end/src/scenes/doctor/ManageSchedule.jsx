@@ -264,6 +264,7 @@ const ManageSchedule = () => {
                 <DatePicker
                   name="date"
                   label="Date"
+                  minDate={new Date()}
                   value={currentDate}
                   onChange={(newValue) => {
                     setCurrentDate(newValue);

@@ -1,62 +1,48 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import './Banner.scss';
 import { FormattedMessage } from 'react-intl';
-import { changeLanguageApp } from '../../../../store/actions/appActions';
 
-
-class Banner extends Component {
-
-    changeLanguage = (language) => {
-        //fire redux event
-        this.props.changeLanguage(language);
-    }
-
-
-    render() {
-
-        const data = [
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png",
-                "keyword": "specialist-examination",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133657-khamtuxa.png",
-                "keyword": "remote-examination",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtongquat.png",
-                "keyword": "general-examination",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-dichvuxetnghiem.png",
-                "keyword": "medicine-test",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-suckhoetinhthan.png",
-                "keyword": "spiritual-health",
-            },
-            {
-                "url": "https://cdn.bookingcare.vn/fo/2022/05/19/104635-khamnhakhoa.png",
-                "keyword": "dentistry-examination",
-            },
-            // {
-            //     "url": "https://cdn.bookingcare.vn/fo/2022/05/16/151930-phau-thuat.jpg",
-            //     "keyword": "surgical-package",
-            // },
-            // {
-            //     "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtainha.png",
-            //     "keyword": "medical-product",
-            // },
-            // {
-            //     "url": "https://cdn.bookingcare.vn/fo/2022/07/29/101157-icon-lich-su.jpg",
-            //     "keyword": "business-health",
-            // },
-        ]
-
-        let language = this.props.lang;
-
-        return (
+const Banner = () => {
+    const data = [
+        {
+            "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png",
+            "keyword": "specialist-examination",
+        },
+        {
+            "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133657-khamtuxa.png",
+            "keyword": "remote-examination",
+        },
+        {
+            "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtongquat.png",
+            "keyword": "general-examination",
+        },
+        {
+            "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-dichvuxetnghiem.png",
+            "keyword": "medicine-test",
+        },
+        {
+            "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-suckhoetinhthan.png",
+            "keyword": "spiritual-health",
+        },
+        {
+            "url": "https://cdn.bookingcare.vn/fo/2022/05/19/104635-khamnhakhoa.png",
+            "keyword": "dentistry-examination",
+        },
+        // {
+        //     "url": "https://cdn.bookingcare.vn/fo/2022/05/16/151930-phau-thuat.jpg",
+        //     "keyword": "surgical-package",
+        // },
+        // {
+        //     "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtainha.png",
+        //     "keyword": "medical-product",
+        // },
+        // {
+        //     "url": "https://cdn.bookingcare.vn/fo/2022/07/29/101157-icon-lich-su.jpg",
+        //     "keyword": "business-health",
+        // },
+    ]
+    return (
+        <div>
 
             <div className='home-banner'>
                 <div className='home-header-banner'>
@@ -96,20 +82,8 @@ class Banner extends Component {
                 </div >
 
             </div >
-        );
-    }
-
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        changeLanguage: (language) => dispatch(changeLanguageApp(language))
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Banner);
+export default Banner

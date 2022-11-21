@@ -39,8 +39,6 @@ let getAllHandbook = async (req, res) => {
 
 let getLimitHandbook = async (req, res) => {
     let limit = req.query.limit;
-    if (!limit) limit = 5;
-
     try {
         if (!limit) {
             return res.status(200).json({

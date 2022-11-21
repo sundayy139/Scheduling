@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
 import Footer from '../Footer';
 import HomeHeader from '../HomeHeader';
 import About from './Section/About';
@@ -9,34 +8,19 @@ import Doctor from './Section/Doctor';
 import HandBook from './Section/HandBook';
 import Specialty from './Section/Specialty';
 
-class HomePage extends Component {
-
-    render() {
-        return (
-            <div>
-                <HomeHeader />
-                <Banner />
-                <Specialty />
-                <Clinic />
-                <Doctor />
-                <HandBook />
-                <About />
-                <Footer />
-            </div>
-        );
-    }
-
+const HomePage = () => {
+    return (
+        <>
+            <HomeHeader />
+            <Banner />
+            <Specialty />
+            <Clinic />
+            <Doctor />
+            <HandBook />
+            <About />
+            <Footer />
+        </>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default HomePage

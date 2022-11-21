@@ -187,6 +187,7 @@ const ManageSpecialty = () => {
     {
       field: "id",
       headerName: "ID",
+      minWidth: 150,
     },
     {
       field: "avatar",

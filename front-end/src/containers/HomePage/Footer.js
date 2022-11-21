@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import './Footer.scss';
 
-class Footer extends Component {
-
-    render() {
-        return (
+const Footer = () => {
+    return (
+        <div>
             <div className='footer'>
                 <div className='footer-container'>
                     <div className='footer-content'>
@@ -105,20 +103,8 @@ class Footer extends Component {
                     </div>
                 </div>
             </div>
-        );
-    }
-
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Footer);
+export default Footer

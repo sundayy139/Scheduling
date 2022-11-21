@@ -1,54 +1,116 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import React, { Component } from 'react';
+// import { connect } from 'react-redux';
+
+// import { withRouter } from 'react-router';
+
+// class Clinic extends Component {
+
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             dataClinic: []
+//         }
+//     }
+
+//     async componentDidMount() {
+//         let res = await getAllClinicService("ALL");
+//         if (res && res.errCode === 0) {
+//             this.setState({
+//                 dataClinic: res.clinics ? res.clinics : ''
+//             });
+//         }
+//     }
+
+//     handleViewDetailClinic = (clinic) => {
+//         this.props.history.push(`/detail-clinic/${clinic.id}`);
+//     }
+
+//     render() {
+
+//         const settings = {
+//             dots: false,
+//             infinite: false,
+//             speed: 500,
+//             slidesToShow: 4,
+//             slidesToScroll: 1,
+//         };
+
+//         let { dataClinic } = this.state;
+//         if (dataClinic && dataClinic.length > 0) {
+//             dataClinic.map((item, i) => {
+//                 if (item && item.image) {
+//                     item.avatar = new Buffer(item.image, 'base64').toString('binary');
+//                 }
+//             })
+//         }
+
+//         return (
+
+//         );
+//     }
+
+// }
+
+// const mapStateToProps = state => {
+//     return {
+
+//     };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//     };
+// };
+
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Clinic));
+
+import React, { useEffect, useState } from 'react';
 import './Clinic.scss';
 import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
 import { getAllClinicService } from '../../../../services/userService';
-import { withRouter } from 'react-router';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
 
-class Clinic extends Component {
+const Clinic = () => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataClinic: []
+    const settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+    };
+
+    const [dataClinic, setDataClinic] = useState([]);
+    const history = useHistory();
+
+    useEffect(() => {
+        const getAllClinicsServices = async () => {
+            let res = await getAllClinicService("ALL");
+            if (res && res.errCode === 0) {
+                setDataClinic(res.clinics ? res.clinics : '')
+            }
         }
+        getAllClinicsServices();
+
+    }, [])
+
+    if (dataClinic && dataClinic.length > 0) {
+        dataClinic.map((item, i) => {
+            if (item && item.image) {
+                item.avatar = new Buffer(item.image, 'base64').toString('binary');
+            }
+        })
     }
 
-    async componentDidMount() {
-        let res = await getAllClinicService("ALL");
-        if (res && res.errCode === 0) {
-            this.setState({
-                dataClinic: res.clinics ? res.clinics : ''
-            });
-        }
+
+    const handleViewDetailClinic = (clinic) => {
+        history.push(`/detail-clinic/${clinic.id}`);
     }
 
-    handleViewDetailClinic = (clinic) => {
-        this.props.history.push(`/detail-clinic/${clinic.id}`);
-    }
 
-    render() {
-
-        const settings = {
-            dots: false,
-            infinite: false,
-            speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-        };
-
-        let { dataClinic } = this.state;
-        if (dataClinic && dataClinic.length > 0) {
-            dataClinic.map((item, i) => {
-                if (item && item.image) {
-                    item.avatar = new Buffer(item.image, 'base64').toString('binary');
-                }
-            })
-        }
-
-        return (
+    return (
+        <div>
             <div className='clinic-section'>
                 <div className='clinic-container'>
                     <div className='clinic-content'>
@@ -70,11 +132,17 @@ class Clinic extends Component {
                                                 <div
                                                     className='clinic-item'
                                                     key={index}
-                                                    onClick={() => this.handleViewDetailClinic(item)}
+                                                    onClick={() => handleViewDetailClinic(item)}
                                                 >
                                                     <div className='item-link'>
-                                                        <div className='item-img'>
-                                                            <img src={item.avatar} />
+                                                        <div className='item-img'
+                                                            style={{
+                                                                backgroundImage: `url(${item.avatar})`,
+                                                                backgroundSize: 'cover',
+                                                                backgroundRepeat: 'no-repeat',
+                                                                backgroundPosition: 'center center'
+                                                            }}
+                                                        >
                                                         </div>
                                                         <div className='item-text'>
                                                             {item.name}
@@ -87,25 +155,11 @@ class Clinic extends Component {
                                 </Slider>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-        );
-    }
-
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Clinic));
+export default Clinic

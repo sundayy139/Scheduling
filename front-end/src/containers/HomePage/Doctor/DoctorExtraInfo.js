@@ -1,56 +1,96 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import './DoctorExtraInfo.scss';
+// import React, { Component } from 'react';
+
+
+
+// class DoctorExtraInfo extends Component {
+
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+
+//         }
+//     }
+
+//     async componentDidMount() {
+
+//     }
+
+//     async componentDidUpdate(prevProps) {
+//         if (this.props.doctorIdFrDetail !== prevProps.doctorIdFrDetail) {
+//             let res = await getExtraInfoDoctorService(this.props.doctorIdFrDetail);
+//             if (res && res.errCode === 0) {
+//                 this.setState({
+//                     extraInfo: res.data
+//                 })
+//             }
+//         }
+//     }
+
+
+
+//     render() {
+
+//         let { isShow, extraInfo } = this.state;
+//         let { lang } = this.props;
+
+//         return (
+
+//         );
+//     }
+
+// }
+
+// const mapStateToProps = state => {
+//     return {
+//         lang: state.app.language,
+//     };
+// };
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//     };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(DoctorExtraInfo);
+
+
+import React, { useEffect, useState } from 'react';
 import { languages } from '../../../utils';
 import { getExtraInfoDoctorService } from '../../../services/userService';
 import { FormattedMessage } from 'react-intl';
 import NumberFormat from 'react-number-format';
+import { useSelector } from 'react-redux';
+import './DoctorExtraInfo.scss';
+
+const DoctorExtraInfo = (props) => {
+
+    const [isShow, setIsShow] = useState(false)
+    const [extraInfo, setExtraInfo] = useState({});
+    const [id, setId] = useState()
+    const lang = useSelector((state) => state.app.language);
 
 
-class DoctorExtraInfo extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            isShow: false,
-            extraInfo: {}
-        }
-    }
-
-    async componentDidMount() {
-        if (this.props.doctorIdFrDetail) {
-            let res = await getExtraInfoDoctorService(this.props.doctorIdFrDetail);
-            if (res && res.errCode === 0) {
-                this.setState({
-                    extraInfo: res.data
-                })
+    useEffect(() => {
+        const getExtraInfoDoctor = async () => {
+            setId(props.doctorIdFrDetail)
+            if (id) {
+                let res = await getExtraInfoDoctorService(id);
+                if (res && res.errCode === 0) {
+                    setExtraInfo(res.data)
+                }
             }
         }
+
+        getExtraInfoDoctor();
+    }, [id])
+
+
+    const showHideDetailsPrice = () => {
+        setIsShow(!isShow)
     }
 
-    async componentDidUpdate(prevProps) {
-        if (this.props.doctorIdFrDetail !== prevProps.doctorIdFrDetail) {
-            let res = await getExtraInfoDoctorService(this.props.doctorIdFrDetail);
-            if (res && res.errCode === 0) {
-                this.setState({
-                    extraInfo: res.data
-                })
-            }
-        }
-    }
-
-    showHideDetailsPrice = () => {
-        this.setState({
-            isShow: !this.state.isShow
-        })
-    }
-
-    render() {
-
-        let { isShow, extraInfo } = this.state;
-        let { lang } = this.props;
-
-        return (
+    return (
+        <>
             <div className='extra-info-container'>
                 <div className='content-up'>
                     <div className='text-address'>
@@ -95,7 +135,7 @@ class DoctorExtraInfo extends Component {
                                 </div>
                                 <span
                                     className='view-detail'
-                                    onClick={() => this.showHideDetailsPrice()}
+                                    onClick={() => showHideDetailsPrice()}
                                 >
                                     <FormattedMessage id='detail-doctor.view-detail' />
                                 </span>
@@ -145,7 +185,7 @@ class DoctorExtraInfo extends Component {
                                     </div>
                                     <span
                                         className='hide-detail'
-                                        onClick={() => this.showHideDetailsPrice()}
+                                        onClick={() => showHideDetailsPrice()}
                                     >
                                         <FormattedMessage id='detail-doctor.hide-detail' />
                                     </span>
@@ -154,20 +194,8 @@ class DoctorExtraInfo extends Component {
                     }
                 </div>
             </div>
-        );
-    }
-
+        </>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        lang: state.app.language,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DoctorExtraInfo);
+export default DoctorExtraInfo

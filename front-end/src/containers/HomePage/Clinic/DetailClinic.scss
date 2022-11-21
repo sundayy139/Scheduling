@@ -44,6 +44,7 @@
 
         .image-clinic {
             height: 400px;
+            width: 100%;
         }
 
         .info-clinic {
@@ -127,12 +128,14 @@
         margin: 0 auto;
         padding: 50px 30px;
 
-        p {
+        span {
             font-size: 25px;
             font-weight: 600;
         }
 
         .content-box {
+
+            margin-top: 20px;
 
             .box {
                 display: flex;

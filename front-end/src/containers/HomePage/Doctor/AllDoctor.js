@@ -1,74 +1,64 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
 import { languages } from '../../../utils/constant';
 import './AllDoctor.scss';
 import HomeHeader from '../HomeHeader';
 import Footer from '../Footer';
-import { withRouter } from 'react-router'
 import { getAllDoctorsService } from '../../../services/userService';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 
 
-class AllDoctor extends Component {
+const AllDoctor = () => {
+    const [dataDoctor, setDataDoctor] = useState([]);
+    const [filterData, setFilterData] = useState([]);
+    const lang = useSelector((state) => state.app.language);
+    const history = useHistory();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            allDoctor: [],
-            dataDoctor: [],
-            filterData: []
-        }
-    }
+    useEffect(() => {
 
-    async componentDidMount() {
-        let res = await getAllDoctorsService("ALL");
-        if (res && res.errCode === 0) {
-            this.setState({
-                allDoctor: res.data ? res.data : ''
-            });
-        }
+        const getAllDoctor = async () => {
+            let res = await getAllDoctorsService("ALL");
+            if (res && res.errCode === 0) {
+                let data = res.data;
+                let result = [];
+                if (data && data.length > 0) {
+                    data.map((item) => {
+                        let object = {};
+                        let nameVi = `${item.positionData.value_VI} ${item.lastName} ${item.firstName}`;
+                        let nameEn = `${item.positionData.value_EN} ${item.firstName} ${item.lastName}`;
+                        let fullName = lang === languages.VI ? nameVi : nameEn;
 
-        this.buildDataDoctor();
-    }
+                        object.doctorId = item.id;
+                        object.fullName = fullName;
+                        object.specialty = `${item.Doctor_Info.Specialty.name}`;
+                        object.image = item.image;
+                        object.searchWords = fullName;
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.lang !== this.props.lang) {
-            this.buildDataDoctor();
-        }
-    }
-
-    handleViewDetailDoctor = (doctor) => {
-        this.props.history.push(`/detail-doctor/${doctor.doctorId}}`);
-    }
-
-    buildDataDoctor = async () => {
-        let { lang } = this.props;
-        let { allDoctor } = this.state;
-        let result = [];
-        if (allDoctor && allDoctor.length > 0) {
-            {
-                allDoctor.map((item) => {
-                    let object = {};
-                    let nameVi = `${item.positionData.value_VI} ${item.lastName} ${item.firstName}`;
-                    let nameEn = `${item.positionData.value_EN} ${item.firstName} ${item.lastName}`;
-                    let fullName = lang === languages.VI ? nameVi : nameEn;
-
-                    object.doctorId = item.id;
-                    object.fullName = fullName;
-                    object.specialty = `${item.Doctor_Info.Specialty.name}`;
-                    object.image = item.image;
-                    object.searchWords = fullName;
-
-                    result.push(object);
-                })
+                        result.push(object);
+                    })
+                }
+                setDataDoctor(result);
             }
-            this.setState({
-                dataDoctor: result
-            })
+        }
+
+        getAllDoctor();
+
+    }, [])
+
+    const handleFilter = (e) => {
+        let searchWords = e.target.value;
+        let newFilter = dataDoctor.filter((value) => {
+            return removeVietnameseTones(value.searchWords).toLowerCase().includes(searchWords.toLowerCase())
+        })
+        if (searchWords === '') {
+            setFilterData([])
+        } else {
+            setFilterData(newFilter)
         }
     }
 
-    removeVietnameseTones = (str) => {
+    const removeVietnameseTones = (str) => {
         str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
         str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
         str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
@@ -97,167 +87,136 @@ class AllDoctor extends Component {
         return str;
     }
 
-    handleFilter = (e) => {
-        let { dataDoctor } = this.state;
-        let searchWords = e.target.value;
-        let newFilter = dataDoctor.filter((value) => {
-            return this.removeVietnameseTones(value.searchWords).toLowerCase().includes(searchWords.toLowerCase())
-        })
-        if (searchWords === '') {
-            this.setState({
-                filterData: []
-            })
-        } else {
-            this.setState({
-                filterData: newFilter
-            })
-        }
+    const handleViewDetailDoctor = (doctor) => {
+        history.push(`/detail-doctor/${doctor.doctorId}}`);
     }
 
-    render() {
-        let { dataDoctor, filterData } = this.state
-
-        return (
-            <>
-                <HomeHeader />
-                <div className='all-doctor-container'>
-                    <div className='back-menu'>
-                        <div className='back-ground'>
-                            <div
-                                className='icon-back'
-                                onClick={this.props.history.goBack}
-                            >
-                                <i className="fas fa-arrow-left"></i>
-                            </div>
-                            <div className='menu-title'>
-                                <FormattedMessage id="section.all-doctor" />
-                            </div>
+    return (
+        <>
+            <HomeHeader />
+            <div className='all-doctor-container'>
+                <div className='back-menu'>
+                    <div className='back-ground'>
+                        <div
+                            className='icon-back'
+                            onClick={history.goBack}
+                        >
+                            <i className="fas fa-arrow-left"></i>
                         </div>
-                    </div>
-                    <div className='search'>
-                        <div className='search-box'>
-                            <div className='search-input'>
-                                <input
-                                    type='search'
-                                    placeholder='Search doctor . . .'
-                                    onChange={(e) => this.handleFilter(e)}
-                                />
-                                <i className='fas fa-search'></i>
-                            </div>
+                        <div className='menu-title'>
+                            <FormattedMessage id="section.all-doctor" />
                         </div>
-                    </div>
-                    {
-                        filterData && filterData.length > 0 &&
-                        (
-                            <div className='search-value'>
-                                <h4 className='text-search'>
-                                    <FormattedMessage id='section.search-result' />
-                                </h4>
-                                {
-                                    filterData && filterData.length > 0 && filterData.map((item) => {
-
-                                        let imageBase64 = '';
-                                        if (item.image) {
-                                            imageBase64 = new Buffer(item.image, 'base64').toString('binary');
-                                        }
-                                        return (
-                                            <div
-                                                key={item.doctorId}
-                                                className='item'
-                                                onClick={() => this.handleViewDetailDoctor(item)}
-                                            >
-                                                <div className='inner'>
-                                                    <div
-                                                        className='image'
-                                                        style={{
-                                                            backgroundImage: `url(${imageBase64})`,
-                                                            backgroundSize: 'contain',
-                                                            backgroundRepeat: 'no-repeat',
-                                                            backgroundPosition: 'center center'
-                                                        }}
-                                                    >
-
-                                                    </div>
-                                                    <div className='text'>
-                                                        <span>
-                                                            {item.fullName}
-                                                        </span>
-                                                        <p>
-                                                            {item.specialty}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-
-                                    })
-                                }
-                            </div>
-                        )
-                    }
-                    <div className='all-doctor-contents'>
-                        <h4>
-                            <FormattedMessage id="section.out-standing-doctor" />
-                        </h4>
-                        {
-                            dataDoctor && dataDoctor.length > 0 && dataDoctor.map((item) => {
-
-                                let imageBase64 = '';
-                                if (item.image) {
-                                    imageBase64 = new Buffer(item.image, 'base64').toString('binary');
-                                }
-                                return (
-                                    <div
-                                        key={item.doctorId}
-                                        className='item'
-                                        onClick={() => this.handleViewDetailDoctor(item)}
-                                    >
-                                        <div className='inner'>
-                                            <div
-                                                className='image'
-                                                style={{
-                                                    backgroundImage: `url(${imageBase64})`,
-                                                    backgroundSize: 'contain',
-                                                    backgroundRepeat: 'no-repeat',
-                                                    backgroundPosition: 'center center'
-                                                }}
-                                            >
-
-                                            </div>
-                                            <div className='text'>
-                                                <span>
-                                                    {item.fullName}
-                                                </span>
-                                                <p>
-                                                    {item.specialty}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-
-                            })
-                        }
                     </div>
                 </div>
-                <Footer />
-            </>
-        )
-    }
+                <div className='search'>
+                    <div className='search-box'>
+                        <div className='search-input'>
+                            <input
+                                type='search'
+                                placeholder='Search doctor . . .'
+                                onChange={handleFilter}
+                            />
+                            <i className='fas fa-search'></i>
+                        </div>
+                    </div>
+                </div>
+                {
+                    filterData && filterData.length > 0 &&
+                    (
+                        <div className='search-value'>
+                            <h4 className='text-search'>
+                                <FormattedMessage id='section.search-result' />
+                            </h4>
+                            {
+                                filterData && filterData.length > 0 && filterData.map((item) => {
+
+                                    let imageBase64 = '';
+                                    if (item.image) {
+                                        imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                                    }
+                                    return (
+                                        <div
+                                            key={item.doctorId}
+                                            className='item'
+                                            onClick={() => handleViewDetailDoctor(item)}
+                                        >
+                                            <div className='inner'>
+                                                <div
+                                                    className='image'
+                                                    style={{
+                                                        backgroundImage: `url(${imageBase64})`,
+                                                        backgroundSize: 'contain',
+                                                        backgroundRepeat: 'no-repeat',
+                                                        backgroundPosition: 'center center'
+                                                    }}
+                                                >
+
+                                                </div>
+                                                <div className='text'>
+                                                    <span>
+                                                        {item.fullName}
+                                                    </span>
+                                                    <p>
+                                                        {item.specialty}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+
+                                })
+                            }
+                        </div>
+                    )
+                }
+                <div className='all-doctor-contents'>
+                    <h4>
+                        <FormattedMessage id="section.out-standing-doctor" />
+                    </h4>
+                    {
+                        dataDoctor && dataDoctor.length > 0 && dataDoctor.map((item) => {
+
+                            let imageBase64 = '';
+                            if (item.image) {
+                                imageBase64 = new Buffer(item.image, 'base64').toString('binary');
+                            }
+                            return (
+                                <div
+                                    key={item.doctorId}
+                                    className='item'
+                                    onClick={() => handleViewDetailDoctor(item)}
+                                >
+                                    <div className='inner'>
+                                        <div
+                                            className='image'
+                                            style={{
+                                                backgroundImage: `url(${imageBase64})`,
+                                                backgroundSize: 'contain',
+                                                backgroundRepeat: 'no-repeat',
+                                                backgroundPosition: 'center center'
+                                            }}
+                                        >
+
+                                        </div>
+                                        <div className='text'>
+                                            <span>
+                                                {item.fullName}
+                                            </span>
+                                            <p>
+                                                {item.specialty}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+
+                        })
+                    }
+                </div>
+            </div>
+            <Footer />
+        </>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        isLoggedIn: state.user.isLoggedIn,
-        lang: state.app.language,
-    };
-
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllDoctor));
+export default AllDoctor

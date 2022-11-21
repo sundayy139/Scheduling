@@ -1,60 +1,42 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react'
 import './HomeHeader.scss';
 import { FormattedMessage } from 'react-intl';
 import { languages } from '../../utils/constant';
 import { changeLanguageApp } from '../../store/actions/appActions';
-import { withRouter } from 'react-router';
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useHistory } from 'react-router-dom'
 import { dataMenu, dataMenuMore } from './dataMenu';
 import logoVn from '../../assets/icon-language/vietnam.png';
 import logoEn from '../../assets/icon-language/united-kingdom.png';
+import { useDispatch, useSelector } from 'react-redux';
 
-class HomeHeader extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            clickedMenu: false,
-        }
-    }
+const HomeHeader = (props) => {
 
-    componentDidMount() {
+    const [clickedMenu, setClickMenu] = useState(false);
+    const lang = useSelector((state) => state.app.language);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-    }
-
-    componentDidUpdate(prevProps) {
-
-    }
-
-    changeLanguage = (language) => {
+    const changeLanguage = (language) => {
         //fire redux event
-        this.props.changeLanguage(language);
+        dispatch(changeLanguageApp(language));
     }
 
-    returnHome = () => {
-        if (this.props.history) {
-            this.props.history.push('/home')
-        }
+    const handleClickedMenu = () => {
+        setClickMenu(!clickedMenu)
     }
 
-    handleClickedMenu = () => {
-        this.setState({
-            clickedMenu: !this.state.clickedMenu
-        })
+    const returnHome = () => {
+        history.push('/home')
     }
 
-    render() {
-
-        let lang = this.props.lang;
-        let { clickedMenu } = this.state
-
-        return (
+    return (
+        <div>
 
             <div className='home-header'>
                 <div className='home-header-container'>
                     <div className={clickedMenu === false ? 'header-menu' : 'header-menu active'} >
                         <span
-                            onClick={this.handleClickedMenu}
+                            onClick={handleClickedMenu}
                         >
                             <i className="fas fa-times"></i>
                         </span>
@@ -102,10 +84,10 @@ class HomeHeader extends Component {
                             <span>
                                 <i
                                     className="fas fa-bars"
-                                    onClick={this.handleClickedMenu}
+                                    onClick={handleClickedMenu}
                                 ></i>
                             </span>
-                            <div className='logo' onClick={() => this.returnHome()}>
+                            <div className='logo' onClick={returnHome}>
                             </div>
                         </div>
                         <div className='center-content'>
@@ -167,13 +149,13 @@ class HomeHeader extends Component {
                                 <div className='language-box'>
                                     <span
                                         className="language-vi"
-                                        onClick={() => this.changeLanguage(languages.VI)}>
+                                        onClick={() => changeLanguage(languages.VI)}>
                                         <img src={logoVn} />
                                         VN
                                     </span>
                                     <span
                                         className="language-en"
-                                        onClick={() => this.changeLanguage(languages.EN)}>
+                                        onClick={() => changeLanguage(languages.EN)}>
                                         <img src={logoEn} />
                                         EN
                                     </span>
@@ -183,22 +165,8 @@ class HomeHeader extends Component {
                     </div>
                 </div>
             </div >
-        );
-    }
-
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-        isLoggedIn: state.user.isLoggedIn,
-        lang: state.app.language,
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        changeLanguage: (language) => dispatch(changeLanguageApp(language))
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
+export default HomeHeader

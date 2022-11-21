@@ -1,55 +1,52 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import './Specialty.scss';
 import Slider from "react-slick";
 import { FormattedMessage } from 'react-intl';
 import { getAllSpecialtyService } from '../../../../services/userService';
-import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom';
+
+const Specialty = () => {
+
+    const settings = {
+        dots: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+    };
+
+    const [dataSpecialty, setDataSpecialty] = useState([]);
+    const history = useHistory();
 
 
-class Specialty extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSpecialty: []
+    useEffect(() => {
+        const getAllSpecialtyServices = async () => {
+            let res = await getAllSpecialtyService("ALL");
+            if (res && res.errCode === 0) {
+                setDataSpecialty(res.specialties ? res.specialties : '')
+            }
         }
+        getAllSpecialtyServices();
+
+    }, [])
+
+    if (dataSpecialty && dataSpecialty.length > 0) {
+        dataSpecialty.map((item, i) => {
+            if (item && item.image) {
+                item.avatar = new Buffer(item.image, 'base64').toString('binary');
+            }
+        })
     }
 
-    async componentDidMount() {
-        let res = await getAllSpecialtyService("ALL");
-        if (res && res.errCode === 0) {
-            this.setState({
-                dataSpecialty: res.specialties ? res.specialties : ''
-            });
-        }
+
+    const handleViewDetailSpecialty = (specialty) => {
+        history.push(`/detail-specialty/${specialty.id}`);
     }
 
-    handleViewDetailSpecialty = (specialty) => {
-        this.props.history.push(`/detail-specialty/${specialty.id}`);
-    }
 
-    render() {
-
-        const settings = {
-            dots: false,
-            infinite: false,
-            speed: 500,
-            slidesToShow: 4,
-            slidesToScroll: 1,
-        };
-
-        let { dataSpecialty } = this.state;
-        if (dataSpecialty && dataSpecialty.length > 0) {
-            dataSpecialty.map((item, i) => {
-                if (item && item.image) {
-                    item.avatar = new Buffer(item.image, 'base64').toString('binary');
-                }
-            })
-        }
-
-        return (
+    return (
+        <div>
             <div className='specialty-section'>
                 <div className='specialty-container'>
                     <div className='specialty-content'>
@@ -71,11 +68,17 @@ class Specialty extends Component {
                                                 <div
                                                     className='specialty-item'
                                                     key={index}
-                                                    onClick={() => this.handleViewDetailSpecialty(item)}
+                                                    onClick={() => handleViewDetailSpecialty(item)}
                                                 >
                                                     <div className='item-link'>
-                                                        <div className='item-img'>
-                                                            <img src={item.avatar} />
+                                                        <div className='item-img'
+                                                            style={{
+                                                                backgroundImage: `url(${item.avatar})`,
+                                                                backgroundSize: 'cover',
+                                                                backgroundRepeat: 'no-repeat',
+                                                                backgroundPosition: 'center center'
+                                                            }}
+                                                        >
                                                         </div>
                                                         <div className='item-text'>
                                                             {item.name}
@@ -93,21 +96,8 @@ class Specialty extends Component {
 
                 </div>
             </div>
-        );
-    }
-
+        </div>
+    )
 }
 
-const mapStateToProps = state => {
-    return {
-
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-
-    };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Specialty));
+export default Specialty

@@ -55,18 +55,18 @@ let createHandbook = (data) => {
     })
 }
 
-let getAllHandbook = (id, limit) => {
+let getAllHandbook = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
             let handbooks = '';
             if (id === "ALL") {
                 handbooks = await db.Handbook.findAll({
-                    limit: limit,
+                    order: [["createdAt", "DESC"]],
                 });
             }
             if (id && id !== "ALL") {
                 handbooks = await db.Handbook.findOne({
-                    where: { id: id }
+                    where: { id: id },
                 })
             }
 
