@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import Footer from '../Footer';
 import HomeHeader from '../HomeHeader';
 import './DetailClinic.scss';
@@ -123,7 +122,7 @@ const DetailClinic = () => {
                 </div>
                 <div className='container-clinic-down'>
                     <span>
-                        <FormattedMessage id="section.out-standing-doctor" />
+                        Bác sĩ nổi bật
                     </span>
                     <div className='content-box'>
                         {

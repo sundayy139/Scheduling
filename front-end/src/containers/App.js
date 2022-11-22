@@ -25,7 +25,7 @@ import Verify from './HomePage/Verify';
 import DetailSpecialty from './HomePage/Specialty/DetailSpecialty';
 import DetailClinic from './HomePage/Clinic/DetailClinic';
 import DetailHandbook from './HomePage/Handbook/DetailHandbook';
-import Handbook from './HomePage/Handbook/Handbook';
+import AllHandbook from './HomePage/Handbook/AllHandbook';
 import AllDoctor from './HomePage/Doctor/AllDoctor';
 import AllSpecialty from './HomePage/Specialty/AllSpecialty';
 import AllClinic from './HomePage/Clinic/AllClinic';
@@ -71,7 +71,7 @@ class App extends Component {
                                         <Route path={path.SPECIALTY} component={AllSpecialty} />
                                         <Route path={path.CLINIC} component={AllClinic} />
                                         <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
-                                        <Route path={path.HANDBOOK} component={Handbook} />
+                                        <Route path={path.HANDBOOK} component={AllHandbook} />
                                         <Route path={path.DETAIL_HANDBOOK} component={DetailHandbook} />
                                         <Route path={path.VERIFY} component={Verify} />
                                     </Switch>

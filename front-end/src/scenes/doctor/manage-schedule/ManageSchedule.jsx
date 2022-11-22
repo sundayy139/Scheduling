@@ -12,18 +12,18 @@ import { Formik } from "formik";
 import EditOutLinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutLinedIcon from "@mui/icons-material/DeleteOutlined";
 import AddOutLinedIcon from "@mui/icons-material/AddOutlined";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import {
   deleteScheduleTimeStart,
   fetchAllScheduleDoctorByDateStart,
   fetchAllScheduleTimeStart,
-} from "../../store/actions";
+} from "../../../store/actions";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import { tokens } from "../../theme";
+import { tokens } from "../../../theme";
 import { useTheme } from "@emotion/react";
-import { createScheduleDoctorService } from "../../services/userService";
+import { createScheduleDoctorService } from "../../../services/userService";
 import { toast } from "react-toastify";
 import moment from "moment";
 import ModalEditTime from "./ModalEditTime";
@@ -182,9 +182,7 @@ const ManageSchedule = () => {
       field: "timeTypeData",
       headerName: "Range Time",
       renderCell: (params) => {
-        return (
-          <div className="rowitem">{params.row.timeTypeData.value_VI}</div>
-        );
+        return <div className="rowitem">{params.row.timeTypeData.value}</div>;
       },
       flex: 1,
       minWidth: 150,
@@ -311,7 +309,7 @@ const ManageSchedule = () => {
                                 key={item.id}
                                 onClick={() => handleBtnChooseTime(item)}
                               >
-                                {item.value_VI}
+                                {item.value}
                               </Button>
                             );
                           })}

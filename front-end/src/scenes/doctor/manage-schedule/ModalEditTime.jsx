@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import {
   editScheduleTimeStart,
   fetchAllScheduleDoctorByDateStart,
-} from "../../store/actions";
+} from "../../../store/actions";
 import _ from "lodash";
 
 const ModalEditTime = (props) => {
@@ -30,7 +30,7 @@ const ModalEditTime = (props) => {
         date: time.date,
         currentNumber: time.currentNumber,
         maxNumber: time.maxNumber,
-        time: time.timeTypeData.value_VI,
+        time: time.timeTypeData.value,
         id: time.id,
       });
     }

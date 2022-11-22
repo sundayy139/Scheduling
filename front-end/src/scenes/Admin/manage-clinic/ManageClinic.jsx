@@ -91,7 +91,7 @@ const ManageClinic = () => {
       inputData.map((item) => {
         if (type === "PROVINCE") {
           let object = {};
-          let label = `${item.value_VI}`;
+          let label = `${item.value}`;
           object.label = label;
           object.value = item.key;
           result.push(object);

@@ -1,79 +1,9 @@
-// import React, { Component, Fragment } from 'react';
-
-
-// class DoctorSchedule extends Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-
-//         }
-//     }
-
-//     async componentDidMount() {
-
-//     }
-
-//     async componentDidUpdate(prevProps) {
-//         if (this.props.lang !== prevProps.lang) {
-//             let allDays = this.getArrDays(this.props.lang);
-//             this.setState({
-//                 allDays: allDays
-//             })
-//         }
-
-//         if (this.props.doctorIdFrDetail !== prevProps.doctorIdFrDetail) {
-//             let { lang } = this.props;
-//             let allDays = this.getArrDays(lang);
-//             let res = await getScheduleDoctorService(this.props.doctorIdFrDetail, allDays[0].value);
-//             this.setState({
-//                 allAvailabletime: res.data ? res.data : []
-//             })
-//         }
-//     }
-
-
-
-
-
-
-
-
-//     render() {
-//         let { lang } = this.props;
-//         let { allDays, allAvailabletime } = this.state;
-
-//         return (
-
-//         );
-//     }
-
-// }
-
-// const mapStateToProps = state => {
-//     return {
-//         lang: state.app.language,
-//     };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//     };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(DoctorSchedule);
-
-
 import React, { useEffect, useState } from 'react';
 import './DoctorSchedule.scss';
-import { languages } from '../../../utils';
 import moment from 'moment';
 import localization from 'moment/locale/vi';
-// import localization from 'moment/locale/en';
 import { getScheduleDoctorService } from '../../../services/userService';
-import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
-import { useSelector } from 'react-redux';
 
 const DoctorSchedule = (props) => {
 
@@ -83,7 +13,6 @@ const DoctorSchedule = (props) => {
     const [dataScheduleModal, setDataScheduleModal] = useState({});
     const [doctorId, setDoctorId] = useState('')
 
-    const lang = useSelector((state) => state.app.language)
     useEffect(() => {
         const getScheduleDoctor = async () => {
             let allDays = getArrDays();
@@ -95,33 +24,21 @@ const DoctorSchedule = (props) => {
             }
         }
         getScheduleDoctor();
-    }, [doctorId, lang])
+    }, [doctorId])
 
     const getArrDays = () => {
         let allDays = [];
         for (let i = 0; i < 7; i++) {
             let object = {};
-            if (lang === languages.VI) {
-                //format day iss today
-                if (i === 0) {
-                    let ddMM = moment(new Date()).format('DD/MM');
-                    let today = `Hôm nay - ${ddMM}`;
-                    object.label = today;
-                } else {
-                    let labelVI = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
-                    object.label = capitalizeFirstLetter(labelVI);
-                }
 
+            if (i === 0) {
+                let ddMM = moment(new Date()).format('DD/MM');
+                let today = `Hôm nay - ${ddMM}`;
+                object.label = today;
             } else {
-                if (i === 0) {
-                    let ddMM = moment(new Date()).format('DD/MM');
-                    let today = `Today - ${ddMM}`;
-                    object.label = today;
-                } else {
-                    object.label = moment(new Date()).add(i, 'days').locale('en').format('ddd - DD/MM');
-                }
+                let label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
+                object.label = capitalizeFirstLetter(label);
             }
-
             object.value = moment(new Date()).add(i, 'days').startOf('day').format('YYYY-MM-DD');
 
             allDays.push(object);
@@ -185,7 +102,7 @@ const DoctorSchedule = (props) => {
                     <div className='text-calendar'>
                         <span>
                             <i className='fas fa-calendar-alt'></i>
-                            <FormattedMessage id="detail-doctor.appointment-schedule" />
+                            Lịch khám
                         </span>
                     </div>
                     <div className='calendar-content'>
@@ -194,8 +111,7 @@ const DoctorSchedule = (props) => {
                                 <>
                                     {
                                         allAvailabletime.map((item, i) => {
-                                            let time = lang === languages.VI ?
-                                                item.timeTypeData.value_VI : item.timeTypeData.value_EN;
+                                            let time = item.timeTypeData.value;
                                             return (
                                                 <button
                                                     className={item.currentNumber === item.maxNumber ? 'btn-time disabled' : 'btn-time'}
@@ -211,16 +127,16 @@ const DoctorSchedule = (props) => {
                                 :
                                 <div className='no-schedule'>
                                     <i>
-                                        <FormattedMessage id="detail-doctor.not-schedule" />
+                                        Bác sĩ không có lịch hẹn trong thời gian này, vui lòng chọn thời gian khác !
                                     </i>
                                 </div>
                         }
                     </div>
                     <div className='booking-fee'>
                         <span>
-                            <FormattedMessage id="detail-doctor.select" />
+                            Chọn
                             <i className="far fa-hand-point-up"></i>
-                            <FormattedMessage id="detail-doctor.make-a-appointment" />
+                            và đặt lịch khám (Phí đặt lịch 0 đ)
                         </span>
                     </div>
                 </div>

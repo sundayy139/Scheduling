@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import './AllClinic.scss';
 import HomeHeader from '../HomeHeader';
 import Footer from '../Footer';
@@ -48,7 +47,7 @@ const AllClinic = () => {
                             <i className="fas fa-arrow-left"></i>
                         </div>
                         <div className='menu-title'>
-                            <FormattedMessage id="section.hospital-clinic" />
+                            Cơ sở y tế
                         </div>
                     </div>
                 </div>

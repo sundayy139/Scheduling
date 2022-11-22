@@ -10,11 +10,12 @@
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-start;
+                align-items: center;
                 padding-bottom: 20px;
 
                 .content-left {
                     width: 20%;
+                    min-width: 130px;
 
                     .image {
                         border-radius: 50%;
@@ -25,7 +26,7 @@
                 }
 
                 .content-right {
-                    width: 80%;
+                    width: 75%;
 
                     .up {
                         font-size: 20px;

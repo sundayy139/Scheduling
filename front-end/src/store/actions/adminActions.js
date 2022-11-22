@@ -123,9 +123,6 @@ export const fetchRequiredDoctorInfoFail = () => ({
 })
 
 
-
-
-
 //fetch all user
 export const fetchAllUsersStart = () => {
     return async (dispatch) => {

@@ -1,49 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import './AllDoctor.scss';
+import './AllHandbook.scss';
 import HomeHeader from '../HomeHeader';
 import Footer from '../Footer';
-import { getAllDoctorsService } from '../../../services/userService';
+import { getAllHandbookService, getLimitHandbookService } from '../../../services/userService';
 import { useHistory } from 'react-router';
 
+const AllHandbook = () => {
 
-const AllDoctor = () => {
-    const [dataDoctor, setDataDoctor] = useState([]);
-    const [filterData, setFilterData] = useState([]);
     const history = useHistory();
 
+    const [newHandbook, setNewHandbook] = useState([])
+    const [allDataHandbook, setAllDataHandbook] = useState([]);
+    const [filterData, setFilterData] = useState([]);
+
+
     useEffect(() => {
-
-        const getAllDoctor = async () => {
-            let res = await getAllDoctorsService("ALL");
-            if (res && res.errCode === 0) {
-                let data = res.data;
-                let result = [];
-                if (data && data.length > 0) {
-                    data.map((item) => {
-                        let object = {};
-                        let fullName = `${item.positionData.value} ${item.lastName} ${item.firstName}`;
-
-                        object.doctorId = item.id;
-                        object.fullName = fullName;
-                        object.specialty = `${item.Doctor_Info.Specialty.name}`;
-                        object.image = item.image;
-                        object.searchWords = fullName;
-
-                        result.push(object);
-                    })
-                }
-                setDataDoctor(result);
+        const getAllHandbook = async () => {
+            let allHandbook = await getAllHandbookService("ALL");
+            if (allHandbook && allHandbook.errCode === 0) {
+                setAllDataHandbook(allHandbook.handbooks ? allHandbook.handbooks : '')
             }
         }
-
-        getAllDoctor();
+        const getNewHandbook = async () => {
+            let newHandbook = await getLimitHandbookService(5);
+            if (newHandbook && newHandbook.errCode === 0) {
+                setNewHandbook(newHandbook.handbooks ? newHandbook.handbooks : '')
+            }
+        }
+        getAllHandbook();
+        getNewHandbook();
 
     }, [])
 
+    const handleViewDetailHandbook = (handbook) => {
+        history.push(`/detail-handbook/${handbook.id}`);
+    }
+
     const handleFilter = (e) => {
         let searchWords = e.target.value;
-        let newFilter = dataDoctor.filter((value) => {
-            return removeVietnameseTones(value.searchWords).toLowerCase().includes(searchWords.toLowerCase())
+        let newFilter = allDataHandbook.filter((value) => {
+            return removeVietnameseTones(value.title).toLowerCase().includes(searchWords.toLowerCase())
         })
         if (searchWords === '') {
             setFilterData([])
@@ -81,14 +77,10 @@ const AllDoctor = () => {
         return str;
     }
 
-    const handleViewDetailDoctor = (doctor) => {
-        history.push(`/detail-doctor/${doctor.doctorId}}`);
-    }
-
     return (
         <>
             <HomeHeader />
-            <div className='all-doctor-container'>
+            <div className='handbook-container'>
                 <div className='back-menu'>
                     <div className='back-ground'>
                         <div
@@ -98,7 +90,7 @@ const AllDoctor = () => {
                             <i className="fas fa-arrow-left"></i>
                         </div>
                         <div className='menu-title'>
-                            Tất cả bác sĩ
+                            Cẩm nang
                         </div>
                     </div>
                 </div>
@@ -107,7 +99,7 @@ const AllDoctor = () => {
                         <div className='search-input'>
                             <input
                                 type='search'
-                                placeholder='Search doctor . . .'
+                                placeholder='Search handbook . . .'
                                 onChange={handleFilter}
                             />
                             <i className='fas fa-search'></i>
@@ -115,31 +107,32 @@ const AllDoctor = () => {
                     </div>
                 </div>
                 {
-                    filterData && filterData.length > 0 &&
-                    (
-                        <div className='search-value'>
+                    filterData && filterData.length > 0 && (
+                        <div className='search-result'>
                             <h4 className='text-search'>
                                 Kết quả tìm kiếm
                             </h4>
                             {
-                                filterData && filterData.length > 0 && filterData.map((item) => {
+                                filterData && filterData.length > 0
+                                && filterData.map((item) => {
 
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary');
                                     }
+
                                     return (
                                         <div
-                                            key={item.doctorId}
                                             className='item'
-                                            onClick={() => handleViewDetailDoctor(item)}
+                                            key={item.id}
+                                            onClick={() => handleViewDetailHandbook(item)}
                                         >
                                             <div className='inner'>
                                                 <div
                                                     className='image'
                                                     style={{
                                                         backgroundImage: `url(${imageBase64})`,
-                                                        backgroundSize: 'contain',
+                                                        backgroundSize: 'cover',
                                                         backgroundRepeat: 'no-repeat',
                                                         backgroundPosition: 'center center'
                                                     }}
@@ -147,45 +140,39 @@ const AllDoctor = () => {
 
                                                 </div>
                                                 <div className='text'>
-                                                    <span>
-                                                        {item.fullName}
-                                                    </span>
-                                                    <p>
-                                                        {item.specialty}
-                                                    </p>
+                                                    {item.title}
                                                 </div>
                                             </div>
                                         </div>
                                     )
-
                                 })
                             }
                         </div>
                     )
                 }
-                <div className='all-doctor-contents'>
-                    <h4>
-                        Bác sĩ nổi bật
+                <div className='handbook-contents'>
+                    <h4 className='text-search'>
+                        Cẩm nang mới
                     </h4>
                     {
-                        dataDoctor && dataDoctor.length > 0 && dataDoctor.map((item) => {
-
+                        newHandbook && newHandbook.length > 0
+                        && newHandbook.map((item) => {
                             let imageBase64 = '';
                             if (item.image) {
                                 imageBase64 = new Buffer(item.image, 'base64').toString('binary');
                             }
                             return (
                                 <div
-                                    key={item.doctorId}
                                     className='item'
-                                    onClick={() => handleViewDetailDoctor(item)}
+                                    key={item.id}
+                                    onClick={() => handleViewDetailHandbook(item)}
                                 >
                                     <div className='inner'>
                                         <div
                                             className='image'
                                             style={{
                                                 backgroundImage: `url(${imageBase64})`,
-                                                backgroundSize: 'contain',
+                                                backgroundSize: 'cover',
                                                 backgroundRepeat: 'no-repeat',
                                                 backgroundPosition: 'center center'
                                             }}
@@ -193,17 +180,10 @@ const AllDoctor = () => {
 
                                         </div>
                                         <div className='text'>
-                                            <span>
-                                                {item.fullName}
-                                            </span>
-                                            <p>
-                                                {item.specialty}
-                                            </p>
+                                            {item.title}
                                         </div>
                                     </div>
-                                </div>
-                            )
-
+                                </div>)
                         })
                     }
                 </div>
@@ -213,4 +193,4 @@ const AllDoctor = () => {
     )
 }
 
-export default AllDoctor
+export default AllHandbook

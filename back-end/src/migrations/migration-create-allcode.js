@@ -14,10 +14,7 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
-      value_VI: {
-        type: Sequelize.STRING
-      },
-      value_EN: {
+      value: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -36,3 +33,4 @@ module.exports = {
     await queryInterface.dropTable('AllCodes');
   }
 };
+

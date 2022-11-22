@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Specialty.scss';
 import Slider from "react-slick";
-import { FormattedMessage } from 'react-intl';
 import { getAllSpecialtyService } from '../../../../services/userService';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -52,10 +51,10 @@ const Specialty = () => {
                     <div className='specialty-content'>
                         <div className='content-top'>
                             <h2 className='content-title'>
-                                <FormattedMessage id="section.popular-specialties" />
+                                Chuyên khoa phổ biến
                             </h2>
                             <Link to={'/specialty'} className='content-btn'>
-                                <FormattedMessage id="section.more-info" />
+                                Xem thêm
                             </Link>
                         </div>
                         <div className='content-container'>
@@ -91,9 +90,7 @@ const Specialty = () => {
                                 </Slider>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

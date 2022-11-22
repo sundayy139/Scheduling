@@ -13,7 +13,7 @@ import ManageInfoDoctor from '../scenes/Admin/manage-info-doctor/ManageInfoDocto
 import ManageSpecialty from '../scenes/Admin/manage-specialty/ManageSpecialty';
 import ManageClinic from '../scenes/Admin/manage-clinic/ManageClinic';
 import ManageHandbook from '../scenes/Admin/manage-handbook/ManageHandbook';
-import ManageSchedule from '../scenes/Doctor/ManageSchedule';
+import ManageSchedule from '../scenes/Doctor/manage-schedule/ManageSchedule';
 import ManagePatient from '../scenes/Doctor/manage-patient/ManagePatient';
 import ChangePassword from '../scenes/share/change-password/ChangePassword';
 import Calendar from '../scenes/share/calendar/Calendar';

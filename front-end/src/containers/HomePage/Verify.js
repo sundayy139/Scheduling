@@ -1,52 +1,7 @@
-// import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-
-
-
-// class Verify extends Component {
-//     constructor(props) {
-//         super(props);
-//       
-//     }
-
-
-//     async componentDidMount() {
-//         
-//     }
-
-//     render() {
-
-//         let { statusVerify, code } = this.state;
-//         console.log(this.state)
-
-//         return (
-
-//         );
-//     }
-
-// }
-
-// const mapStateToProps = state => {
-//     return {
-//         lang: state.app.language,
-//     };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//     };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Verify);
-
-
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { languages } from '../../utils/constant';
 import { postVerifyBookAppointmentService } from '../../services/userService';
 import HomeHeader from './HomeHeader';
 import Footer from './Footer';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 
 
@@ -54,8 +9,6 @@ const Verify = () => {
     const [statusVerify, setStatusVerify] = useState(false);
     const [code, setCode] = useState('');
     const location = useLocation();
-
-    console.log(location);
 
     useEffect(() => {
 
@@ -112,7 +65,7 @@ const Verify = () => {
                                     textTransform: "uppercase",
                                 }}
                             >
-                                <FormattedMessage id='verify.error' />
+                                <>Có gì đó không đúng, vui lòng thử lại sau !</>
                             </div>
                         </div>
                     </div>
@@ -145,9 +98,9 @@ const Verify = () => {
                             >
                                 {
                                     +code === 0 ? (
-                                        <FormattedMessage id='verify.success' />
+                                        <>Bạn đã xác nhận lịch hẹn thành công, cảm ơn bạn đã đặt lịch tại BookingCare !</>
                                     ) : (
-                                        <FormattedMessage id='verify.failed' />
+                                        <>Lịch hẹn đã được xác nhận hoặc không tồn tại, vui lòng kiểm tra lại !</>
                                     )
                                 }
                             </div>

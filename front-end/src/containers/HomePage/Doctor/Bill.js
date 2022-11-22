@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import NumberFormat from 'react-number-format'
 import { getProfileDoctorService } from '../../../services/userService'
-import { languages } from '../../../utils';
-import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 
 const Bill = (props) => {
     const [dataProfile, setDataProfile] = useState({});
-    const lang = useSelector((state) => state.app.language);
 
     useEffect(() => {
         const getInfoDoctor = async () => {
@@ -23,8 +19,6 @@ const Bill = (props) => {
 
         getInfoDoctor();
     }, [])
-
-    console.log(props);
 
     return (
         <>
@@ -43,29 +37,18 @@ const Bill = (props) => {
                     }}
                 >
                     <div>
-                        <FormattedMessage id="modal-booking.examination-price" />
+                        Giá khám:
                     </div>
                     <div>
                         {
 
-                            dataProfile && dataProfile.Doctor_Info && lang === languages.VI &&
+                            dataProfile && dataProfile.Doctor_Info &&
                             (
                                 <NumberFormat
-                                    value={dataProfile.Doctor_Info.priceData.value_VI}
+                                    value={dataProfile.Doctor_Info.priceData.value}
                                     displayType={'text'}
                                     thousandSeparator={true}
                                     suffix={"VND"}
-                                />
-                            )
-                        }
-                        {
-                            dataProfile && dataProfile.Doctor_Info && lang === languages.EN &&
-                            (
-                                <NumberFormat
-                                    value={dataProfile.Doctor_Info.priceData.value_EN}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={"USD"}
                                 />
                             )
                         }
@@ -79,10 +62,10 @@ const Bill = (props) => {
                     }}
                 >
                     <div>
-                        <FormattedMessage id="modal-booking.booking-fee" />
+                        Phí đặt lịch:
                     </div>
                     <div>
-                        <FormattedMessage id="modal-booking.free" />
+                        Miễn phí
                     </div>
                 </div>
                 <div
@@ -94,7 +77,7 @@ const Bill = (props) => {
                     }}
                 >
                     <div>
-                        <FormattedMessage id="modal-booking.total" />
+                        Tổng cộng:
                     </div>
                     <div
                         style={{
@@ -103,24 +86,13 @@ const Bill = (props) => {
                     >
                         {
 
-                            dataProfile && dataProfile.Doctor_Info && lang === languages.VI &&
+                            dataProfile && dataProfile.Doctor_Info &&
                             (
                                 <NumberFormat
-                                    value={dataProfile.Doctor_Info.priceData.value_VI}
+                                    value={dataProfile.Doctor_Info.priceData.value}
                                     displayType={'text'}
                                     thousandSeparator={true}
                                     suffix={"VND"}
-                                />
-                            )
-                        }
-                        {
-                            dataProfile && dataProfile.Doctor_Info && lang === languages.EN &&
-                            (
-                                <NumberFormat
-                                    value={dataProfile.Doctor_Info.priceData.value_EN}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={"USD"}
                                 />
                             )
                         }

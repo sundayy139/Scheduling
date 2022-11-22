@@ -1,25 +1,12 @@
 import React, { useState } from 'react'
 import './HomeHeader.scss';
-import { FormattedMessage } from 'react-intl';
-import { languages } from '../../utils/constant';
-import { changeLanguageApp } from '../../store/actions/appActions';
 import { Link, NavLink, useHistory } from 'react-router-dom'
 import { dataMenu, dataMenuMore } from './dataMenu';
-import logoVn from '../../assets/icon-language/vietnam.png';
-import logoEn from '../../assets/icon-language/united-kingdom.png';
-import { useDispatch, useSelector } from 'react-redux';
 
-const HomeHeader = (props) => {
+const HomeHeader = () => {
 
     const [clickedMenu, setClickMenu] = useState(false);
-    const lang = useSelector((state) => state.app.language);
-    const dispatch = useDispatch();
     const history = useHistory();
-
-    const changeLanguage = (language) => {
-        //fire redux event
-        dispatch(changeLanguageApp(language));
-    }
 
     const handleClickedMenu = () => {
         setClickMenu(!clickedMenu)
@@ -49,7 +36,7 @@ const HomeHeader = (props) => {
                                             className="link"
                                             activeClassName='active'
                                         >
-                                            <FormattedMessage id={`header-menu.${item.name}`} />
+                                            {item.name}
                                         </NavLink>
                                     </li>
 
@@ -59,7 +46,7 @@ const HomeHeader = (props) => {
 
                         <div className='about-web'>
                             <p>
-                                <FormattedMessage id="header-menu.about" />
+                                Về chúng tôi
                             </p>
                         </div>
 
@@ -72,7 +59,7 @@ const HomeHeader = (props) => {
                                             className="link"
                                             activeClassName='active'
                                         >
-                                            <FormattedMessage id={`header-menu.${item.name}`} />
+                                            {item.name}
                                         </NavLink>
                                     </li>
                                 ))
@@ -94,72 +81,48 @@ const HomeHeader = (props) => {
                             <div className='child-content'>
                                 <div className='text-title'>
                                     <Link to={'/specialty'} className="link">
-                                        <FormattedMessage id='home-header.speciality' />
+                                        Chuyên khoa
                                     </Link>
                                 </div>
                                 <div className='text-desc'>
-                                    <FormattedMessage id='home-header.search-doctor' />
+                                    Tìm bác sĩ theo chuyên khoa
                                 </div>
                             </div>
                             <div className='child-content'>
                                 <div className='text-title'>
                                     <Link to={'/clinic'} className="link">
-                                        <FormattedMessage id='home-header.medical-facilities' />
+                                        Cơ sở y tế
                                     </Link>
                                 </div>
                                 <div className='text-desc'>
-                                    <FormattedMessage id='home-header.choose-clinic' />
+                                    Chọn bệnh viện, phòng khám
                                 </div>
                             </div>
                             <div className='child-content'>
                                 <div className='text-title'>
                                     <Link to={'/all-doctor'} className="link">
-                                        <FormattedMessage id='home-header.doctor' />
+                                        Bác sĩ
                                     </Link>
                                 </div>
                                 <div className='text-desc'>
-                                    <FormattedMessage id='home-header.choose-doctor' />
+                                    Chọn bác sĩ giỏi
                                 </div>
                             </div>
                             <div className='child-content'>
                                 <div className='text-title'>
                                     <Link to={'/handbook'} className="link">
-                                        <FormattedMessage id='home-header.handbook' />
+                                        Cẩm nang
                                     </Link>
                                 </div>
                                 <div className='text-desc'>
-                                    <FormattedMessage id='home-header.handbook-health' />
+                                    Cẩm nang chăm sóc sức khỏe
                                 </div>
                             </div>
                         </div>
                         <div className='right-content'>
                             <div className='supports'>
                                 <i className='fas fa-question-circle'></i>
-                                <span><FormattedMessage id='home-header.support' /></span>
-                            </div>
-                            <div className='language-group'>
-                                {lang === languages.VI ? (
-                                    <img src={logoVn} />
-                                )
-                                    : (
-                                        <img src={logoEn} />
-                                    )
-
-                                }
-                                <div className='language-box'>
-                                    <span
-                                        className="language-vi"
-                                        onClick={() => changeLanguage(languages.VI)}>
-                                        <img src={logoVn} />
-                                        VN
-                                    </span>
-                                    <span
-                                        className="language-en"
-                                        onClick={() => changeLanguage(languages.EN)}>
-                                        <img src={logoEn} />
-                                        EN
-                                    </span>
-                                </div>
+                                <span>Hỗ trợ</span>
                             </div>
                         </div>
                     </div>

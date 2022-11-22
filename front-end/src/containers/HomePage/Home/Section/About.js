@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import './About.scss';
 
 const About = () => {
@@ -10,7 +9,7 @@ const About = () => {
                     <div className='about-content'>
                         <div className='content-top'>
                             <h2 className='content-title'>
-                                <FormattedMessage id="section.media-talk" />
+                                Truyền thông nói về BookingCare
                             </h2>
                         </div>
                         <div className='content-container'>

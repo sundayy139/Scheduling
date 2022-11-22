@@ -295,7 +295,7 @@ const ModalEditUser = (props) => {
                       genders.map((item, index) => {
                         return (
                           <MenuItem key={index} value={item.key}>
-                            {item.value_EN}
+                            {item.value}
                           </MenuItem>
                         );
                       })}
@@ -317,7 +317,7 @@ const ModalEditUser = (props) => {
                       roles.map((item, index) => {
                         return (
                           <MenuItem key={index} value={item.key}>
-                            {item.value_EN}
+                            {item.value}
                           </MenuItem>
                         );
                       })}
@@ -339,7 +339,7 @@ const ModalEditUser = (props) => {
                       positions.map((item, index) => {
                         return (
                           <MenuItem key={index} value={item.key}>
-                            {item.value_EN}
+                            {item.value}
                           </MenuItem>
                         );
                       })}

@@ -6,27 +6,27 @@ const Banner = () => {
     const data = [
         {
             "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133537-khamchuyenkhoa.png",
-            "keyword": "specialist-examination",
+            "keyword": "Khám Chuyên khoa",
         },
         {
             "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133657-khamtuxa.png",
-            "keyword": "remote-examination",
+            "keyword": "Khám từ xa",
         },
         {
             "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-khamtongquat.png",
-            "keyword": "general-examination",
+            "keyword": "Khám tổng quát",
         },
         {
             "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-dichvuxetnghiem.png",
-            "keyword": "medicine-test",
+            "keyword": "Xét nghiệm y học",
         },
         {
             "url": "https://cdn.bookingcare.vn/fo/2021/12/08/133744-suckhoetinhthan.png",
-            "keyword": "spiritual-health",
+            "keyword": "Sức khỏe tinh thần",
         },
         {
             "url": "https://cdn.bookingcare.vn/fo/2022/05/19/104635-khamnhakhoa.png",
-            "keyword": "dentistry-examination",
+            "keyword": "Khám nha khoa",
         },
         // {
         //     "url": "https://cdn.bookingcare.vn/fo/2022/05/16/151930-phau-thuat.jpg",
@@ -49,10 +49,10 @@ const Banner = () => {
                     <div className='banner-top'>
                         <div className='banner-heading'>
                             <div className='banner-title'>
-                                <FormattedMessage id="home-header-banner.banner-title" />
+                                NỀN TẢNG Y TẾ
                             </div>
                             <div className='banner-sub-title'>
-                                <FormattedMessage id="home-header-banner.banner-sub-title" />
+                                CHĂM SÓC SỨC KHỎE TOÀN DIỆN
                             </div>
                         </div>
                         <div className='banner-search'>
@@ -70,9 +70,7 @@ const Banner = () => {
                                             </div>
                                         </div>
                                         <div className='item-title'>
-                                            <FormattedMessage id={`home-header-banner.${item.keyword}`} />
-                                            <br />
-                                            {item.subtitle}
+                                            {item.keyword}
                                         </div>
                                     </a>
                                 </div>

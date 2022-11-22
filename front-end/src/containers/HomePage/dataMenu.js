@@ -1,27 +1,27 @@
 export const dataMenu = [
     {
         id: 1,
-        name: "home",
+        name: "Trang chủ",
         path: '/home',
     },
     {
         id: 2,
-        name: "doctor",
+        name: "Bác sĩ",
         path: '/all-doctor',
     },
     {
         id: 3,
-        name: "specialties",
+        name: "Chuyên khoa",
         path: '/specialty',
     },
     {
         id: 4,
-        name: "clinic",
+        name: "Cơ sở y tế",
         path: '/clinic',
     },
     {
         id: 5,
-        name: "handbook",
+        name: "Cẩm nang",
         path: '/handbook',
     }
 ]
@@ -30,22 +30,22 @@ export const dataMenu = [
 export const dataMenuMore = [
     {
         id: 1,
-        name: "regulation",
+        name: "Quy định",
         path: '/regulation',
     },
     {
         id: 2,
-        name: "contact",
+        name: "Liên hệ",
         path: '/contact',
     },
     {
         id: 3,
-        name: "question",
+        name: "Câu hỏi thường gặp",
         path: '/question',
     },
     {
         id: 4,
-        name: "terms",
+        name: "Điều kiện",
         path: '/terms',
     }
 ]

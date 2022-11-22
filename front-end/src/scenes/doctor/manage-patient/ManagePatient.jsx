@@ -5,7 +5,7 @@ import Header from "../../../components/Header";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import CheckOutLinedIcon from "@mui/icons-material/CheckOutlined";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   getListPatientService,
   sendRemedyService,
@@ -58,7 +58,7 @@ const ManagePatient = () => {
           object.email = item.patientData.email;
           object.address = item.patientData.address;
           object.date = item.date;
-          object.time = item.timeTypeDataBooking.value_VI;
+          object.time = item.timeTypeDataBooking.value;
           object.reason = item.reason;
           object.createdAt = item.createdAt;
           object.updatedAt = item.updatedAt;

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './HandBook.scss';
 import Slider from "react-slick";
-import { FormattedMessage } from 'react-intl';
-import { getAllHandbookService, getLimitHandbookService } from '../../../../services/userService';
+import { getLimitHandbookService } from '../../../../services/userService';
 import { Link, useHistory } from 'react-router-dom'
 
 const HandBook = () => {
@@ -50,10 +49,10 @@ const HandBook = () => {
                     <div className='handBook-content'>
                         <div className='content-top'>
                             <h2 className='content-title'>
-                                <FormattedMessage id="section.handbook" />
+                                Cẩm nang
                             </h2>
                             <Link to={'/handbook'} className='content-btn'>
-                                <FormattedMessage id="section.all-posts" />
+                                Tất cả bài viết
                             </Link>
                         </div>
                         <div className='content-container'>

@@ -49,7 +49,6 @@ let postBookAppoinment = (data) => {
                     patientName: `${data.lastName} ${data.firstName}`,
                     time: data.timeString,
                     doctorName: data.doctorName,
-                    language: data.language,
                     redirectLink: buildUrlEmail(data.doctorId, token)
                 })
 

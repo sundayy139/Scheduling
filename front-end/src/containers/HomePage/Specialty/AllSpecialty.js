@@ -1,71 +1,4 @@
-// import React, { Component } from 'react';
-
-
-
-
-// class AllSpecialty extends Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             dataSpecialty: []
-//         }
-//     }
-
-//     async componentDidMount() {
-//         let res = await getAllSpecialtyService("ALL");
-//         if (res && res.errCode === 0) {
-//             this.setState({
-//                 dataSpecialty: res.specialties ? res.specialties : ''
-//             });
-//         }
-//     }
-
-//     componentDidUpdate(prevProps) {
-//         if (prevProps.lang !== this.props.lang) {
-
-//         }
-//     }
-
-//     handleViewDetailSpecialty = (specialty) => {
-//         this.props.history.push(`/detail-specialty/${specialty.id}`);
-//     }
-
-//     render() {
-
-//         let { dataSpecialty } = this.state;
-//         if (dataSpecialty && dataSpecialty.length > 0) {
-//             dataSpecialty.map((item, i) => {
-//                 if (item && item.image) {
-//                     item.avatar = new Buffer(item.image, 'base64').toString('binary');
-//                 }
-//             })
-//         }
-
-//         return (
-
-//         )
-//     }
-// }
-
-// const mapStateToProps = state => {
-//     return {
-//         isLoggedIn: state.user.isLoggedIn,
-//         lang: state.app.language,
-//     };
-
-// };
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-
-//     };
-// };
-
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllSpecialty));
-
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 import './AllSpecialty.scss';
 import HomeHeader from '../HomeHeader';
 import Footer from '../Footer';
@@ -117,7 +50,7 @@ const AllSpecialty = () => {
                             <i className="fas fa-arrow-left"></i>
                         </div>
                         <div className='menu-title'>
-                            <FormattedMessage id='section.specialty' />
+                            Chuyên khoa
                         </div>
                     </div>
                 </div>

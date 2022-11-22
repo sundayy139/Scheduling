@@ -1,59 +1,4 @@
-// import React, { Component } from 'react';
-
-
-
-// class DetailSpecialty extends Component {
-
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//            
-//         }
-//     }
-
-//     async componentDidMount() {
-
-//     }
-
-//     componentDidUpdate(prevProps) {
-//         if (prevProps.lang !== this.props.lang) {
-
-//         }
-//     }
-
-
-
-
-//     render() {
-
-//         let { arrDoctorId, dataSpecialty, listProvince, backgroundImage } = this.state;
-//         let { lang } = this.props;
-
-//         return (
-
-//         )
-//     }
-// }
-
-// const mapStateToProps = state => {
-//     return {
-//         isLoggedIn: state.user.isLoggedIn,
-//         lang: state.app.language,
-//     };
-
-// };
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-
-//     };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(DetailSpecialty);
-
-
 import React, { useEffect, useState } from 'react';
-import { languages } from '../../../utils/constant';
 import Footer from '../Footer';
 import HomeHeader from '../HomeHeader';
 import './DetailSpecialty.scss';
@@ -72,7 +17,7 @@ const DetailSpecialty = () => {
     const [listProvince, setListProvince] = useState([]);
     const [backgroundImage, setBackgroundImage] = useState('');
     const params = useParams();
-    const lang = useSelector((state) => state.app.language)
+
     const history = useHistory();
 
     useEffect(() => {
@@ -104,8 +49,7 @@ const DetailSpecialty = () => {
                         dataProvince.unshift({
                             key: "ALL",
                             type: "PROVINCE",
-                            value_EN: "Nationally",
-                            value_VI: "Toàn quốc",
+                            value: "Toàn quốc",
                         })
                     }
 
@@ -207,7 +151,7 @@ const DetailSpecialty = () => {
                                             key={index}
                                             value={item.key}
                                         >
-                                            {lang === languages.VI ? item.value_VI : item.value_EN}
+                                            {item.value}
                                         </option>
                                     )
                                 })

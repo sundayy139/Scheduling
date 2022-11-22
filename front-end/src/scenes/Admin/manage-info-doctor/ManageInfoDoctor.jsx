@@ -93,7 +93,7 @@ const ManageInfoDoctor = () => {
         }
         if (type === "PRICE") {
           let object = {};
-          let label = `${item.value_VI} VND`;
+          let label = `${item.value} VND`;
           object.label = label;
           object.value = item.key;
           result.push(object);
@@ -101,7 +101,7 @@ const ManageInfoDoctor = () => {
 
         if (type === "PAYMENT" || type === "PROVINCE") {
           let object = {};
-          let label = `${item.value_VI}`;
+          let label = `${item.value}`;
           object.label = label;
           object.value = item.key;
           result.push(object);
