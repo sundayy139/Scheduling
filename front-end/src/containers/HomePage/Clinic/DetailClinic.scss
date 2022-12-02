@@ -6,6 +6,7 @@
         background-color: #45c3d2;
         width: 100%;
         position: fixed;
+        z-index: 10;
 
         .back-ground {
             max-width: 1440px;
@@ -168,5 +169,18 @@
                 }
             }
         }
+    }
+
+    .container-clinic-map {
+        width: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 50px 30px;
+
+        span {
+            font-size: 25px;
+            font-weight: 600;
+        }
+
     }
 }

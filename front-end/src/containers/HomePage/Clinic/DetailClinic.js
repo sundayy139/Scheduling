@@ -8,13 +8,18 @@ import DoctorExtraInfo from '../Doctor/DoctorExtraInfo';
 import ProfileDoctor from '../Doctor/ProfileDoctor';
 import { getDetailClinicService } from '../../../services/userService';
 import { useHistory, useParams } from 'react-router';
+import Map from '../../../components/Map';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+
+
 
 const DetailClinic = () => {
 
     const [arrDoctorId, setArrDoctorId] = useState([]);
-    const [dataClinic, setDataClinic] = useState([]);
+    const [dataClinic, setDataClinic] = useState({});
     const [backgroundImage, setBackgroundImage] = useState('');
     const [backgroundLogo, setBackgroundLogo] = useState('');
+    const [coords, setCoords] = useState(null);
     const params = useParams();
     const history = useHistory();
 
@@ -34,8 +39,6 @@ const DetailClinic = () => {
                                 arrDoctorId.push(item.doctorId);
                             })
                         }
-
-
                     }
 
                     if (data && data.image) {
@@ -48,13 +51,26 @@ const DetailClinic = () => {
                         setBackgroundLogo(lg)
                     }
 
+                    // check data address empty
+                    data && data.address && getCoords(data.address);
+
                     setDataClinic(data)
                     setArrDoctorId(arrDoctorId)
                 }
             }
         }
+
         getDetailClinic();
+
+        const getCoords = async (address) => {
+            const results = await geocodeByAddress(address);
+            const latLng = await getLatLng(results[0])
+
+            setCoords(latLng)
+        }
+
     }, [])
+
 
     return (
         <>
@@ -69,7 +85,7 @@ const DetailClinic = () => {
                             <i className="fas fa-arrow-left"></i>
                         </div>
                         <div className='menu-title'>
-                            {dataClinic.name}
+                            {dataClinic?.name}
                         </div>
                     </div>
                 </div>
@@ -96,13 +112,13 @@ const DetailClinic = () => {
                                 }}>
                             </div>
                             <div className='name-clinic'>
-                                <h1>{dataClinic.name}</h1>
+                                <h1>{dataClinic?.name}</h1>
                             </div>
                         </div>
                         <div className='info-down'>
                             <i className='fas fa-map-marker-alt'></i>
                             <span>
-                                {dataClinic.address}
+                                {dataClinic?.address}
                             </span>
                         </div>
                     </div>
@@ -114,7 +130,7 @@ const DetailClinic = () => {
                             (
                                 <div
                                     className='inner'
-                                    dangerouslySetInnerHTML={{ __html: dataClinic.descHTML }}>
+                                    dangerouslySetInnerHTML={{ __html: dataClinic?.descHTML }}>
                                 </div>
                             )
                         }
@@ -153,6 +169,12 @@ const DetailClinic = () => {
                             ))
                         }
                     </div>
+                </div>
+                <div className='container-clinic-map'>
+                    <span>
+                        Bản đồ
+                    </span>
+                    <Map coords={coords} />
                 </div>
             </div>
             <Footer />
